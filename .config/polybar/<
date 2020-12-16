@@ -27,7 +27,7 @@ alert = #bd2c40
 
 [bar/bar]
 ;monitor = ${env:MONITOR:HDMI-1}
-width = 100%
+width = 50%
 height = 40
 offset-x = 0
 offset-y = 20

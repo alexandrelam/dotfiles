@@ -20,13 +20,8 @@ set $mod Mod4
 #default i3 tiling mode
 workspace_layout default
 
-# Set inner/outer gaps
-gaps outer 10
-gaps inner 30
-gaps top 62
-
 #do not show titlebar on windows: 
-new_window 1pixel
+#  new_window 1pixel
 
 #workspace_layout stacking
 
@@ -51,6 +46,8 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # font, it doesn’t scale on retina/hidpi displays.
 font pango:Noto Sans Regular 10
 
+new_window 1pixel
+
 # thin borders:
 hide_edge_borders both
 
@@ -58,7 +55,7 @@ hide_edge_borders both
 floating_modifier $mod
 
 # start a terminal:
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec gnome-terminal
 
 # kill focused window:
 bindsym $mod+q kill
@@ -195,8 +192,8 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # App shortcuts
-bindsym $mod+w exec "/usr/bin/firefox"
-bindsym $mod+n exec "/usr/bin/thunar"
+bindsym $mod+w exec "/usr/bin/chromium"
+bindsym $mod+n exec "/usr/bin/nautilus"
 bindsym Print exec "scrot ~/%Y-%m-%d-%T-screenshot.png"
 
 # polybar start up
