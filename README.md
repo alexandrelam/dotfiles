@@ -1,5 +1,7 @@
 # Dotfiles for Ubuntu
 
+![rice](https://user-images.githubusercontent.com/25727549/102390566-d8550800-3fd4-11eb-8908-bb47aebe6b85.png)
+
 ## Packages
 
 ```
