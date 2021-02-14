@@ -111,4 +111,4 @@ map <C-l> <C-W>l
 " Déplacements entre les buffers 
 map gk :bn<cr>
 map gj :bp<cr>
-map gd :bx<cr>  
+map gx :bd<cr>  
