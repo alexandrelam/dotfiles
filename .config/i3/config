@@ -44,6 +44,11 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # clear in small sizes. However, its unicode glyph coverage is limited, the old
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
+
+# gaps settings comments if not i3-gaps
+gaps inner 25
+gaps outer 30
+
 font pango:Noto Sans Regular 10
 
 new_window 1pixel
@@ -191,13 +196,10 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# App shortcuts
-bindsym $mod+w exec "/usr/bin/chromium"
-bindsym $mod+n exec "/usr/bin/nautilus"
-bindsym Print exec "scrot ~/%Y-%m-%d-%T-screenshot.png"
-
 # polybar start up
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id bash ~/.config/polybar/launch.sh --blocks
+
+# picom compositor
 exec_always --no-startup-id picom &
 
 # Start i3bar to display a workspace bar (plus the system information i3status
