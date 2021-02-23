@@ -24,6 +24,7 @@ sudo rm /etc/fonts/conf.d/70-no-bitmaps.conf
 ```
 
 > Polybar style --> blocks (gruvbox theme)
+> Rofi style --> colorful style_5
 
 ## Source
 
