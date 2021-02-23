@@ -1,6 +1,6 @@
-# Dotfiles for Ubuntu
+# Dotfiles
 
-![rice](https://user-images.githubusercontent.com/25727549/102390566-d8550800-3fd4-11eb-8908-bb47aebe6b85.png)
+![gif_i3_setup](https://user-images.githubusercontent.com/25727549/108856210-1af51b00-75ea-11eb-8047-ab601b5e0ab5.gif)
 
 ## Packages
 
