@@ -35,5 +35,8 @@ Plug 'vim-airline/vim-airline'
 " gruvbox
 Plug 'morhetz/gruvbox'
 
+" indent guides
+Plug 'Yggdroot/indentLine'
+
 " Initialize plugin system
 call plug#end()
