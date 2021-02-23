@@ -63,6 +63,7 @@ set foldcolumn=1
 syntax enable
 set encoding=utf8
 
+let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 set bg=dark
 
