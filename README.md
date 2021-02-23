@@ -28,6 +28,7 @@ sudo rm /etc/fonts/conf.d/70-no-bitmaps.conf
 ## Source
 
 Polybar theme : [https://github.com/adi1090x/polybar-themes](https://github.com/adi1090x/polybar-themes)
+
 Rofi theme : [https://github.com/adi1090x/rofi](https://github.com/adi1090x/rofi)
 
 ## NeoVim
