@@ -21,7 +21,7 @@ fc-cache -v
 sudo rm /etc/fonts/conf.d/70-no-bitmaps.conf
 ```
 
-> Polybar style --> Feather
+> Polybar style --> blocks (gruvbox theme)
 
 ## Source
 
