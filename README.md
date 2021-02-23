@@ -37,6 +37,10 @@ Rofi theme : [https://github.com/adi1090x/rofi](https://github.com/adi1090x/rofi
 coc install
 `:CocInstall coc-tsserver coc-json coc-html coc-css coc-vetur coc-git coc-java coc-python coc-prettier`
 
+## Picom
+
+if using picom compositor remove transparency in /etc/xdg/picom.conf --> inactive-opacity=1
+
 ## Vim raccourci
 
 | raccourci | action                       |
