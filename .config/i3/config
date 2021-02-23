@@ -220,9 +220,11 @@ exec_always --no-startup-id picom &
 #}
 
 # rofi bindings fancy application menu
-bindsym $mod+i exec rofi -modi drun -show drun -line-padding 4 \
-                -columns 2 -padding 50 -hide-scrollbar \
-                -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"
+# bindsym $mod+i exec rofi -modi drun -show drun -line-padding 4 \
+                # -columns 2 -padding 50 -hide-scrollbar \
+                # -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"
+
+bindsym $mod+i exec ~/.config/rofi/launchers/colorful/launcher.sh
                 
 bindsym F9 exec rofi -modi drun -show drun -line-padding 4 \
                 -columns 2 -padding 50 -hide-scrollbar \
