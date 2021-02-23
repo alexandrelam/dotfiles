@@ -12,8 +12,9 @@ i3-gaps nitrogen rofi polybar stow
 
 Create all the symlinks with STOW ! 
 
+Delete the README.md and execute `stow *`
+
 > Polybar style --> blocks (gruvbox theme)
-> Rofi style --> colorful style_5
 
 > Rofi style --> colorful (style_5) 
 
