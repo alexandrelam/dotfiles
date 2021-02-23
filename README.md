@@ -13,6 +13,7 @@ i3-gaps nitrogen rofi polybar stow
 Create all the symlinks with STOW ! 
 
 > Polybar style --> blocks (gruvbox theme)
+> Rofi style --> colorful style_5
 
 > Rofi style --> colorful (style_5) 
 
@@ -20,10 +21,16 @@ Create all the symlinks with STOW !
 
 Polybar theme : [https://github.com/adi1090x/polybar-themes](https://github.com/adi1090x/polybar-themes)
 
+Rofi theme : [https://github.com/adi1090x/rofi](https://github.com/adi1090x/rofi)
+
 ## NeoVim
 
 coc install
 `:CocInstall coc-tsserver coc-json coc-html coc-css coc-vetur coc-git coc-java coc-python coc-prettier`
+
+## Picom
+
+if using picom compositor remove transparency in /etc/xdg/picom.conf --> inactive-opacity=1
 
 ## Vim raccourci
 
