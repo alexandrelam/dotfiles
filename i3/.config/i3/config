@@ -49,6 +49,8 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 gaps inner 40
 gaps outer 20
 
+for_window [class="^.*"] border pixel 3
+
 font pango:Noto Sans Regular 10
 
 new_window 1pixel
