@@ -172,4 +172,7 @@ alias clock='tty-clock'
 alias update='sudo pacman -Syu'
 alias install='sudo pacman -S'
 alias aurevoir='shutdown now'
+
+export VISUAL=nvim;
+export EDITOR=nvim;
 ################################################################################
