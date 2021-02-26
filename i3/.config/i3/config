@@ -51,6 +51,10 @@ gaps outer 20
 
 for_window [class="^.*"] border pixel 3
 
+# setup keyboard layout switch with alt+shift
+exec --no-startup-id "setxkbmap -layout fr,us"
+exec --no-startup-id "setxkbmap -option 'grp:win_space_toggle'"
+
 font pango:Noto Sans Regular 10
 
 new_window 1pixel
