@@ -46,8 +46,8 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # font, it doesn’t scale on retina/hidpi displays.
 
 # gaps settings comments if not i3-gaps
-gaps inner 25
-gaps outer 30
+gaps inner 40
+gaps outer 20
 
 font pango:Noto Sans Regular 10
 
@@ -76,20 +76,20 @@ bindsym $mod+F1 exec "xed ~/.config/i3/keybindings"
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+m focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+m move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 
 # split in horizontal orientation:
-bindsym $mod+h split h
+bindsym $mod+c split h
 
 # split in vertical orientation:
 bindsym $mod+v split v
@@ -104,9 +104,6 @@ bindsym $mod+Shift+e layout toggle split
 
 # toggle tiling / floating:
 bindsym $mod+Shift+c floating toggle
-
-# change focus between tiling / floating windows:
-bindsym $mod+c focus mode_toggle
 
 # dex execute .desktop files:
 exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart
