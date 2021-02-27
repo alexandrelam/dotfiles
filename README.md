@@ -10,19 +10,43 @@
 i3-gaps nitrogen rofi polybar stow
 ```
 
-Create all the symlinks with STOW ! 
+Create all the symlinks with STOW !
 
 Delete the `README.md` and `.git` folder and execute `stow *`
 
 > Polybar style --> blocks (gruvbox theme)
 
-> Rofi style --> colorful (style_5) 
+> Rofi style --> colorful (style_5)
 
 ## Source
 
 Polybar theme : [https://github.com/adi1090x/polybar-themes](https://github.com/adi1090x/polybar-themes)
 
 Rofi theme : [https://github.com/adi1090x/rofi](https://github.com/adi1090x/rofi)
+
+## i3 raccourci
+
+| raccourci      | action                                   |
+| -------------- | ---------------------------------------- |
+| win+hjkl       | changer de focus entre les fenetres      |
+| win+1234       | swap entre les bureaux virtuels          |
+| win+q          | fermer une fenetre                       |
+| win+entre      | ouvrir un nouveau terminal               |
+| win+c          | prochaine fenetre ouverte en horizontale |
+| win+v          | prochaine fenetre ouverte en verticale   |
+| win+r          | resize mode                              |
+| win+shift+r    | reload settings                          |
+| win+i          | rofi menu                                |
+| win+o          | rofi opened windows                      |
+| win+space      | swap between fr and us keyboard layout   |
+| win+rightclick | resize window                            |
+
+## i3 programmes utiles
+
+- neovim
+- arandr
+- stow
+- ranger
 
 ## NeoVim
 
@@ -44,6 +68,7 @@ if using picom compositor remove transparency in /etc/xdg/picom.conf --> inactiv
 | gx        | delete buffer                |
 | gd        | jump to definition           |
 | space a   | linting info                 |
+| space c   | coc commands                 |
 | ff        | format                       |
 
 ### Installation de Vim-Plug
