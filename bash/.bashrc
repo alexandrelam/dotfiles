@@ -172,6 +172,7 @@ alias clock='tty-clock'
 alias update='sudo pacman -Syu'
 alias install='sudo pacman -S'
 alias aurevoir='shutdown now'
+alias wifi='nmcli device wifi'
 
 export VISUAL=nvim;
 export EDITOR=nvim;
