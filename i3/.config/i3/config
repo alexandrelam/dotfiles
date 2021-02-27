@@ -1,54 +1,17 @@
-# This file a modified version based by default i3-config-wizard config
-# source is available here:
-# https://raw.githubusercontent.com/endeavouros-team/i3-EndeavourOS/master/.config/i3/config
-# Maintainer: joekamprad [joekamprad@endeavouros.com]
-# https://endeavouros.com
-#
-# --> to update this run the following command:
-# wget --backups=1 https://raw.githubusercontent.com/endeavouros-team/i3-EndeavourOS/master/.config/i3/config -P ~/.config/i3/
- 
-#get latest configs from GitHub:
-#exec --no-startup-id git clone https://github.com/endeavouros-team/i3-EndeavourOS.git ~/.config/i3/original/
-
-# i3 config file
-#
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
-
 set $mod Mod4
 
 # workspace layouts:
 #default i3 tiling mode
 workspace_layout default
 
-#do not show titlebar on windows: 
-#  new_window 1pixel
-
-#workspace_layout stacking
-
-#workspace_layout tabbed
-#Tiling mode is tabbed:
-#so each new window will open fullscreen as a tab, you can change between window-tabs with mouse or shortcut:
-#
-#    [mod]+Left focus left (left arrow key)
-#    [mod]+Right focus right (right arrow key)
-
-
 # get auth work with polkit-gnome:
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
 
 # gaps settings comments if not i3-gaps
 gaps inner 40
 gaps outer 20
 
+# set border size for focused windows
 for_window [class="^.*"] border pixel 3
 
 # setup keyboard layout switch with alt+shift
@@ -60,7 +23,7 @@ font pango:Noto Sans Regular 10
 new_window 1pixel
 
 # thin borders:
-hide_edge_borders both
+# hide_edge_borders both
 
 # Use Mouse+$mod to drag floating windows to their wanted position:
 floating_modifier $mod
@@ -70,16 +33,6 @@ bindsym $mod+Return exec gnome-terminal
 
 # kill focused window:
 bindsym $mod+q kill
-
-# open keybindings overview:
-bindsym $mod+F1 exec "xed ~/.config/i3/keybindings"
-
-# start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -92,7 +45,6 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
-
 
 # split in horizontal orientation:
 bindsym $mod+c split h
@@ -110,7 +62,6 @@ bindsym $mod+Shift+e layout toggle split
 
 # toggle tiling / floating:
 bindsym $mod+Shift+c floating toggle
-
 
 # dex execute .desktop files:
 exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart
@@ -152,9 +103,6 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3):
 bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session):
-bindsym $mod+Shift+q exec ~/.config/i3/scripts/shutdown_menu -p rofi -c
 
 # resize window (you can also use the mouse for that):
 mode "resize" {
@@ -206,28 +154,6 @@ exec_always --no-startup-id bash ~/.config/polybar/launch.sh --blocks
 # picom compositor
 exec_always --no-startup-id picom &
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available):
-
-# bar {
- #   status_command i3blocks -c ~/.config/i3/i3blocks.conf 
- #   position bottom
-  #  colors {
-   #   separator          #666666
-    #    background         #222222
-     #   statusline         #dddddd
-      #  focused_workspace  #0088CC #0088CC #ffffff
-       # active_workspace   #333333 #333333 #ffffff
-       # inactive_workspace #333333 #333333 #888888
-       # urgent_workspace   #2f343a #900000 #ffffff
- #   }
-#}
-
-# rofi bindings fancy application menu
-# bindsym $mod+i exec rofi -modi drun -show drun -line-padding 4 \
-                # -columns 2 -padding 50 -hide-scrollbar \
-                # -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"
-
 bindsym $mod+i exec ~/.config/rofi/launchers/colorful/launcher.sh
                 
 bindsym F9 exec rofi -modi drun -show drun -line-padding 4 \
@@ -241,5 +167,3 @@ bindsym $mod+o exec rofi -show window -line-padding 4 \
 bindsym F10 exec rofi -show window -line-padding 4 \
                 -lines 6 -padding 50 -hide-scrollbar \
                 -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"                
-                
-
