@@ -113,3 +113,6 @@ map <C-l> <C-W>l
 map gk :bn<cr>
 map gj :bp<cr>
 map gx :bd<cr>  
+
+nnoremap ` ù
+nnoremap ù `

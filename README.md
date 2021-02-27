@@ -24,7 +24,7 @@ Polybar theme : [https://github.com/adi1090x/polybar-themes](https://github.com/
 
 Rofi theme : [https://github.com/adi1090x/rofi](https://github.com/adi1090x/rofi)
 
-## i3 raccourci
+j# i3 raccourci
 
 | raccourci      | action                                   |
 | -------------- | ---------------------------------------- |
@@ -70,6 +70,8 @@ if using picom compositor remove transparency in /etc/xdg/picom.conf --> inactiv
 | space a   | linting info                 |
 | space c   | coc commands                 |
 | ff        | format                       |
+| m         | create bookmark              |
+| ù         | jump to bookmark             |
 
 ### Installation de Vim-Plug
 
