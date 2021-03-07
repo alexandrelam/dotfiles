@@ -2,7 +2,8 @@
 
 > My i3-gaps setup on Arch with rofi, polybar, nitrogen and NeoVim !
 
-![gif_i3_setup](https://user-images.githubusercontent.com/25727549/108856210-1af51b00-75ea-11eb-8047-ab601b5e0ab5.gif)
+![rice](https://user-images.githubusercontent.com/25727549/110239974-fc781380-7f49-11eb-9c38-63bb386932bd.PNG)
+
 
 ## Packages
 
