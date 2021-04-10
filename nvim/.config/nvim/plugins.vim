@@ -4,9 +4,6 @@
 
 call plug#begin('~/.vim/plugged')
 
-" NerdTree
-Plug 'preservim/nerdtree'
-
 " HTML CSS shortcut
 Plug 'mattn/emmet-vim'
 
