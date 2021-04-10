@@ -8,6 +8,8 @@ set history=500
 " Numérote les lignes
 set nu
 
+set nowrap
+
 " Recharge le fichier si il est modifié de l'extérieur
 set autoread
 au FocusGained,BufEnter * checktime
