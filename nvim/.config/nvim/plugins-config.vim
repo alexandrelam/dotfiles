@@ -38,7 +38,7 @@ let g:user_emmet_leader_key=','
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " coc explorer
-:nnoremap <space>e :CocCommand explorer<CR>
+:nnoremap <space>f :CocCommand explorer<CR>
 
 " Voici les plugins COC à installer : 
 " :CocInstall coc-tsserver coc-json coc-html coc-css coc-vetur 
