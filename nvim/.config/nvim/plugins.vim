@@ -38,5 +38,8 @@ Plug 'morhetz/gruvbox'
 " indent guides
 Plug 'Yggdroot/indentLine'
 
+" git fugitive
+Plug 'tpope/vim-fugitive'
+
 " Initialize plugin system
 call plug#end()
