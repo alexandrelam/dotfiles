@@ -8,8 +8,8 @@ workspace_layout default
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # gaps settings comments if not i3-gaps
-gaps inner 40
-gaps outer 20
+gaps inner 5
+gaps outer 2
 
 # set border size for focused windows
 for_window [class="^.*"] border pixel 3
@@ -29,7 +29,7 @@ new_window 1pixel
 floating_modifier $mod
 
 # start a terminal:
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window:
 bindsym $mod+q kill
