@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/alex/Documents/bonzes'
+let g:netrw_dirhist_1='/home/alex/Documents/bonzes/src/strategies'
+let g:netrw_dirhist_0='/home/alex/Documents/bonzes/src'
+let g:netrw_dirhist_9='/home/alex/Documents/bonzes'
+let g:netrw_dirhist_8='/home/alex/Documents/inspiring-music-backend'
+let g:netrw_dirhist_7='/home/alex/Documents/lgds'
+let g:netrw_dirhist_6='/home/alex/Documents/lgds/django'
+let g:netrw_dirhist_5='/home/alex/Documents/lgds'
+let g:netrw_dirhist_4='/home/alex/Documents'
+let g:netrw_dirhist_3='/home/alex/Documents/bonzes/src/strategies'

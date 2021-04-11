@@ -8,7 +8,11 @@ set history=500
 " Numérote les lignes
 set nu
 
+" no wrap
 set nowrap
+
+" mouse support
+set mouse=a
 
 " Recharge le fichier si il est modifié de l'extérieur
 set autoread
