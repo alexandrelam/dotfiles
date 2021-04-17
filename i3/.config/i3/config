@@ -14,9 +14,6 @@ gaps outer 2
 # set border size for focused windows
 for_window [class="^.*"] border pixel 3
 
-# setup keyboard layout switch with alt+shift
-exec --no-startup-id "setxkbmap -layout fr,us"
-exec --no-startup-id "setxkbmap -option 'grp:win_space_toggle'"
 
 font pango:Noto Sans Regular 10
 
@@ -167,3 +164,9 @@ bindsym $mod+o exec rofi -show window -line-padding 4 \
 bindsym F10 exec rofi -show window -line-padding 4 \
                 -lines 6 -padding 50 -hide-scrollbar \
                 -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"                
+ 
+# setup keyboard layout switch with win+shift
+exec --no-startup-id setxkbmap -layout fr,us
+exec --no-startup-id setxkbmap -option 'grp:win_space_toggle'
+
+exec --no-startup-id xinput set-prop 10 337 -0.5

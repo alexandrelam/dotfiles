@@ -4,6 +4,8 @@
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'keith/swift.vim'
+
 " HTML CSS shortcut
 Plug 'mattn/emmet-vim'
 
@@ -37,6 +39,9 @@ Plug 'Yggdroot/indentLine'
 
 " git fugitive
 Plug 'tpope/vim-fugitive'
+
+" markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " Initialize plugin system
 call plug#end()
