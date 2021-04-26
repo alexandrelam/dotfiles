@@ -8,8 +8,8 @@ workspace_layout default
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # gaps settings comments if not i3-gaps
-gaps inner 5
-gaps outer 2
+gaps inner 25
+gaps outer 35
 
 # set border size for focused windows
 for_window [class="^.*"] border pixel 3
@@ -150,7 +150,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # polybar start up
-exec_always --no-startup-id bash ~/.config/polybar/launch.sh --blocks
+exec_always --no-startup-id bash ~/.config/polybar/launch.sh 
 
 # picom compositor
 exec_always --no-startup-id picom &
@@ -173,4 +173,4 @@ bindsym F10 exec rofi -show window -line-padding 4 \
 exec --no-startup-id setxkbmap -layout fr,us
 exec --no-startup-id setxkbmap -option 'grp:win_space_toggle'
 
-exec --no-startup-id xinput set-prop 10 337 -0.5
+exec --no-startup-id xinput set-prop 12 337 -0.5
