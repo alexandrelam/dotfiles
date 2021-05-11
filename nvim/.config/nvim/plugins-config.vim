@@ -34,6 +34,7 @@ let g:user_emmet_leader_key=','
 
 " Add `:Format` command to format current buffer.
 nmap ff :call CocAction('format')<CR>
+nmap fl :CocCommand eslint.executeAutofix<CR>
 
 " Some servers have issues with backup files, see #649.
 set nobackup
