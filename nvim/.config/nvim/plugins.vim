@@ -44,7 +44,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " html pug
-Plug 'digitaltoad/vim-pug'
+Plug 'storyn26383/vim-vue'
 
 " Initialize plugin system
 call plug#end()

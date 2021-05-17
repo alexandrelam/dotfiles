@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =8
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/alex/Documents/okarito/okarito-front'
 let g:netrw_dirhist_8='/home/alex/Documents/javatrain'
 let g:netrw_dirhist_7='/home/alex/.config/coc/extensions/node_modules/redhat.java'
 let g:netrw_dirhist_6='/home/alex/Documents/javatrain'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_3='/home/alex/Documents/2048swift'
 let g:netrw_dirhist_2='/home/alex/Documents/bonzes'
 let g:netrw_dirhist_1='/home/alex/Documents/bonzes/src/strategies'
 let g:netrw_dirhist_0='/home/alex/Documents/bonzes/src'
-let g:netrw_dirhist_9='/home/alex/Documents/bonzes'

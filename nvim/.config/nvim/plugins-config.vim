@@ -109,3 +109,10 @@ nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim pug
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:vue_pre_processors = ['pug', 'scss']
