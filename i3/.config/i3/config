@@ -8,8 +8,6 @@ workspace_layout default
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #gap
 # gaps settings comments if not i3-gaps
-gaps inner 25
-gaps outer 35
 
 # set border size for focused windows
 for_window [class="^.*"] border pixel 3
@@ -26,7 +24,7 @@ new_window 1pixel
 floating_modifier $mod
 
 # start a terminal:
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec gnome-terminal
 
 # kill focused window:
 bindsym $mod+q kill
@@ -168,9 +166,23 @@ bindsym $mod+o exec rofi -show window -line-padding 4 \
 bindsym F10 exec rofi -show window -line-padding 4 \
                 -lines 6 -padding 50 -hide-scrollbar \
                 -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"                
+
+
  
 # setup keyboard layout switch with win+shift
 exec --no-startup-id setxkbmap -layout fr,us
 exec --no-startup-id setxkbmap -option 'grp:win_space_toggle'
 
 exec --no-startup-id xinput set-prop 12 337 -0.5
+
+bar {
+        status_command i3status
+}
+
+
+# start dmenu (a program launcher)
+#bindsym $mod+d exec dmenu_run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
