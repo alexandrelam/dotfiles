@@ -52,7 +52,7 @@ j# i3 raccourci
 ## NeoVim
 
 coc install
-`:CocInstall coc-tsserver coc-json coc-html coc-css coc-vetur coc-git coc-java coc-python coc-prettier`
+`:CocInstall coc-tsserver coc-json coc-html coc-css coc-vetur coc-git coc-java coc-python coc-prettier coc-explorer`
 
 ## Picom
 
