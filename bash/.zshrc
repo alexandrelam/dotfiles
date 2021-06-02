@@ -75,3 +75,7 @@ function start(){
 function battery(){
   upower -i /org/freedesktop/UPower/devices/battery_BAT0
 }
+
+function monitor(){
+  xrandr --auto && xrandr --output eDP-1-1 --off
+}
