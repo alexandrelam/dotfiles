@@ -49,5 +49,8 @@ Plug 'posva/vim-vue'
 " html pug
 Plug 'digitaltoad/vim-pug'
 
+" Ack
+Plug 'mileszs/ack.vim'
+
 " Initialize plugin system
 call plug#end()
