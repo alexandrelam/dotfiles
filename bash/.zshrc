@@ -79,3 +79,7 @@ function battery(){
 function monitor(){
   xrandr --auto && xrandr --output eDP-1-1 --off
 }
+
+function ssd(){
+  sudo smartctl -A /dev/nvme0n1 
+}
