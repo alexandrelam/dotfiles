@@ -98,6 +98,23 @@ gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt>Tab', '<Su
 gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Alt><Shift>Tab', '<Super><Shift>Tab']"
 ```
 
+#### Deactivate suspend on close lib laptop
+
+Edit : 
+```
+/etc/systemd/logind.conf
+```
+
+uncomment lines : 
+- `HandleLidSwitch` -> ignore
+- `HandleLidSwitchExternalPower` -> ignore
+
+apply changes : 
+
+```
+systemctl kill -s HUP systemd-logind
+```
+
 #### Imwheel
 
 1. `sudo apt install imwheel`
