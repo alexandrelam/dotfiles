@@ -83,3 +83,7 @@ function monitor(){
 function ssd(){
   sudo smartctl -A /dev/nvme0n1 
 }
+
+function mic(){
+  pacmd load-module module-alsa-source device=hw:Loopback,1,0
+}
