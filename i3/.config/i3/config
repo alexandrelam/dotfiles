@@ -159,7 +159,7 @@ bindsym XF86AudioPrev exec playerctl previous
 # picom compositor
 exec_always --no-startup-id picom &
 
-bindsym $mod+i exec ~/.config/rofi/launchers/colorful/launcher.sh
+bindsym $mod+d exec ~/.config/rofi/launchers/colorful/launcher.sh
                 
 bindsym F9 exec rofi -modi drun -show drun -line-padding 4 \
                 -columns 2 -padding 50 -hide-scrollbar \
@@ -179,7 +179,7 @@ bar {
 
 
 # start dmenu (a program launcher)
-#bindsym $mod+d exec dmenu_run
+#bindsym $mod+i exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
