@@ -87,3 +87,14 @@ function ssd(){
 function mic(){
   pacmd load-module module-alsa-source device=hw:Loopback,1,0
 }
+
+function d(){
+  sudo systemctl start docker
+  cd ~/Documents/okarito-api
+  sudo docker-compose up
+}
+
+function dev(){
+  cd ~/Documents/okarito-front
+  yarn dev
+}
