@@ -8,6 +8,8 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
+# ls after cd
+chpwd() ls
 
 
 
