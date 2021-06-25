@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/alex/Documents/okarito-front/booking-layout-cypress'
 let g:netrw_dirhist_1='/home/alex/Documents/okarito-front'
 let g:netrw_dirhist_0='/home/alex/Documents/expresslearning'
 let g:netrw_dirhist_9='/home/alex/Documents/okarito/okarito-front'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_6='/home/alex/Documents/javatrain'
 let g:netrw_dirhist_5='/home/alex/Documents/lgds/.git'
 let g:netrw_dirhist_4='/home/alex/node_modules'
 let g:netrw_dirhist_3='/home/alex/Documents/2048swift'
-let g:netrw_dirhist_2='/home/alex/Documents/bonzes'
