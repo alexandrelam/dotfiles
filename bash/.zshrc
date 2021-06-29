@@ -109,3 +109,7 @@ function dev(){
   cd ~/Documents/okarito-front
   yarn dev
 }
+
+function killimwheel(){
+  imwheel -d --kill
+}

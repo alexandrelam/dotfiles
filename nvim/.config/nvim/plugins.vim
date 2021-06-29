@@ -52,5 +52,9 @@ Plug 'digitaltoad/vim-pug'
 " Ack
 Plug 'mileszs/ack.vim'
 
+" syntax highlight
+Plug 'sheerun/vim-polyglot'
+
+
 " Initialize plugin system
 call plug#end()
