@@ -9,7 +9,7 @@ let g:airline#extensions#tabline#enabled = 1
 " => Fzf
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <C-p> :GFiles<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -23,8 +23,10 @@ let g:user_emmet_leader_key=','
 " => Coc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:coc_global_extensions = ['coc-json', 'coc-explorer', 'coc-prettier', 'coc-prettier', 'coc-eslint', 'coc-python', 'coc-git', 'coc-pairs', 'coc-emmet', 'coc-vetur', 'coc-tsserver', 'coc-html', 'coc-css']
+
 " coc explorer
-:nnoremap <space>f :CocCommand explorer<CR>
+nnoremap <space>f :CocCommand explorer<CR>
 
 " Voici les plugins COC à installer : 
 " :CocInstall coc-tsserver coc-json coc-html coc-css coc-vetur 

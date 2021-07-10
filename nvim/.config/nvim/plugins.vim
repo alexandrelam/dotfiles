@@ -4,26 +4,15 @@
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'keith/swift.vim'
-
 " HTML CSS shortcut
 Plug 'mattn/emmet-vim'
 
 " Syntastic pour les vérifications d'erreurs 
 Plug 'vim-syntastic/syntastic'
 
-" Js syntax highlight
-Plug 'othree/yajs.vim'
-
-" Jsx syntax highlight
-Plug 'mxw/vim-jsx'
-
 " Fuzzyfind file
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-
-" Autopair for parenthesis
-Plug 'jiangmiao/auto-pairs'
 
 " Intellisense
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -49,10 +38,7 @@ Plug 'posva/vim-vue'
 " html pug
 Plug 'digitaltoad/vim-pug'
 
-" Ack
-Plug 'mileszs/ack.vim'
-
-" syntax highlight
+" vue syntax highlight
 Plug 'sheerun/vim-polyglot'
 
 
