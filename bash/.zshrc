@@ -113,3 +113,7 @@ function dev(){
 function killimwheel(){
   imwheel -d --kill
 }
+
+function b(){
+  bluetoothctl
+}
