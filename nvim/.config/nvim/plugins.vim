@@ -38,9 +38,5 @@ Plug 'posva/vim-vue'
 " html pug
 Plug 'digitaltoad/vim-pug'
 
-" vue syntax highlight
-Plug 'sheerun/vim-polyglot'
-
-
 " Initialize plugin system
 call plug#end()

@@ -68,6 +68,7 @@ exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart
 exec --no-startup-id nitrogen --restore
 
 for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
+for_window [class="Shutter" instance="shutter"] floating enable
 
 # resize floating windows with mouse scroll:
 bindsym --whole-window --border $mod+button4 resize shrink height 5 px or 5 ppt

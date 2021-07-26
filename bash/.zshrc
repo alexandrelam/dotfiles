@@ -117,3 +117,7 @@ function killimwheel(){
 function b(){
   bluetoothctl
 }
+
+function gwr(){
+  git worktree remove 
+}

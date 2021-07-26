@@ -23,7 +23,7 @@ let g:user_emmet_leader_key=','
 " => Coc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:coc_global_extensions = ['coc-json', 'coc-explorer', 'coc-prettier', 'coc-prettier', 'coc-eslint', 'coc-python', 'coc-git', 'coc-pairs', 'coc-emmet', 'coc-vetur', 'coc-tsserver', 'coc-html', 'coc-css']
+let g:coc_global_extensions = ['coc-json', 'coc-explorer', 'coc-prettier', 'coc-eslint', 'coc-python', 'coc-git', 'coc-pairs', 'coc-emmet', 'coc-vetur', 'coc-tsserver', 'coc-html', 'coc-css']
 
 " coc explorer
 nnoremap <space>f :CocCommand explorer<CR>
