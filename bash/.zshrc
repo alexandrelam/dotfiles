@@ -121,3 +121,7 @@ function b(){
 function gwr(){
   git worktree remove 
 }
+
+function brightness(){
+  xrandr --output eDP-1-1 --brightness $1
+}
