@@ -1,6 +1,6 @@
 # Dotfiles
 
-> My i3-gaps setup on Arch with rofi, polybar, nitrogen and NeoVim !
+> My i3-gaps setup on Arch with rofi, ~~polybar~~, nitrogen and NeoVim !
 
 ![arch](https://user-images.githubusercontent.com/25727549/119369789-dc3c3300-bcb4-11eb-8cf9-88492803768a.png)
 
