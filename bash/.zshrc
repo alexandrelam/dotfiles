@@ -24,6 +24,10 @@ alias sudo="sudo "
 alias vi="nvim"
 alias vim="nvim"
 
+alias gwta="git worktree add"
+alias gwtl="git worktree list"
+alias gwtr="git worktree remove"
+
 
 
 
