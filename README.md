@@ -50,8 +50,24 @@ j# i3 raccourci
 
 ## NeoVim
 
-coc install
-`:CocInstall coc-tsserver coc-json coc-html coc-css coc-vetur coc-git coc-java coc-python coc-prettier coc-eslint coc-explorer`
+Windows VimPlug : 
+
+```
+md ~\AppData\Local\nvim\autoload
+$uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+(New-Object Net.WebClient).DownloadFile(
+  $uri,
+  $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(
+    "~\AppData\Local\nvim\autoload\plug.vim"
+  )
+)
+```
+
+Config location `AppData\Local\nvim\init.vim`
+
+If no folder or file, you need to create it.
+
+To get this config, replace `init.vim` with `win_init.vim` and rename the file
 
 ## Picom
 
