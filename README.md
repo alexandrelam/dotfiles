@@ -1,56 +1,53 @@
 # Dotfiles
 
-> My i3-gaps setup on Arch with rofi, ~~polybar~~, nitrogen and NeoVim !
+Welcome to my linux dotfiles. It can be used on all distros but is best on Arch based distros. 
 
-![arch](https://user-images.githubusercontent.com/25727549/119369789-dc3c3300-bcb4-11eb-8cf9-88492803768a.png)
+## How to install?
 
-## Packages
+**Get the following software:**
 
-```
-i3-gaps nitrogen rofi polybar stow
-```
-
-Create all the symlinks with STOW !
-
-Delete the `README.md` and `.git` folder and execute `stow *`
-
-> Polybar style --> blocks (gruvbox theme)
-
-> Rofi style --> colorful (style_5)
-
-## Source
-
-Polybar theme : [https://github.com/adi1090x/polybar-themes](https://github.com/adi1090x/polybar-themes)
-
-Rofi theme : [https://github.com/adi1090x/rofi](https://github.com/adi1090x/rofi)
-
-j# i3 raccourci
-
-| raccourci      | action                                   |
-| -------------- | ---------------------------------------- |
-| win+hjkl       | changer de focus entre les fenetres      |
-| win+1234       | swap entre les bureaux virtuels          |
-| win+q          | fermer une fenetre                       |
-| win+entre      | ouvrir un nouveau terminal               |
-| win+c          | prochaine fenetre ouverte en horizontale |
-| win+v          | prochaine fenetre ouverte en verticale   |
-| win+r          | resize mode                              |
-| win+shift+r    | reload settings                          |
-| win+i          | rofi menu                                |
-| win+o          | rofi opened windows                      |
-| win+space      | swap between fr and us keyboard layout   |
-| win+rightclick | resize window                            |
-
-## i3 programmes utiles
-
-- neovim
-- arandr
 - stow
-- ranger
+- nitrogen
+- ❤️ i3 
+  - i3-wm
+  - i3blocks
+  - i3status
+  - i3lock (optional)
+  - i3-gaps (optional)
+- dmenu
+- ❤️ neovim 
+- rofi (optional)
+- polybar (optional)
 
-## NeoVim
+**Clone the repo**
 
-Windows VimPlug : 
+```
+git clone https://github.com/alexandrelam/dotfiles
+```
+
+**Use stow to create symlinks**
+
+e.g:
+```
+cd dotfiles
+```
+
+```
+stow nvim
+```
+
+## I3 config
+
+### Plugin manager: VimPlug
+
+**Linux VimPlug:**
+
+```
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
+
+**Windows VimPlug :**
 
 ```
 md ~\AppData\Local\nvim\autoload
@@ -69,13 +66,18 @@ If no folder or file, you need to create it.
 
 To get this config, replace `init.vim` with `win_init.vim` and rename the file
 
-## Picom
+### Coc 
 
-if using picom compositor remove transparency in /etc/xdg/picom.conf --> inactive-opacity=1
+I use coc for autocompletion, file explorer, eslint / prettier and whole bunch of things.
 
-## Vim raccourci
+**⚠️ You need node to install coc**
 
-| raccourci | action                       |
+Coc plugins are installed automatically. To install more use `CocInstall` or add package to `g:coc_global_extensions` in `plugins-config.vim`.
+
+
+### Shortcuts
+
+| shortcut  | action                       |
 | --------- | ---------------------------- |
 | , ,       | emmet autocomplete html tags |
 | ctrl p    | fzf find file in dir         |
@@ -88,15 +90,64 @@ if using picom compositor remove transparency in /etc/xdg/picom.conf --> inactiv
 | ff        | format                       |
 | m         | create bookmark              |
 | ù         | jump to bookmark             |
+| win+f     | file explorer                |
 
-### Installation de Vim-Plug
+## I3
 
-```
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-```
+### Shortcuts
 
-## Settings
+| shortcut       | action                                   |
+| -------------- | ---------------------------------------- |
+| win+hjkl       | changer de focus entre les fenetres      |
+| win+1234       | swap entre les bureaux virtuels          |
+| win+q          | fermer une fenetre                       |
+| win+entre      | ouvrir un nouveau terminal               |
+| win+c          | prochaine fenetre ouverte en horizontale |
+| win+v          | prochaine fenetre ouverte en verticale   |
+| win+r          | resize mode                              |
+| win+shift+r    | reload settings                          |
+| win+i          | rofi menu                                |
+| win+d          | d menu                                   |
+| win+o          | rofi opened windows                      |
+| win+space      | swap between fr and us keyboard layout   |
+| win+rightclick | resize window                            |
+| win+shift+c    | toggle floating window                   |
+| win+shift+w    | tab layout                               |
+| win+shift+e    | default split layout                     |
+| win+shift+z    | logout                                   |
+
+
+## FAQ
+
+### What's the vision for this config?
+
+The goal is to have a lightweight, lean yet effective desktop to work and have fun 😊.
+
+### Why use this config?
+
+It's home. And it's also lightweight enough for heavy workflow on 8go of ram (docker + node + chrome and hundreds of tabs).
+
+### Is such a simple desktop really usable?
+
+Yes I used this config daily for 5 months while working on frontend dev at Okarito.
+
+### Why base it mainly on Arch?
+
+I use Arch btw.
+
+### Where is polybar and rofi?
+
+I used it for a while but in the end I don't like it that much. I rather have i3 default status bar and dmenu. I don't really care about heavy ricing I just want the best software for my use.
+
+
+## Other settings 
+
+### Gnome
+
+When I'm not using i3, I'm using Gnome because Gnome is the best non tilingwm for me. 
+
+The following settings are settings I'm always enabling when I install Gnome:
+
 
 #### Alt right click resize
 
@@ -113,6 +164,8 @@ gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "[]"
 gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt>Tab', '<Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Alt><Shift>Tab', '<Super><Shift>Tab']"
 ```
+
+### Other settings and info
 
 #### Deactivate suspend on close lib laptop
 
@@ -139,18 +192,24 @@ systemctl kill -s HUP systemd-logind
 4. `./mousewheel.sh`
 5. Add `mousewheel.sh` to startup
 
-## Setup Arch Nvidia driver hybrid
+
+#### Setup Arch Nvidia driver hybrid
 
 https://www.youtube.com/watch?v=OlIXQRpfJQ4
 
 install `optimus-manager-qt` and `bbswitch`
 
-## Sur windows10
+#### Sur windows10
 
 Alt-Resize window : https://stefansundin.github.io/altdrag/
 
-## Cool website
+#### Cool website
 
 - Free illustration for app : https://2.flexiple.com/scale/all-illustrations
 - List of illustrations :https://dev.to/davidepacilio/50-free-tools-and-resources-to-create-awesome-user-interfaces-1c1b
 - Another list of illustration websites : https://dev.to/theme_selection/best-design-resources-websites-every-developer-should-bookmark-1p5d
+
+
+Polybar theme : [https://github.com/adi1090x/polybar-themes](https://github.com/adi1090x/polybar-themes)
+
+Rofi theme : [https://github.com/adi1090x/rofi](https://github.com/adi1090x/rofi)
