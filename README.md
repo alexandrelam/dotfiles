@@ -4,9 +4,23 @@ Welcome to my linux dotfiles. It can be used on all distros but is best on Arch 
 
 ![image](https://user-images.githubusercontent.com/25727549/130976057-eba9469e-f135-4c5f-b165-d6f98dc4324b.png)
 
-
 ![image](https://user-images.githubusercontent.com/25727549/130975604-0a3eabd2-67af-409d-bb37-790226f91abb.png)
 
+## Table of content
+
+- [How to install](#how-to-install%3F)
+- [Neovim config](#neovim-config)
+  - [VimPlug](#plugin-manager%3A-vimplug)
+  - [Coc](#coc)
+  - [shortcuts](#shortcuts)
+- [i3](#i3)
+- [FAQ](#faq)
+  - [What’s the vision for this config?](#what’s-the-vision-for-this-config%3F)
+  - [Why use this config?](#why-use-this-config%3F)
+  - [Is such a simple desktop really usable?](#is-such-a-simple-desktop-really-usable%3F)
+  - [Why base it mainly on Arch?](#why-base-it-mainly-on-arch%3F)
+  - [Where is polybar and rofi?](#where-is-polybar-and-rofi%3F)
+- [Other](#other-settings)
 
 ## How to install?
 
@@ -42,7 +56,7 @@ cd dotfiles
 stow nvim
 ```
 
-## I3 config
+## Neovim config
 
 ### Plugin manager: VimPlug
 
