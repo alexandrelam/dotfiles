@@ -90,6 +90,11 @@ To get this config, replace `init.vim` with `win_init.vim` and rename the file
 
 I use coc for autocompletion, file explorer, eslint / prettier and whole bunch of things.
 
+![hello](https://user-images.githubusercontent.com/25727549/130977821-390a5c38-8259-44ae-9adf-74c08165738b.gif)
+
+![explorer](https://user-images.githubusercontent.com/25727549/130978148-e54a4b78-a525-4604-a3a8-7042a5891677.gif)
+
+
 **⚠️ You need node to install coc**
 
 Coc plugins are installed automatically. To install more use `CocInstall` or add package to `g:coc_global_extensions` in `plugins-config.vim`.
