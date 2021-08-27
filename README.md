@@ -32,6 +32,7 @@ Welcome to my linux dotfiles. It can be used on all distros but is best on Arch 
   - i3status
   - i3lock (optional)
   - i3-gaps (optional)
+- alacritty (default terminal in i3)
 - dmenu
 - ❤️ neovim 
 - rofi (optional)
