@@ -95,6 +95,10 @@ function monitor(){
   xrandr --auto && xrandr --output eDP-1-1 --off
 }
 
+function laptop(){
+  xrandr --output eDP-1-1 --auto
+}
+
 function ssd(){
   sudo smartctl -A /dev/nvme0n1 
 }
