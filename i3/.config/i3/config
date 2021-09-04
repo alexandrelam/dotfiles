@@ -163,6 +163,9 @@ exec_always --no-startup-id picom &
 # monitor auto config
 exec_always --no-startup-id ~/Scripts/monitor.sh
 
+# imwheel (must have .wheelrc before from bash folder)
+exec_always --no-startup-id imwheel -b 45
+
 
 bindsym $mod+i exec ~/.config/rofi/launchers/colorful/launcher.sh
                 
