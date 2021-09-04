@@ -149,6 +149,7 @@ Very basic config for tmux!
 - Remapped vertical and horizontal split to `|` and `-`
 - Mouse mode activated
 - Removed auto rename 
+- Default pane number is 1
 - Removed delay for vim escape
 
 
