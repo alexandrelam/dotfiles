@@ -12,6 +12,7 @@ Welcome to my linux dotfiles. It can be used on all distros but is best on Arch 
   - [Coc](#coc)
   - [shortcuts](#shortcuts)
 - [i3](#i3)
+- [Tmux](#tmux)
 - [FAQ](#faq)
   - [What’s the vision for this config?](#what’s-the-vision-for-this-config%3F)
   - [Why use this config?](#why-use-this-config%3F)
@@ -139,6 +140,16 @@ Coc plugins are installed automatically. To install more use `CocInstall` or add
 | win+shift+w    | tab layout                               |
 | win+shift+e    | default split layout                     |
 | win+shift+z    | logout                                   |
+
+## Tmux
+
+Very basic config for tmux!
+
+- Remapped `ctrl-b` to `ctrl-q` bacause azerty layout keyboard
+- Remapped vertical and horizontal split to `|` and `-`
+- Mouse mode activated
+- Removed auto rename 
+- Removed delay for vim escape
 
 
 ## FAQ
