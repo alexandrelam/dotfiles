@@ -69,8 +69,8 @@ set foldcolumn=1
 syntax enable
 set encoding=utf8
 
-" colorscheme gruvbox
-" set bg=dark
+colorscheme gruvbox
+set bg=dark
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fichiers, backups and undo
