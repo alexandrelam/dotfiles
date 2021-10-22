@@ -67,7 +67,7 @@ exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart
 #set wallpaper:
 exec --no-startup-id nitrogen --restore
 
-for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
+#for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
 for_window [class="Shutter" instance="shutter"] floating enable
 
 # resize floating windows with mouse scroll:
