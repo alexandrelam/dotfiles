@@ -133,5 +133,5 @@ function gwr(){
 }
 
 function brightness(){
-  xrandr --output eDP-1-1 --brightness $1
+  brightnessctl set 1666
 }
