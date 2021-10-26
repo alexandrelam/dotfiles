@@ -3,6 +3,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.vim/plugged')
+" Coloschemes
+Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
 
 " HTML CSS shortcut
 Plug 'mattn/emmet-vim'
@@ -20,9 +23,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Custom bar + tab
 Plug 'vim-airline/vim-airline'
 
-" gruvbox
-Plug 'morhetz/gruvbox'
-
 " indent guides
 Plug 'Yggdroot/indentLine'
 
@@ -37,6 +37,9 @@ Plug 'posva/vim-vue'
 
 " html pug
 Plug 'digitaltoad/vim-pug'
+
+" Better syntax highlighting
+Plug 'sheerun/vim-polyglot'
 
 " Initialize plugin system
 call plug#end()
