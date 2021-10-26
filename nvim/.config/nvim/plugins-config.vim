@@ -25,6 +25,9 @@ let g:user_emmet_leader_key=','
 
 let g:coc_global_extensions = ['coc-json', 'coc-explorer', 'coc-prettier', 'coc-eslint', 'coc-python', 'coc-git', 'coc-pairs', 'coc-emmet', 'coc-vetur', 'coc-tsserver', 'coc-html', 'coc-css']
 
+" prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
 " coc explorer
 nnoremap <space>f :CocCommand explorer<CR>
 
