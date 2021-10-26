@@ -19,7 +19,9 @@ set autoread
 au FocusGained,BufEnter * checktime
 
 " Map de la touche leader
-let mapleader = ","
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+
 
 " Sauvegarde rapide
 nmap <leader>w :w!<cr>
