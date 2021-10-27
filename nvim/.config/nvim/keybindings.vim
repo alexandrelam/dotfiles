@@ -18,14 +18,6 @@ set mouse=a
 set autoread
 au FocusGained,BufEnter * checktime
 
-" Map de la touche leader
-nnoremap <SPACE> <Nop>
-let mapleader=" "
-
-
-" Sauvegarde rapide
-nmap <leader>w :w!<cr>
-
 " Montre la position actuelle du curseur
 set ruler
 
