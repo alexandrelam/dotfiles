@@ -30,6 +30,8 @@ alias gwta="git worktree add"
 alias gwtl="git worktree list"
 alias gwtr="git worktree remove"
 
+alias front="cd Documents/okarito-front"
+
 
 
 
