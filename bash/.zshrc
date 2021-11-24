@@ -29,8 +29,11 @@ alias wifi="nmcli d wifi"
 alias gwta="git worktree add"
 alias gwtl="git worktree list"
 alias gwtr="git worktree remove"
+alias gitsave="git config --global credential.helper store"
+alias gitunsave="git config --global --unset credential.helper"
 
 alias front="cd Documents/okarito-front"
+
 
 
 
