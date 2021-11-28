@@ -9,7 +9,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #gap
 
 # gaps settings comments if not i3-gaps
-gaps inner 17
+gaps inner 27
 
 # set border size for focused windows
 for_window [class="^.*"] border pixel 3
