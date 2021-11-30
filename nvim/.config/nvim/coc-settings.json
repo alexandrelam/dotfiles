@@ -1,6 +1,6 @@
 {
   // format on save
-  "eslint.autoFixOnSave": false,
+  "eslint.autoFixOnSave": true,
   //"prettier.tslintIntegration": true,
   //"prettier.eslintIntegration": true,
   //"coc.preferences.formatOnSaveFiletypes": ["*"],
