@@ -1,6 +1,6 @@
 # Dotfiles
 
-Welcome to my linux dotfiles. It can be used on all distros but is best on Arch based distros. 
+Welcome to my linux dotfiles. It can be used on all distros but is best on Arch based distros.  
 
 ![image](https://user-images.githubusercontent.com/25727549/130975604-0a3eabd2-67af-409d-bb37-790226f91abb.png)
 
