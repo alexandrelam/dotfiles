@@ -9,13 +9,13 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #gap
 
 # gaps settings comments if not i3-gaps
-gaps inner 27
+gaps inner 10
 
 # set border size for focused windows
 for_window [class="^.*"] border pixel 3
 
 
-font pango:Noto Sans Regular 10
+font pango:JetBrains Mono Regular Nerd Font Complete Mono 10
 
 new_window 1pixel
 
@@ -155,7 +155,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # polybar start up
-# exec_always --no-startup-id bash ~/.config/polybar/launch.sh 
+exec_always --no-startup-id bash ~/.config/polybar/launch.sh --forest
 
 # picom compositor
 exec_always --no-startup-id picom &
@@ -184,9 +184,9 @@ bindsym F10 exec rofi -show window -line-padding 4 \
                 -lines 6 -padding 50 -hide-scrollbar \
                 -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"                
 
-bar {
-        status_command i3status
-}
+#bar {
+        # status_command i3status
+# }
 
 
 # start dmenu (a program launcher)
