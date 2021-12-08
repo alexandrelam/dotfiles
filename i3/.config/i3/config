@@ -155,7 +155,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # polybar start up
-exec_always --no-startup-id bash ~/.config/polybar/launch.sh --forest
+#exec_always --no-startup-id bash ~/.config/polybar/launch.sh --forest
 
 # picom compositor
 exec_always --no-startup-id picom &
@@ -184,9 +184,9 @@ bindsym F10 exec rofi -show window -line-padding 4 \
                 -lines 6 -padding 50 -hide-scrollbar \
                 -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"                
 
-#bar {
-        # status_command i3status
-# }
+bar {
+        status_command i3status
+}
 
 
 # start dmenu (a program launcher)
