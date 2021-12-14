@@ -33,6 +33,7 @@ alias gitsave="git config --global credential.helper store"
 alias gitunsave="git config --global --unset credential.helper"
 
 alias front="cd Documents/okarito-front"
+alias stopdocker="docker ps -q | xargs docker stop"
 
 
 
