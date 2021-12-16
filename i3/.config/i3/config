@@ -169,6 +169,9 @@ exec_always --no-startup-id ~/Scripts/start.sh
 # imwheel (must have .wheelrc before from bash folder)
 exec_always --no-startup-id imwheel -b 45
 
+# stop all docker container
+exec_always --no-startup-id stopdocker
+
 
 bindsym $mod+i exec ~/.config/rofi/launchers/colorful/launcher.sh
                 
