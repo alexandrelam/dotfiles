@@ -116,9 +116,8 @@ function mic(){
 }
 
 function d(){
-  sudo systemctl start docker
   cd ~/Documents/okarito-api
-  sudo docker-compose up
+  docker-compose up
 }
 
 function dev(){
