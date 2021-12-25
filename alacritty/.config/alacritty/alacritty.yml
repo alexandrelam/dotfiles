@@ -1,6 +1,9 @@
 font:
   size: 11
 
+env:
+  TERM: xterm-256color
+
 # Colors (One Dark)
 colors:
   # Default colors

@@ -3,7 +3,7 @@
   "eslint.autoFixOnSave": true,
   //"prettier.tslintIntegration": true,
   //"prettier.eslintIntegration": true,
-  //"coc.preferences.formatOnSaveFiletypes": ["*"],
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
 
   // explorer
   "explorer.width": 30,

@@ -63,6 +63,8 @@ set foldcolumn=1
 syntax on 
 set encoding=utf8
 
+" Allow colors on tmux
+set termguicolors
 colorscheme onedark
 set bg=dark
 
