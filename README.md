@@ -1,6 +1,6 @@
 # Dotfiles
 
-Welcome to my linux dotfiles. It can be used on all distros but is best on Arch based distros.  
+Welcome to my linux dotfiles. It can be used on all distros but is best on Arch based distros.
 
 ![image](https://user-images.githubusercontent.com/25727549/130975604-0a3eabd2-67af-409d-bb37-790226f91abb.png)
 
@@ -27,7 +27,7 @@ Welcome to my linux dotfiles. It can be used on all distros but is best on Arch 
 
 - stow
 - nitrogen
-- ❤️ i3 
+- ❤️ i3
   - i3-wm
   - i3blocks
   - i3status
@@ -35,7 +35,7 @@ Welcome to my linux dotfiles. It can be used on all distros but is best on Arch 
   - i3-gaps (optional)
 - alacritty (default terminal in i3)
 - dmenu
-- ❤️ neovim 
+- ❤️ neovim
 - rofi (optional)
 - polybar (optional)
 
@@ -48,6 +48,7 @@ git clone https://github.com/alexandrelam/dotfiles
 **Use stow to create symlinks**
 
 e.g:
+
 ```
 cd dotfiles
 ```
@@ -86,7 +87,7 @@ If no folder or file, you need to create it.
 
 To get this config, replace `init.vim` with `win_init.vim` and rename the file
 
-### Coc 
+### Coc
 
 I use coc for autocompletion, file explorer, eslint / prettier and whole bunch of things.
 
@@ -94,28 +95,28 @@ I use coc for autocompletion, file explorer, eslint / prettier and whole bunch o
 
 ![explorer](https://user-images.githubusercontent.com/25727549/130978148-e54a4b78-a525-4604-a3a8-7042a5891677.gif)
 
-
 **⚠️ You need node to install coc**
 
 Coc plugins are installed automatically. To install more use `CocInstall` or add package to `g:coc_global_extensions` in `plugins-config.vim`.
 
-
 ### Shortcuts
 
-| shortcut  | action                       |
-| --------- | ---------------------------- |
-| , ,       | emmet autocomplete html tags |
-| ctrl p    | fzf find file in dir         |
-| gj        | previous buffer              |
-| gk        | next buffer                  |
-| gx        | delete buffer                |
-| gd        | jump to definition           |
-| space a   | linting info                 |
-| space c   | coc commands                 |
-| ff        | format                       |
-| m         | create bookmark              |
-| ù         | jump to bookmark             |
-| win+f     | file explorer                |
+| shortcut | action                         |
+| -------- | ------------------------------ |
+| , ,      | emmet autocomplete html tags   |
+| ctrl p   | fzf find file in dir           |
+| gj       | previous buffer                |
+| gk       | next buffer                    |
+| gx       | delete buffer                  |
+| gd       | jump to definition             |
+| space a  | linting info                   |
+| space c  | coc commands                   |
+| ff       | format                         |
+| fl       | eslint auto fix                |
+| m        | create bookmark                |
+| ù        | jump to bookmark               |
+| space+f  | file explorer                  |
+| space+do | propose fixes like auto import |
 
 ## I3
 
@@ -149,10 +150,9 @@ Very basic config for tmux!
 - Remapped `ctrl-b` to `ctrl-q` bacause azerty layout keyboard
 - Remapped vertical and horizontal split to `|` and `-`
 - Mouse mode activated
-- Removed auto rename 
+- Removed auto rename
 - Default pane number is 1
 - Removed delay for vim escape
-
 
 ## FAQ
 
@@ -176,15 +176,13 @@ I use Arch btw.
 
 I used it for a while but in the end I don't like it that much. I rather have i3 default status bar and dmenu. I don't really care about heavy ricing I just want the best software for my use.
 
-
-## Other settings 
+## Other settings
 
 ### Gnome
 
-When I'm not using i3, I'm using Gnome because Gnome is the best non tilingwm for me. 
+When I'm not using i3, I'm using Gnome because Gnome is the best non tilingwm for me.
 
 The following settings are settings I'm always enabling when I install Gnome:
-
 
 #### Alt right click resize
 
@@ -206,16 +204,18 @@ gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Alt><
 
 #### Deactivate suspend on close lib laptop
 
-Edit : 
+Edit :
+
 ```
 /etc/systemd/logind.conf
 ```
 
-uncomment lines : 
+uncomment lines :
+
 - `HandleLidSwitch` -> ignore
 - `HandleLidSwitchExternalPower` -> ignore
 
-apply changes : 
+apply changes :
 
 ```
 systemctl kill -s HUP systemd-logind
@@ -228,7 +228,6 @@ systemctl kill -s HUP systemd-logind
 3. `chmod +x mousewheel.sh`
 4. `./mousewheel.sh`
 5. Add `mousewheel.sh` to startup
-
 
 #### Setup Arch Nvidia driver hybrid
 
@@ -245,7 +244,6 @@ Alt-Resize window : https://stefansundin.github.io/altdrag/
 - Free illustration for app : https://2.flexiple.com/scale/all-illustrations
 - List of illustrations :https://dev.to/davidepacilio/50-free-tools-and-resources-to-create-awesome-user-interfaces-1c1b
 - Another list of illustration websites : https://dev.to/theme_selection/best-design-resources-websites-every-developer-should-bookmark-1p5d
-
 
 Polybar theme : [https://github.com/adi1090x/polybar-themes](https://github.com/adi1090x/polybar-themes)
 
