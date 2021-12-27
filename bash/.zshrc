@@ -20,6 +20,7 @@ chpwd() ls
 
 alias updateDB='docker-compose run -T api bash -c "rails db:drop && rails db:create && pg_restore --verbose --clean --no-acl --no-owner -d \"\$DATABASE_URL\""  <'
 alias chrome="google-chrome-stable --password-store=gnome"
+alias c="google-chrome-stable --password-store=gnome"
 alias cproxy="google-chrome-stable --password-store=gnome --proxy-server='10.100.1.4:9090'" # not working ...??
 alias sudo="sudo "
 alias vi="nvim"
