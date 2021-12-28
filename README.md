@@ -128,7 +128,6 @@ Coc plugins are installed automatically. To install more use `CocInstall` or add
 | win+1234       | swap entre les bureaux virtuels          |
 | win+q          | fermer une fenetre                       |
 | win+entre      | ouvrir un nouveau terminal               |
-| win+b          | open bluetooth + volume app              |
 | win+c          | prochaine fenetre ouverte en horizontale |
 | win+v          | prochaine fenetre ouverte en verticale   |
 | win+r          | resize mode                              |
@@ -136,6 +135,9 @@ Coc plugins are installed automatically. To install more use `CocInstall` or add
 | win+i          | rofi menu                                |
 | win+d          | d menu                                   |
 | win+o          | rofi opened windows                      |
+| win+s          | open sound and bluetooth manager         |
+| win+w          | open browser (brave)                     |
+| win+n          | open file manager                        |
 | win+space      | swap between fr and us keyboard layout   |
 | win+rightclick | resize window                            |
 | win+shift+c    | toggle floating window                   |
