@@ -6,13 +6,20 @@ workspace_layout default
 
 # get auth work with polkit-gnome:
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-#gap
+
+set $bg     #282C34
+set $ac     #61AFEF
+set $tx     #040404
+set $ia     #8f8f8f
+
+client.focused $ac $ac $tx
+client.unfocused $bg $bg $ia
 
 # gaps settings comments if not i3-gaps
-gaps inner 30
+gaps inner 20
 
 # set border size for focused windows
-for_window [class="^.*"] border pixel 4
+for_window [class="^.*"] border pixel 2
 
 font pango:JetBrains Mono Regular Nerd Font Complete Mono 10
 
