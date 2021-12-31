@@ -57,7 +57,8 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split):
-bindsym $mod+Shift+s layout stacking
+# no stacking for now because suspend might add back later
+#bindsym $mod+Shift+s layout stacking
 bindsym $mod+Shift+w layout tabbed
 bindsym $mod+Shift+e layout toggle split
 
@@ -112,6 +113,10 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+z exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+# suspend
+bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
+
+bindsym $mod+Shift+m exec --no-startup-id ~/Scripts/lock.sh
 
 # resize window (you can also use the mouse for that):
 mode "resize" {
