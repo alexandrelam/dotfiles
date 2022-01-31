@@ -16,7 +16,7 @@ client.focused $ac $ac $tx
 client.unfocused $bg $bg $ia
 
 # gaps settings comments if not i3-gaps
-gaps inner 20
+gaps inner 13
 
 # set border size for focused windows
 for_window [class="^.*"] border pixel 2

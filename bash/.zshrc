@@ -48,6 +48,9 @@ alias stopdocker="docker ps -q | xargs docker stop"
 path+=/home/alex/.local/bin # python libraries
 
 
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
 
 
 ######################
@@ -141,3 +144,4 @@ function gwr(){
 function brightness(){
   brightnessctl set 1666
 }
+
