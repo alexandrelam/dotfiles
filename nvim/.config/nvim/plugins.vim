@@ -13,9 +13,9 @@ Plug 'mattn/emmet-vim'
 " Syntastic pour les vérifications d'erreurs 
 Plug 'vim-syntastic/syntastic'
 
-" Fuzzyfind file
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" Telescope fuzzyfind
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 " Intellisense
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

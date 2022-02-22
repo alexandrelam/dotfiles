@@ -6,10 +6,18 @@ let g:airline#extensions#tabline#enabled = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Fzf
+" => Telescope
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <silent> <C-p> :GFiles<CR>
+nnoremap <C-p> <cmd>Telescope find_files hidden=true<cr>
+
+lua << EOF
+require('telescope').setup{
+  defaults = { 
+    file_ignore_patterns = {"node_modules", ".git"}
+  }
+}
+EOF
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
