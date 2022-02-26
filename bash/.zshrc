@@ -36,6 +36,9 @@ alias gitunsave="git config --global --unset credential.helper"
 alias front="cd Documents/okarito-front"
 alias stopdocker="docker ps -q | xargs docker stop"
 
+alias loadmic="pactl load-module module-loopback latency_msec=1"
+alias unloadmic="pactl unload-module module-loopback"
+
 
 
 
