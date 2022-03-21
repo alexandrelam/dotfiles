@@ -33,10 +33,11 @@ alias gwtr="git worktree remove"
 alias gitsave="git config --global credential.helper store"
 alias gitunsave="git config --global --unset credential.helper"
 
-alias front="cd Documents/okarito-front"
+alias front="cd Documents/findAMusicianFrontend"
+alias d="cd Documents/findAMusician && docker-compose up"
 alias stopdocker="docker ps -q | xargs docker stop"
 
-alias loadmic="pactl load-module module-loopback latency_msec=1"
+alias loadmic="pactl load-module module-loopback latency_msec=1000"
 alias unloadmic="pactl unload-module module-loopback"
 
 
@@ -120,11 +121,6 @@ function ssd(){
 
 function mic(){
   pacmd load-module module-alsa-source device=hw:Loopback,1,0
-}
-
-function d(){
-  cd ~/Documents/okarito-api
-  docker-compose up
 }
 
 function dev(){
