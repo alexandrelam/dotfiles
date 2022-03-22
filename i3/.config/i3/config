@@ -8,7 +8,7 @@ workspace_layout default
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 set $bg     #282C34
-set $ac     #61AFEF
+set $ac     #2e516e
 set $tx     #040404
 set $ia     #8f8f8f
 
