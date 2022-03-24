@@ -8,7 +8,7 @@ workspace_layout default
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 set $bg     #282C34
-set $ac     #2e516e
+set $ac     #475569
 set $tx     #040404
 set $ia     #8f8f8f
 
@@ -22,7 +22,7 @@ client.unfocused $bg $bg $ia
 # set border size for focused windows
 for_window [class="^.*"] border pixel 2
 
-font pango:JetBrains Mono Regular Nerd Font Complete Mono 10
+font pango:Fira Code JetBrains Mono Regular Nerd Font Complete Mono 10
 
 new_window 1pixel
 

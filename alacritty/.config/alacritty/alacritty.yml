@@ -1,5 +1,7 @@
 font:
   size: 11
+  normal:
+    family: Fira Code
 
 env:
   TERM: xterm-256color
