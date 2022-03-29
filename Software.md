@@ -17,5 +17,7 @@
 - Peek
 - Insomnia
 - nitrogen
+- Python
+- Node
 
 - Fira Font
