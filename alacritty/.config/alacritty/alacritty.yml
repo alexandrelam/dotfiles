@@ -1,7 +1,8 @@
 font:
-  size: 11
+  size: 12
   normal:
-    family: Fira Code
+    family: JetBrains Mono
+    weight: bold
 
 env:
   TERM: xterm-256color
