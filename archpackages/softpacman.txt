@@ -11,3 +11,4 @@ peek
 nitrogen
 nodejs
 ttf-jetbrains-mono
+docker
