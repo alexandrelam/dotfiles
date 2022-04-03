@@ -1,0 +1,3 @@
+brave
+visual-studio-code-bin
+insomnia

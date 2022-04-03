@@ -1,0 +1,13 @@
+alacritty
+i3-gaps
+dmenu
+neovim
+vlc
+picom
+arandr
+discord
+zsh
+peek
+nitrogen
+nodejs
+ttf-jetbrains-mono
