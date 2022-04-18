@@ -115,7 +115,7 @@ Coc plugins are installed automatically. To install more use `CocInstall` or add
 | fl       | eslint auto fix                |
 | m        | create bookmark                |
 | ù        | jump to bookmark               |
-| space+f  | file explorer                  |
+| space+e  | file explorer                  |
 | space+do | propose fixes like auto import |
 
 ## I3

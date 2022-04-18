@@ -37,7 +37,7 @@ let g:coc_global_extensions = ['coc-json', 'coc-explorer', 'coc-prettier', 'coc-
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " coc explorer
-nnoremap <space>f :CocCommand explorer<CR>
+nnoremap <space>e :CocCommand explorer<CR>
 
 " Pour vérifier l'install : 
 " :checkhealth
@@ -123,7 +123,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " Show all diagnostics.
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <space>E  :<C-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 
