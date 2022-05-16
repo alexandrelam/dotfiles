@@ -73,6 +73,8 @@ exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart
 exec --no-startup-id nitrogen --restore
 
 for_window [class="Shutter" instance="shutter"] floating enable
+for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
+for_window [class="Blueman-manager" instance="blueman-manager"] floating enable
 
 # resize floating windows with mouse scroll:
 bindsym --whole-window --border $mod+button4 resize shrink height 5 px or 5 ppt
@@ -177,12 +179,13 @@ exec_always --no-startup-id imwheel -b 45
 exec --no-startup-id sleep 10 && stopdocker
 
 # Assign program to desktop
-assign [class="Pavucontrol" instance="pavucontrol"] workspace 2
 assign [class="discord"] workspace 2
-assign [class="Blueman-manager" instance="blueman-manager"] workspace 2
 
-for_window [class="Pavucontrol" instance="pavucontrol"] focus
-for_window [class="Blueman-manager" instance="blueman-manager"] focus
+# assign [class="Pavucontrol" instance="pavucontrol"] workspace 2
+# assign [class="Blueman-manager" instance="blueman-manager"] workspace 2
+
+# for_window [class="Pavucontrol" instance="pavucontrol"] focus
+# for_window [class="Blueman-manager" instance="blueman-manager"] focus
 
 bar {
         status_command i3status
