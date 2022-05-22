@@ -38,6 +38,7 @@ Welcome to my linux dotfiles. It can be used on all distros but is best on Arch 
 - ❤️ neovim
 - rofi (optional)
 - polybar (optional)
+- [brightnessctl](https://github.com/Hummer12007/brightnessctl)
 
 **Clone the repo**
 
