@@ -19,5 +19,6 @@
 - nitrogen
 - Python
 - Node
+- Dunst
 
 - Fira Font

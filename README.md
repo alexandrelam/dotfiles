@@ -39,6 +39,7 @@ Welcome to my linux dotfiles. It can be used on all distros but is best on Arch 
 - rofi (optional)
 - polybar (optional)
 - [brightnessctl](https://github.com/Hummer12007/brightnessctl)
+- [Dunst notification](https://github.com/dunst-project/dunst)
 
 **Clone the repo**
 
