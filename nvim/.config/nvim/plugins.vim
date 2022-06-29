@@ -13,10 +13,6 @@ Plug 'mattn/emmet-vim'
 " Syntastic pour les vérifications d'erreurs 
 Plug 'vim-syntastic/syntastic'
 
-" Telescope fuzzyfind
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-
 " Intellisense
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
