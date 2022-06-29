@@ -6,6 +6,7 @@ call plug#begin('~/.vim/plugged')
 " Coloschemes
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
+Plug 'vv9k/vim-github-dark'
 
 " HTML CSS shortcut
 Plug 'mattn/emmet-vim'
@@ -18,6 +19,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Custom bar + tab
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " indent guides
 Plug 'Yggdroot/indentLine'

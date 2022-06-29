@@ -65,7 +65,7 @@ set encoding=utf8
 
 " Allow colors on tmux
 set termguicolors
-colorscheme onedark
+colorscheme ghdark
 set bg=dark
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
