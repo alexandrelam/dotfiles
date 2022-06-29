@@ -2,6 +2,9 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Leader key
+map <Space> <Leader>
+
 " Combien de lignes sont enregistrées dans l'historique
 set history=500
 

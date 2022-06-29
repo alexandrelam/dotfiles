@@ -11,6 +11,10 @@ Plug 'vv9k/vim-github-dark'
 " HTML CSS shortcut
 Plug 'mattn/emmet-vim'
 
+" Fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 " Syntastic pour les vérifications d'erreurs 
 Plug 'vim-syntastic/syntastic'
 
