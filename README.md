@@ -40,6 +40,7 @@ Welcome to my linux dotfiles. It can be used on all distros but is best on Arch 
 - polybar (optional)
 - [brightnessctl](https://github.com/Hummer12007/brightnessctl)
 - [Dunst notification](https://github.com/dunst-project/dunst)
+- mako notification for wayland/sway
 
 **Clone the repo**
 
@@ -253,3 +254,4 @@ Alt-Resize window : https://stefansundin.github.io/altdrag/
 Polybar theme : [https://github.com/adi1090x/polybar-themes](https://github.com/adi1090x/polybar-themes)
 
 Rofi theme : [https://github.com/adi1090x/rofi](https://github.com/adi1090x/rofi)
+
