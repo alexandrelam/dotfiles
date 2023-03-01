@@ -15,6 +15,9 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # get mako notifications:
 exec --no-startup-id mako
 
+# background
+exec --no-startup-id swaybg -i ~/Pictures/wallpapers/1.png -m fill &
+
 set $bg     #282C34
 set $ac     #475569
 set $tx     #040404
@@ -118,7 +121,7 @@ bindsym $mod+Shift+ccedilla move container to workspace 9
 bindsym $mod+Shift+agrave move container to workspace 10
 
 ## App shortcuts
-bindsym $mod+w exec /usr/bin/google-chrome
+bindsym $mod+w exec /usr/bin/google-chrome-stable
 bindsym $mod+n exec /usr/bin/nautilus
 bindsym $mod+s exec /usr/bin/pavucontrol
 
