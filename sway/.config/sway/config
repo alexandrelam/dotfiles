@@ -129,9 +129,9 @@ bindsym $mod+Shift+z exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 exec --no-startup-id picom -b
 
 # suspend
-bindsym $mod+Shift+s exec --no-startup-id systemctl suspend && ~/Scripts/lock.sh
+bindsym $mod+Shift+s exec --no-startup-id systemctl suspend && ~/.config/sway/lockman.sh
 
-bindsym $mod+Shift+m exec --no-startup-id ~/Scripts/lock.sh
+bindsym $mod+Shift+m exec --no-startup-id ~/.config/sway/lockman.sh
 
 # Multimedia Keys
 
