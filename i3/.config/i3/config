@@ -16,11 +16,15 @@ client.focused $ac $ac $tx
 client.unfocused $bg $bg $ia
 
 # gaps settings comments if not i3-gaps
-# gaps inner 17
-# gaps outer 20
+gaps inner 10
+gaps outer 10
 
 # set border size for focused windows
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 3
+
+# notification
+exec_always --no-startup-id dunst
+
 
 font pango:Fira Code JetBrains Mono Regular Nerd Font Complete Mono 10
 
@@ -73,8 +77,8 @@ exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart
 exec --no-startup-id nitrogen --restore
 
 for_window [class="Shutter" instance="shutter"] floating enable
-for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
-for_window [class="Blueman-manager" instance="blueman-manager"] floating enable
+# for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
+# for_window [class="Blueman-manager" instance="blueman-manager"] floating enable
 
 # resize floating windows with mouse scroll:
 bindsym --whole-window --border $mod+button4 resize shrink height 5 px or 5 ppt
