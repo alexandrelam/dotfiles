@@ -72,6 +72,9 @@ services:
       - name: "Ducktape"
         logo: "assets/tools/ducktape.png"
         url: "https://ducktape.potionverte.lol"
+      - name: "Portainer"
+        logo: "assets/tools/portainer.wepb"
+        url: "https://portainer.potionverte.lol"
   - name: "Samba"
     icon: "fas fa-database"
     items:
