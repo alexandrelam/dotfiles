@@ -133,7 +133,7 @@
       "KC_TAB",
       "KC_BSPC",
       "LALT(KC_BSPC)",
-      "KC_DEL",
+      "KC_ESC",
       "KC_ENT",
       "LGUI(KC_Z)",
       "LGUI(KC_X)",
