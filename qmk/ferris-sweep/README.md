@@ -12,6 +12,6 @@ interesting home row mod + acc + mod tap : https://github.com/duckyb/zmk-sweep/t
 callum : https://github.com/callum-oakley/qmk_firmware/tree/master/users/callum
 
 ![image](https://github.com/alexandrelam/dotfiles/assets/25727549/a3d2a408-8a99-425b-be51-5210c7582afd)
-![image](https://github.com/alexandrelam/dotfiles/assets/25727549/37b6df33-cd9c-46c9-ab2f-2485f3c478f3)
-![image](https://github.com/alexandrelam/dotfiles/assets/25727549/e4a41290-803d-40c1-8c23-3f64666ae121)
+![image](https://github.com/alexandrelam/dotfiles/assets/25727549/21956e70-294e-4158-b434-b988109a1789)
+![image](https://github.com/alexandrelam/dotfiles/assets/25727549/b14e4f99-52ec-4702-93fc-4c049b034f75)
 ![image](https://github.com/alexandrelam/dotfiles/assets/25727549/cf50222f-61e5-4510-bded-5723eaf0e709)
