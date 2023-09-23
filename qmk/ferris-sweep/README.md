@@ -14,4 +14,4 @@ callum : https://github.com/callum-oakley/qmk_firmware/tree/master/users/callum
 ![image](https://github.com/alexandrelam/dotfiles/assets/25727549/a3d2a408-8a99-425b-be51-5210c7582afd)
 ![image](https://github.com/alexandrelam/dotfiles/assets/25727549/21956e70-294e-4158-b434-b988109a1789)
 ![image](https://github.com/alexandrelam/dotfiles/assets/25727549/b14e4f99-52ec-4702-93fc-4c049b034f75)
-![image](https://github.com/alexandrelam/dotfiles/assets/25727549/cf50222f-61e5-4510-bded-5723eaf0e709)
+![image](https://github.com/alexandrelam/dotfiles/assets/25727549/7c7af52f-f91a-47f7-9940-04bf0ce67a48)
