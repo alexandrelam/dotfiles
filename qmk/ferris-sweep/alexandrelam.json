@@ -111,7 +111,7 @@
       "LSFT(KC_SLSH)",
       "KC_TRNS",
       "KC_TRNS",
-      "KC_TRNS",
+      "KC_LSFT",
       "KC_RALT"
     ],
     [
@@ -208,9 +208,9 @@
       "KC_BSLS",
       "KC_EQL",
       "KC_NO",
-      "KC_NO",
-      "KC_NO",
-      "KC_NO",
+      "KC_LGUI",
+      "KC_TAB",
+      "KC_LALT",
       "KC_NO",
       "KC_QUOT",
       "LSFT(KC_M)",
