@@ -37,7 +37,7 @@
       "KC_LT",
       "KC_DOT",
       "KC_SLSH",
-      "KC_TRNS",
+      "MO(2)",
       "KC_SPC",
       "MO(3)",
       "MO(4)"
@@ -75,7 +75,7 @@
       "KC_SLSH",
       "MO(5)",
       "KC_SPC",
-      "KC_TRNS",
+      "MO(6)",
       "MO(7)"
     ],
     [
