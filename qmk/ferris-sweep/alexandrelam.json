@@ -110,7 +110,7 @@
       "LSFT(KC_DOT)",
       "LSFT(KC_SLSH)",
       "KC_TRNS",
-      "KC_TRNS",
+      "KC_LCTL",
       "KC_LSFT",
       "KC_RALT"
     ],
@@ -148,7 +148,7 @@
       "KC_LSFT",
       "KC_LCTL",
       "KC_TRNS",
-      "KC_NO"
+      "KC_TRNS"
     ],
     [
       "LGUI(KC_Q)",
@@ -256,7 +256,7 @@
       "KC_LSFT",
       "KC_LGUI",
       "KC_TRNS",
-      "KC_NO"
+      "KC_TRNS"
     ],
     [
       "LCTL(KC_Q)",
@@ -325,7 +325,7 @@
       "KC_LT",
       "KC_DOT",
       "KC_SLSH",
-      "TO(9)",
+      "MO(9)",
       "KC_SPC",
       "DF(1)",
       "DF(1)"
