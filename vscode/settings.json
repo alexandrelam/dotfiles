@@ -45,12 +45,56 @@
       "commands": ["workbench.action.debug.start"]
     },
     {
+      "before": ["<Space>", "y", "p"],
+      "commands": ["copyRelativeFilePath"]
+    },
+    {
       "before": ["<Space>", "d", "b"],
       "commands": ["editor.debug.action.toggleBreakpoint"]
     },
     {
-      "before": ["<Space>", "y", "p"],
-      "commands": ["copyRelativeFilePath"]
+      "before": ["<Space>", "d", "a"],
+      "commands": ["editor.foldLevel1"]
+    },
+    {
+      "before": ["<Space>", "d", "z"],
+      "commands": ["editor.foldLevel2"]
+    },
+    {
+      "before": ["<Space>", "d", "e"],
+      "commands": ["editor.foldLevel3"]
+    },
+    {
+      "before": ["<Space>", "d", "r"],
+      "commands": ["editor.foldLevel4"]
+    },
+    {
+      "before": ["<Space>", "d", "t"],
+      "commands": ["editor.foldLevel5"]
+    },
+    {
+      "before": ["<Space>", "d", "d"],
+      "commands": ["editor.unfoldAll"]
+    },
+    {
+      "before": ["<Space>", "d", "f"],
+      "commands": ["editor.unfoldRecursively"]
+    },
+    {
+      "before": ["<Space>", "m", "m"],
+      "commands": ["bookmarks.toggle"]
+    },
+    {
+      "before": ["<Space>", "b"],
+      "commands": ["bookmarks.list"]
+    },
+    {
+      "before": ["<Space>", "m", "n"],
+      "commands": ["bookmarks.jumpToNext"]
+    },
+    {
+      "before": ["<Space>", "m", "p"],
+      "commands": ["bookmarks.jumpToPrevious"]
     }
   ],
   "vim.visualModeKeyBindings": [
