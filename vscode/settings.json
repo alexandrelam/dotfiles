@@ -1,0 +1,56 @@
+{
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["<Space>", "a", "a"],
+      "commands": ["editor.action.quickFix"]
+    },
+    {
+      "before": ["<Space>", "a", "r"],
+      "commands": ["editor.action.rename"]
+    },
+    {
+      "before": ["<Space>", "f", "g"],
+      "commands": ["workbench.view.scm"]
+    },
+    {
+      "before": ["<Space>", "f", "e"],
+      "commands": ["workbench.view.explorer"]
+    },
+    {
+      "before": ["<Space>", "f", "p"],
+      "commands": ["pr.openPullRequest"]
+    },
+    {
+      "before": ["<Space>", "f", "f"],
+      "commands": ["workbench.action.findInFiles"]
+    },
+    {
+      "before": ["<Space>", "f", "d"],
+      "commands": ["workbench.action.focusActiveEditorGroup"]
+    },
+    {
+      "before": ["<Space>", "f", "z"],
+      "commands": ["workbench.action.toggleZenMode"]
+    },
+    {
+      "before": ["<Space>", "/"],
+      "commands": ["editor.action.commentLine"]
+    },
+    {
+      "before": ["<Space>", "r", "r"],
+      "commands": ["workbench.action.debug.run"]
+    },
+    {
+      "before": ["<Space>", "r", "d"],
+      "commands": ["workbench.action.debug.start"]
+    },
+    {
+      "before": ["<Space>", "d", "b"],
+      "commands": [
+        {
+          "command": "editor.debug.action.toggleBreakpoint"
+        }
+      ]
+    }
+  ]
+}
