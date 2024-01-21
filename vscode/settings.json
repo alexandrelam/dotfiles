@@ -46,11 +46,25 @@
     },
     {
       "before": ["<Space>", "d", "b"],
-      "commands": [
-        {
-          "command": "editor.debug.action.toggleBreakpoint"
-        }
-      ]
+      "commands": ["editor.debug.action.toggleBreakpoint"]
+    },
+    {
+      "before": ["<Space>", "y", "p"],
+      "commands": ["copyRelativeFilePath"]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": ["<Space>", "/"],
+      "commands": ["editor.action.commentLine"]
+    },
+    {
+      "before": ["<Space>", "l", "i"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<Space>", "l", "r"],
+      "commands": ["editor.action.reindentlines"]
     }
   ]
 }
