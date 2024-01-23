@@ -95,6 +95,18 @@
     {
       "before": ["<Space>", "m", "p"],
       "commands": ["bookmarks.jumpToPrevious"]
+    },
+    {
+      "before": ["<Space>", "t", "t"],
+      "commands": ["alexandrelam.bindingpry"]
+    },
+    {
+      "before": ["<Space>", "t", "f"],
+      "commands": ["alexandrelam.runtestfile"]
+    },
+    {
+      "before": ["<Space>", "t", "l"],
+      "commands": ["alexandrelam.runtestfilewithline"]
     }
   ],
   "vim.visualModeKeyBindings": [
