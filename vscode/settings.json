@@ -81,7 +81,7 @@
       "commands": ["editor.unfoldRecursively"]
     },
     {
-      "before": ["<Space>", "m", "m"],
+      "before": ["<Space>", "m"],
       "commands": ["bookmarks.toggle"]
     },
     {
@@ -89,11 +89,11 @@
       "commands": ["bookmarks.list"]
     },
     {
-      "before": ["<Space>", "m", "n"],
+      "before": ["<Space>", "n"],
       "commands": ["bookmarks.jumpToNext"]
     },
     {
-      "before": ["<Space>", "m", "p"],
+      "before": ["<Space>", "p"],
       "commands": ["bookmarks.jumpToPrevious"]
     },
     {
@@ -124,3 +124,4 @@
     }
   ]
 }
+
