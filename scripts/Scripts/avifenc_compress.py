@@ -17,8 +17,35 @@ VIDEO_EXTENSIONS = ('.mp4', '.mov', '.mkv', '.avi', '.mts', '.webm', '.flv')
 # A value of 25 is a good balance. Lower is better quality.
 AVIF_QUALITY_LEVEL = 25
 
+# --- ETA Configuration ---
+# ### NEW ###: Minimum number of files to process before showing an ETA.
+# This avoids wild fluctuations at the beginning.
+MIN_FILES_FOR_ETA = 3
+
 
 # --- SCRIPT LOGIC ---
+
+### NEW ###
+def format_duration(seconds):
+    """Formats a duration in seconds into a human-readable string (e.g., 1h 23m 45s)."""
+    if seconds < 0:
+        return "N/A"
+    if seconds < 60:
+        return f"{int(seconds)}s"
+
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+
+    parts = []
+    if hours > 0:
+        parts.append(f"{int(hours)}h")
+    if minutes > 0:
+        parts.append(f"{int(minutes)}m")
+    if seconds > 0 or not parts: # Always show seconds if it's the only unit
+        parts.append(f"{int(seconds)}s")
+
+    return " ".join(parts)
+
 
 def find_media_files(root_dir):
     """Recursively finds all photo and video files in the given directory."""
@@ -49,7 +76,8 @@ def get_output_path(input_path, source_dir, dest_dir, new_extension):
     return os.path.join(dest_dir, new_relative_path)
 
 
-def compress_photo(input_path, source_dir, dest_dir, progress_prefix=""):
+### MODIFIED ###: Added 'eta_string' parameter
+def compress_photo(input_path, source_dir, dest_dir, progress_prefix="", eta_string=""):
     """Compresses a photo to AVIF, saving it to the destination directory."""
     output_path = get_output_path(input_path, source_dir, dest_dir, ".avif")
 
@@ -60,7 +88,8 @@ def compress_photo(input_path, source_dir, dest_dir, progress_prefix=""):
         print(f"{progress_prefix}-> Skipping, AVIF already exists: {os.path.basename(output_path)}")
         return False # Indicates that no new work was done
 
-    print(f"{progress_prefix}🖼️  Compressing Photo: {os.path.basename(input_path)} -> .../{os.path.relpath(output_path, dest_dir)}")
+    ### MODIFIED ###: Appended eta_string to the print statement
+    print(f"{progress_prefix}🖼️  Compressing Photo: {os.path.basename(input_path)} -> .../{os.path.relpath(output_path, dest_dir)}{eta_string}")
 
     command = [
         'avifenc',
@@ -72,7 +101,7 @@ def compress_photo(input_path, source_dir, dest_dir, progress_prefix=""):
 
     try:
         subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
-        print(f"✅ Success: Saved to destination folder.")
+        # Success message moved to the main loop to keep the ETA on the same line.
         return True # Indicates success
     except FileNotFoundError:
         print("\nERROR: 'avifenc' command not found. Please install 'libavif-tools'.")
@@ -86,7 +115,8 @@ def compress_photo(input_path, source_dir, dest_dir, progress_prefix=""):
         return False
 
 
-def copy_video(input_path, source_dir, dest_dir, progress_prefix=""):
+### MODIFIED ###: Added 'eta_string' parameter
+def copy_video(input_path, source_dir, dest_dir, progress_prefix="", eta_string=""):
     """Copies a video file to the destination directory, preserving its path."""
     # Get the original extension to preserve it
     _, extension = os.path.splitext(input_path)
@@ -105,12 +135,13 @@ def copy_video(input_path, source_dir, dest_dir, progress_prefix=""):
             # If size check fails, proceed to copy
             pass
 
-    print(f"{progress_prefix}🎬 Copying Video: {os.path.basename(input_path)} -> .../{os.path.relpath(output_path, dest_dir)}")
+    ### MODIFIED ###: Appended eta_string to the print statement
+    print(f"{progress_prefix}🎬 Copying Video: {os.path.basename(input_path)} -> .../{os.path.relpath(output_path, dest_dir)}{eta_string}")
 
     try:
         # copy2 preserves file metadata like creation/modification time
         shutil.copy2(input_path, output_path)
-        print(f"✅ Success: Copied to destination folder.")
+        # Success message moved to the main loop.
         return True # Indicates success
     except Exception as e:
         print(f"❌ Failed to copy {input_path}.")
@@ -180,14 +211,31 @@ def main():
         progress = f"[{i}/{total_files}] "
         lowered_path = file_path.lower()
 
+        ### NEW ###: ETA Calculation Logic
+        eta_string = ""
+        # Only calculate ETA if enough files have been processed to get a decent average
+        if files_processed_this_run >= MIN_FILES_FOR_ETA:
+            elapsed_time = time.monotonic() - start_time
+            # Calculate average time per *actually processed* file, not skipped ones
+            avg_time_per_file = elapsed_time / files_processed_this_run
+            files_remaining = total_files - i
+            eta_seconds = avg_time_per_file * files_remaining
+            # Add a space for padding before the ETA string
+            eta_string = f" | ETA: {format_duration(eta_seconds)}"
+
+
         work_done = False
         if lowered_path.endswith(PHOTO_EXTENSIONS):
-            work_done = compress_photo(file_path, source_dir, dest_dir, progress)
+            ### MODIFIED ###: Pass the eta_string to the function
+            work_done = compress_photo(file_path, source_dir, dest_dir, progress, eta_string)
         elif lowered_path.endswith(VIDEO_EXTENSIONS):
-            work_done = copy_video(file_path, source_dir, dest_dir, progress)
+            ### MODIFIED ###: Pass the eta_string to the function
+            work_done = copy_video(file_path, source_dir, dest_dir, progress, eta_string)
 
         if work_done:
             files_processed_this_run += 1
+            ### NEW ###: Print success on the same line
+            print(f"✅ Success.")
 
     end_time = time.monotonic()
     duration = end_time - start_time
