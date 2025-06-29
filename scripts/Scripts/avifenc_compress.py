@@ -13,9 +13,9 @@ PHOTO_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.tiff', '.bmp', '.webp')
 # File extensions to be treated as videos (will be copied directly)
 VIDEO_EXTENSIONS = ('.mp4', '.mov', '.mkv', '.avi', '.mts', '.webm', '.flv')
 
-# AVIF quality setting for photos. 0-63, where 0 is lossless and 63 is worst.
+# AVIF quality setting for photos. 0-100, where 0 is lossless and 63 is worst.
 # A value of 35 is a good balance. Lower is better quality.
-AVIF_QUALITY_LEVEL = 30
+AVIF_QUALITY_LEVEL = 60
 
 # --- ETA Configuration ---
 # ### NEW ###: Minimum number of files to process before showing an ETA.
