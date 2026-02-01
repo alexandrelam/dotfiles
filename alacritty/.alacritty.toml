@@ -1,0 +1,72 @@
+general.import = [
+  # uncomment the flavour you want below:
+  #"~/.config/alacritty/catppuccin-latte.toml"
+  #"~/.config/alacritty/catppuccin-frappe.toml"
+  #"~/.config/alacritty/catppuccin-macchiato.toml"
+   "~/.config/alacritty/catppuccin-mocha.toml"
+]
+
+
+########################################
+# WINDOW
+########################################
+[window]
+padding = { x = 6, y = 6 }
+dynamic_padding = true
+decorations = "None"        # IMPORTANT: removes title bar
+
+########################################
+# FONT
+########################################
+[font]
+size = 11.5
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+style = "Bold"
+
+[font.italic]
+style = "Italic"
+
+########################################
+# CURSOR
+########################################
+[cursor]
+style = { shape = "Block", blinking = "On" }
+blink_interval = 500
+
+########################################
+# SCROLLING
+########################################
+[scrolling]
+history = 10000
+multiplier = 3
+
+########################################
+# SELECTION
+########################################
+[selection]
+save_to_clipboard = true
+
+########################################
+# KEY BINDINGS
+########################################
+[keyboard]
+bindings = [
+    { key = "C", mods = "Control", mode = "~Vi", action = "Copy" },
+    { key = "C", mods = "Control", mode = "~Vi", action = "ClearSelection" },
+    { key = "V", mods = "Control", mode = "~Vi", action = "Paste" },
+]
+
+########################################
+# PERFORMANCE
+########################################
+[debug]
+render_timer = false
+persistent_logging = false
+
+[env]
+TERM = "xterm-256color"
