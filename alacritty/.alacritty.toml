@@ -55,11 +55,23 @@ save_to_clipboard = true
 # KEY BINDINGS
 ########################################
 [keyboard]
-bindings = [
-    { key = "C", mods = "Control", mode = "~Vi", action = "Copy" },
-    { key = "C", mods = "Control", mode = "~Vi", action = "ClearSelection" },
-    { key = "V", mods = "Control", mode = "~Vi", action = "Paste" },
-]
+# 1. Map Ctrl + C to Copy text
+[[keyboard.bindings]]
+key = "C"
+mods = "Control"
+action = "Copy"
+
+# 2. Map Ctrl + Shift + C to send the Interrupt signal (SIGINT)
+[[keyboard.bindings]]
+key = "C"
+mods = "Control|Shift"
+chars = "\u0003"
+
+# 3. Map Ctrl + V to Paste text
+[[keyboard.bindings]]
+key = "V"
+mods = "Control"
+action = "Paste"
 
 ########################################
 # PERFORMANCE
