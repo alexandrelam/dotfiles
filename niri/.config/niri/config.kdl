@@ -514,7 +514,7 @@ binds {
     Mod+parenleft  { focus-workspace 5; }
 
     Mod+Ctrl+ampersand   { move-column-to-workspace 1; }
-    Mod+Ctrl+eacute      { move-column-to-workspace 2; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
     Mod+Ctrl+quotedbl    { move-column-to-workspace 3; }
     Mod+Ctrl+apostrophe  { move-column-to-workspace 4; }
     Mod+Ctrl+parenleft  { move-column-to-workspace 5; }
