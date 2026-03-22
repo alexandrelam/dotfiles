@@ -255,6 +255,8 @@ layout {
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
+spawn-at-startup "brave"
+spawn-at-startup "discord"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -307,6 +309,12 @@ window-rule {
 window-rule {
   match app-id=r"brave"
   open-maximized true
+}
+
+window-rule {
+  match app-id=r"discord"
+  open-maximized true
+  open-on-workspace "4"
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
