@@ -88,7 +88,6 @@ output "PNP(BNQ) BenQ EX3210U ETN4R01842SL0" {
     // off
     mode "3840x2160@120.000"
     scale 1.5
-    variable-refresh-rate // on-demand=true
     focus-at-startup
 }
 
@@ -307,14 +306,9 @@ window-rule {
 }
 
 window-rule {
-  match app-id=r"brave"
-  open-maximized true
-}
-
-window-rule {
   match app-id=r"discord"
   open-maximized true
-  open-on-workspace "4"
+  open-on-workspace "comunication"
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
