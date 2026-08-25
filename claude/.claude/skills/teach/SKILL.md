@@ -12,7 +12,7 @@ The user has asked you to teach them something. This is a stateful request - the
 Store all learning in the Obsidian learning directory:
 `/Users/alexandre.lam/Projects/work-obsidian/Learn`.
 
-Do not use the current working directory as the teaching workspace. The user may invoke this skill from directories such as `~/Projects/health`, but all learning files must be stored in the Obsidian directory above.
+Do not use the current working directory as the teaching workspace. The user may invoke this skill from any project directory, but all learning files must be stored in the Obsidian directory above.
 
 Each new learning topic gets its own new folder inside `/Users/alexandre.lam/Projects/work-obsidian/Learn`. Use that folder as the teaching workspace and store the topic's state there. When continuing an existing topic, use its existing folder rather than creating a duplicate.
 

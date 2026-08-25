@@ -15,9 +15,14 @@ stow claude
 If `~/.claude/commands` or `~/.claude/skills` already exist as real directories, move
 them aside first — stow refuses to overwrite them.
 
-## Work-specific files
+## Work-specific content
 
-Some commands and skills reference an employer's codebase, tickets and schema. They are
-listed in the repo `.gitignore`, so they live in this directory on my machine and stay
-reachable through the symlink, but never get published. Expect a fresh clone to have
-fewer files here than `~/.claude` does.
+These commands grew out of a work codebase, so they are kept de-identified: no company or
+product names, ticket ids, PR links, or colleague handles. Structural references that the
+commands need in order to be useful — repo-relative paths, in-house ORM method names, DB
+names — are still there.
+
+Two per-project context dumps are gitignored instead, because they are made entirely of
+ticket ids, PR links and branch names and there is no version of them worth publishing.
+They stay on disk behind the symlink, so a fresh clone has two fewer commands than my
+machine does.
