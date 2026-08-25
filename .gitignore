@@ -1,1 +1,12 @@
 **/coc
+
+# Work-specific Claude commands and skills: kept on disk (reachable through the
+# stow symlink) but never published, since they name internal code and tickets.
+claude/.claude/commands/database-review.md
+claude/.claude/commands/frontend-review.md
+claude/.claude/commands/frontend-test-review.md
+claude/.claude/commands/psql.md
+claude/.claude/commands/smart-analytics-context.md
+claude/.claude/commands/test-spans.md
+claude/.claude/commands/translocation-tests-stack.md
+claude/.claude/skills/fix-log-grouping/
