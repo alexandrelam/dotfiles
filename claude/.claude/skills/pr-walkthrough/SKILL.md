@@ -22,7 +22,7 @@ If there is no associated pull request, say so and ask whether to walk through t
 Read the diff in full first, then fill the gaps. Read as much surrounding code as you need to explain the intent correctly, prioritizing:
 
 - The PR description and commit messages for the author's own framing.
-- Linked tickets and issues. Branch names in this repo often carry a ticket ID (e.g. `lam/CLI-1112/...`); if a Linear or issue link is available, read it for the problem statement.
+- Linked tickets and issues. Branch names often carry a ticket ID (e.g. `<author>/<TICKET-ID>/...`); if a tracker or issue link is available, read it for the problem statement.
 - The definitions of functions, types, and components the diff touches but does not show, so you can describe what they were doing before.
 - Tests, which usually state the intended behaviour most explicitly.
 - Callers of changed code, to know what is affected downstream.
@@ -90,7 +90,7 @@ If a group turns out to be trivial, one sentence is a complete answer. Detail is
 
 - Plain English. Spell out every acronym on first use. Define codebase jargon before relying on it.
 - Complete sentences and normal prose. No arrow chains, no telegraphic fragments, no emoji.
-- Explain intent and consequence, never narrate the diff. "Sites without a compatible encounter profile are now skipped instead of aborting the whole migration" beats "adds a filter to the site list".
+- Explain intent and consequence, never narrate the diff. "Sites without a compatible configuration are now skipped instead of aborting the whole migration" beats "adds a filter to the site list".
 - Never invent a rationale. Unverified intent must be marked as inference.
 - Calibrate to the reader: if they say they know an area, skip its orientation.
 
