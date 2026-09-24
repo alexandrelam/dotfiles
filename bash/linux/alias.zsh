@@ -3,7 +3,6 @@ alias lg=lazygit
 alias capture='grim -g "$(slurp)" - | swappy -f -'
 alias sd='shutdown now'
 alias sp='systemctl suspend'
-alias update='sudo timeshift --check && yay -Syu --noconfirm'
 
 alacritty-theme() {
   local config="${ALACRITTY_CONFIG:-$HOME/.alacritty.toml}"
@@ -50,3 +49,39 @@ alacritty-theme() {
 alias alight='alacritty-theme light'
 alias adark='alacritty-theme dark'
 alias atoggle='alacritty-theme toggle'
+
+# Full system update: snapshot, upgrade, then reclaim disk space.
+update() {
+  setopt localoptions pipefail
+
+  echo ":: caching sudo credentials"
+  sudo -v || return 1
+
+  echo ":: timeshift pre-update snapshot"
+  sudo timeshift --check || return 1
+
+  echo ":: upgrading repo + AUR packages"
+  yay -Syu --noconfirm || return 1
+
+  echo ":: removing orphaned packages"
+  local orphans
+  orphans="$(pacman -Qtdq 2>/dev/null)"
+  if [[ -n "$orphans" ]]; then
+    sudo pacman -Rns --noconfirm -- ${=orphans}
+  else
+    echo "   none"
+  fi
+
+  echo ":: trimming pacman cache (keep 1 version, drop uninstalled)"
+  sudo paccache -rk1
+  sudo paccache -ruk0
+
+  echo ":: clearing AUR build cache"
+  rm -rf -- "${XDG_CACHE_HOME:-$HOME/.cache}/yay"/*(ND)
+
+  echo ":: vacuuming systemd journal"
+  sudo journalctl --vacuum-size=200M
+
+  echo ":: done"
+  df -h /
+}
