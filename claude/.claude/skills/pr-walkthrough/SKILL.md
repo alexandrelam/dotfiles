@@ -1,6 +1,7 @@
 ---
 name: pr-walkthrough
 description: Explains a pull request in plain English — what it does and why — grouping the changed files logically and walking through one group at a time. Use when the user asks to understand or be walked through a PR, not to review it.
+disable-model-invocation: true
 ---
 
 # PR Walkthrough
@@ -54,11 +55,15 @@ Then stop and offer, using the question tool, the first group, a specific group,
 
 ### 5. Walk through one group at a time
 
-Roughly 120 words per group. Two or three short paragraphs, no sub-headings, no bullet list of files:
+Start with the group's files so the reader can open them: the repository-relative path of each file in the group, one per line, each with a few words on its part in the change. When a group has more than about eight files, list the ones that carry the change and collapse the rest into a single line saying how many were left out and what they have in common.
+
+Then roughly 120 words of prose. Two or three short paragraphs, no sub-headings:
 
 - What this part of the system does, in one sentence, only if the reader would otherwise be lost.
 - What changed and why, described as behaviour rather than edits. Collapse similar edits into one statement.
 - How it connects to the group before or after it, when that link is not obvious.
+
+Use the full path as it appears in the diff, not a bare basename, and name the file whenever the prose refers to a specific one.
 
 Add at most one "worth noticing" sentence for a genuinely non-obvious detail: a subtle edge case, an easily missed behaviour change, a compatibility decision. Omit it when there is nothing to say.
 
@@ -80,11 +85,11 @@ Cut on sight:
 
 - Anything the reader can infer from the previous sentence.
 - Orientation for parts of the system they already know.
-- Restated file names, line counts, and diff statistics.
+- Line counts and diff statistics, and file paths repeated beyond the group's opening list.
 - Preamble, meta-commentary about the walkthrough, and closing recaps.
 - Hedging and qualifiers that do not change the meaning.
 
-If a group turns out to be trivial, one sentence is a complete answer. Detail is available on request; the reader will ask.
+If a group turns out to be trivial, the file list plus one sentence is a complete answer. Detail is available on request; the reader will ask.
 
 ## Writing rules
 
@@ -97,7 +102,7 @@ If a group turns out to be trivial, one sentence is a complete answer. Detail is
 ## Anti-patterns
 
 - Padding a group to fill an expected shape when there is little to say.
-- Restating file names and line counts as if that were an explanation.
+- Treating the file list as the explanation instead of following it with what changed and why.
 - A wall of text covering every group at once when the reader asked for a walkthrough.
 - Slipping into code review: severity labels, nitpicks, or suggested fixes belong in the `code-review` skill.
 - Explaining language or framework basics instead of this codebase's specifics.

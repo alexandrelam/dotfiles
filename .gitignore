@@ -4,3 +4,14 @@
 # so there is no version worth publishing. Kept on disk behind the stow symlink.
 claude/.claude/commands/smart-analytics-context.md
 claude/.claude/commands/translocation-tests-stack.md
+
+# Work-specific skills (company codebase, internal names): kept on disk behind
+# the stow symlink, never published.
+claude/.claude/skills/enable-local-admin-section/
+claude/.claude/skills/reproduce-prod-traces/
+claude/.claude/skills/seed-org-users/
+claude/.claude/skills/shared-file-audit/
+# Skills synced from claude.ai (incl. Anthropic's own) and personal-data skills.
+claude/.claude/skills/synced/
+claude/.claude/skills/jinka-jev-hunt/
+**/__pycache__/
