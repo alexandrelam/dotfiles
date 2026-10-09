@@ -1,0 +1,298 @@
+<title>Charybdis Mini Layers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a column of layer plates; each plate is the split board drawn to its real column stagger, keys colored by role. */
+:root {
+  --bg: #eef0f3;
+  --plate: #fbfcfd;
+  --ink: #1b2129;
+  --muted: #5d6673;
+  --line: #d5dae1;
+  --cap: #ffffff;
+  --cap-edge: #c9cfd8;
+  --accent: #3657c9;
+
+  --c-letter: #ffffff;
+  --c-sym: #fff1d6;   --c-sym-ink: #7a4a00;
+  --c-num: #e4f3e8;   --c-num-ink: #1f6a3a;
+  --c-mod: #e6e9ff;   --c-mod-ink: #2f3fa8;
+  --c-layer: #3657c9; --c-layer-ink: #ffffff;
+  --c-short: #f4e6fb; --c-short-ink: #7b2b9c;
+  --c-nav: #dff2f6;   --c-nav-ink: #0d5e70;
+  --c-mouse: #ffe4e0; --c-mouse-ink: #a3321f;
+  --c-held: #1b2129;  --c-held-ink: #ffffff;
+
+  --f-display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  --k: min(3.7rem, calc((100vw - 3.5rem - 5 * 0.3rem) / 6));
+  --gap: 0.3rem;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12161c; --plate: #1a2029; --ink: #e8ecf1; --muted: #98a2b0; --line: #2c3440;
+  --cap: #252d38; --cap-edge: #0c0f13; --accent: #8aa4ff;
+  --c-letter: #252d38;
+  --c-sym: #3a2f17;   --c-sym-ink: #ffd27a;
+  --c-num: #183225;   --c-num-ink: #8fe0aa;
+  --c-mod: #222a52;   --c-mod-ink: #b3bdff;
+  --c-layer: #8aa4ff; --c-layer-ink: #0f1420;
+  --c-short: #33213d; --c-short-ink: #e2b2f7;
+  --c-nav: #143640;   --c-nav-ink: #8fdcec;
+  --c-mouse: #40221d; --c-mouse-ink: #ffab9c;
+  --c-held: #e8ecf1;  --c-held-ink: #12161c;
+  color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #12161c; --plate: #1a2029; --ink: #e8ecf1; --muted: #98a2b0; --line: #2c3440;
+  --cap: #252d38; --cap-edge: #0c0f13; --accent: #8aa4ff;
+  --c-letter: #252d38;
+  --c-sym: #3a2f17;   --c-sym-ink: #ffd27a;
+  --c-num: #183225;   --c-num-ink: #8fe0aa;
+  --c-mod: #222a52;   --c-mod-ink: #b3bdff;
+  --c-layer: #8aa4ff; --c-layer-ink: #0f1420;
+  --c-short: #33213d; --c-short-ink: #e2b2f7;
+  --c-nav: #143640;   --c-nav-ink: #8fdcec;
+  --c-mouse: #40221d; --c-mouse-ink: #ffab9c;
+  --c-held: #e8ecf1;  --c-held-ink: #12161c;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 1rem; line-height: 1.5; }
+.wrap { max-width: 68rem; margin: 0 auto; padding-inline: 1rem; padding-block: 2rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+header { display: flex; flex-direction: column; gap: 0.6rem; }
+h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); max-width: 65ch; }
+.lede code, .note code { font-family: var(--f-mono); font-size: 0.85em; }
+
+nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.4rem; border-bottom: 1px solid var(--line); }
+nav a { font-size: 0.85rem; text-decoration: none; color: var(--ink); border: 1px solid var(--line); background: var(--plate); padding: 0.25rem 0.65rem; border-radius: 999px; display: inline-flex; gap: 0.4rem; align-items: center; }
+nav a:hover, nav a:focus-visible { border-color: var(--accent); outline: none; }
+nav a .n { font-family: var(--f-mono); color: var(--muted); font-size: 0.75rem; }
+nav .grp { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); align-self: center; padding-inline: 0.3rem 0.1rem; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; font-size: 0.85rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.legend i { width: 0.95rem; height: 0.95rem; border-radius: 0.25rem; border: 1px solid var(--cap-edge); display: inline-block; }
+
+.group-title { font-family: var(--f-display); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 1rem 0 -0.5rem; }
+
+section.layer { background: var(--plate); border: 1px solid var(--line); border-radius: 0.9rem; padding: 1.2rem; display: flex; flex-direction: column; gap: 1rem; scroll-margin-top: 4rem; }
+.lh { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; }
+.lh h2 { font-family: var(--f-display); font-weight: 800; font-size: 1.45rem; margin: 0; letter-spacing: -0.01em; }
+.lh .idx { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); }
+.lh .reach { font-size: 0.9rem; color: var(--muted); flex-basis: 100%; }
+.lh .reach b { color: var(--ink); font-weight: 700; }
+
+.board { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem 3rem; overflow-x: auto; }
+.half { display: flex; flex-direction: column; gap: 0.9rem; }
+.grid { display: grid; grid-template-columns: repeat(6, var(--k)); gap: var(--gap); padding-bottom: calc(var(--k) * 0.4); }
+.thumbs { display: flex; gap: var(--gap); }
+.half.left .thumbs { justify-content: flex-end; padding-right: calc(var(--k) * 0.15); }
+.half.right .thumbs { justify-content: flex-start; padding-left: calc(var(--k) * 0.15); }
+.thumbs .key:nth-child(2) { transform: translateY(calc(var(--k) * 0.18)); }
+.half.left .thumbs .key:nth-child(3) { transform: translateY(calc(var(--k) * 0.36)); }
+
+.key { width: var(--k); height: var(--k); border-radius: 0.5rem; background: var(--c-letter); color: var(--ink); border: 1px solid var(--cap-edge); box-shadow: inset 0 -0.18rem 0 rgba(0,0,0,0.07); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0.15rem; gap: 0.05rem; position: relative; min-width: 0; }
+.key .g { font-weight: 700; font-size: calc(var(--k) * 0.36); line-height: 1; overflow-wrap: anywhere; }
+.key .g.sm { font-size: calc(var(--k) * 0.2); line-height: 1.1; }
+.key .s { font-family: var(--f-mono); font-size: calc(var(--k) * 0.15); line-height: 1.1; opacity: 0.8; overflow-wrap: anywhere; }
+.key .sh { position: absolute; top: 0.18rem; right: 0.3rem; font-size: calc(var(--k) * 0.17); opacity: 0.6; font-weight: 700; }
+
+.key.sym { background: var(--c-sym); color: var(--c-sym-ink); }
+.key.num { background: var(--c-num); color: var(--c-num-ink); }
+.key.mod { background: var(--c-mod); color: var(--c-mod-ink); }
+.key.layer { background: var(--c-layer); color: var(--c-layer-ink); border-color: transparent; }
+.key.short { background: var(--c-short); color: var(--c-short-ink); }
+.key.nav { background: var(--c-nav); color: var(--c-nav-ink); }
+.key.mouse { background: var(--c-mouse); color: var(--c-mouse-ink); }
+.key.held { background: var(--c-held); color: var(--c-held-ink); border-color: transparent; }
+.key.trns { background: transparent; border-style: dashed; box-shadow: none; color: var(--muted); }
+.key.none { background: transparent; border-color: var(--line); box-shadow: none; opacity: 0.5; }
+
+.note { font-size: 0.85rem; color: var(--muted); max-width: 70ch; margin: 0; }
+footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+footer p { margin: 0; max-width: 70ch; }
+
+@media (max-width: 30rem) { section.layer { padding: 0.9rem 0.6rem; } .board { gap: 1.2rem; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Charybdis Mini layers</h1>
+    <p class="lede">Every key on all eight VIA layers, labelled with the character it actually types. Labels assume the OS keyboard layout is <b>French AZERTY (PC)</b>, so the sent keycode (small text) differs from the printed glyph. A small corner symbol shows the Shift output.</p>
+    <div class="legend" id="legend"></div>
+  </header>
+  <nav id="nav" aria-label="Layers"></nav>
+  <main id="layers" style="display:flex;flex-direction:column;gap:1.5rem"></main>
+  <footer>
+    <p>Dashed keys are transparent: they fall through to the layer underneath (usually the base layer). The dark key on each layer is the thumb you are holding to get there.</p>
+    <p>Generated from <code>charybdis-mini/charybdis_mini_alexandre.json</code>.</p>
+  </footer>
+</div>
+
+<script>
+const LAYERS = [["CUSTOM(6)", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_MS_BTN1", "KC_A", "KC_S", "KC_D", "KC_F", "KC_G", "KC_MS_BTN2", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(3)", "KC_NO", "MO(2)", "KC_SPC", "KC_NO", "CUSTOM(6)", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", "KC_MS_BTN1", "KC_SCLN", "KC_L", "KC_K", "KC_J", "KC_H", "KC_MS_BTN2", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(4)", "KC_NO", "MO(5)", "KC_NO", "KC_NO"], ["CUSTOM(6)", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_MS_BTN1", "KC_A", "KC_S", "KC_D", "KC_F", "KC_G", "KC_MS_BTN2", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(3)", "KC_NO", "MO(6)", "KC_SPC", "KC_NO", "CUSTOM(6)", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", "KC_MS_BTN1", "KC_SCLN", "KC_L", "KC_K", "KC_J", "KC_H", "KC_MS_BTN2", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(4)", "KC_NO", "MO(7)", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LCTL)", "OSM(MOD_LALT)", "OSM(MOD_LGUI)", "KC_ENT", "KC_TRNS", "LALT(KC_1)", "LALT(KC_2)", "LALT(KC_3)", "LALT(KC_4)", "LALT(KC_5)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_LEFT)", "LGUI(KC_RGHT)", "SGUI(KC_T)", "LGUI(KC_T)", "KC_TRNS", "KC_LSFT", "KC_LCTL", "KC_LALT", "KC_LGUI", "CUSTOM(6)", "KC_TRNS", "LGUI(KC_W)", "LGUI(KC_X)", "LGUI(KC_C)", "LGUI(KC_V)", "CUSTOM(4)", "KC_NO", "KC_TRNS", "KC_NO", "KC_MS_BTN2", "KC_MS_BTN1", "KC_NO", "KC_TRNS", "KC_NO", "CUSTOM(3)", "CUSTOM(2)", "CUSTOM(1)", "CUSTOM(0)", "KC_TRNS", "KC_NO", "KC_MS_BTN2", "KC_MS_BTN3", "KC_MS_BTN1", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO", "KC_NO", "CUSTOM(5)", "CUSTOM(7)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_F1", "KC_F2", "KC_F3", "KC_F4", "KC_F5", "KC_TRNS", "KC_F6", "KC_F7", "KC_F8", "KC_F9", "KC_F10", "KC_TRNS", "KC_F11", "KC_F12", "DF(0)", "DF(1)", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_VOLD", "KC_VOLU", "KC_UP", "KC_MINS", "KC_5", "KC_TRNS", "KC_BRID", "KC_RGHT", "KC_DOWN", "KC_LEFT", "RALT(KC_5)", "KC_TRNS", "KC_NUBS", "KC_BRIU", "RALT(KC_MINS)", "RALT(KC_EQL)", "RALT(KC_4)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Q)", "LGUI(KC_W)", "LSFT(KC_Q)", "SGUI(KC_F)", "LGUI(KC_T)", "KC_TRNS", "LGUI(KC_TAB)", "LGUI(KC_S)", "LGUI(KC_D)", "LGUI(KC_F)", "SGUI(KC_4)", "KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_X)", "LGUI(KC_C)", "LGUI(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "LALT(KC_BSPC)", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LGUI)", "OSM(MOD_LALT)", "OSM(MOD_LCTL)", "KC_ENT", "KC_TRNS", "KC_NO", "KC_LGUI", "KC_TAB", "KC_LALT", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LCTL(KC_Q)", "LCTL(KC_W)", "LSFT(KC_Q)", "LCTL(KC_R)", "LCTL(KC_T)", "KC_TRNS", "LALT(KC_TAB)", "LCTL(KC_S)", "LCTL(KC_D)", "LCTL(KC_F)", "KC_NO", "KC_TRNS", "LCTL(KC_Z)", "LCTL(KC_X)", "LCTL(KC_C)", "LCTL(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LALT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "LCTL(KC_BSPC)", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"]];
+
+const META = {
+  0: { name: "Mac base", group: "Mac", reach: "Default layer. <b>DF(0)</b> on the function layer selects it." },
+  2: { name: "Mac symbols", group: "Mac", reach: "Hold the <b>left outer thumb</b> on Mac base.", from: [0, 3, 3] },
+  5: { name: "Mac shortcuts", group: "Mac", reach: "Hold the <b>right outer thumb</b> on Mac base.", from: [0, 7, 3] },
+  1: { name: "Linux base", group: "Linux", reach: "Select with <b>DF(1)</b> on the function layer. It then stays the default." },
+  6: { name: "Linux symbols", group: "Linux", reach: "Hold the <b>left outer thumb</b> on Linux base.", from: [1, 3, 3] },
+  7: { name: "Linux shortcuts", group: "Linux", reach: "Hold the <b>right outer thumb</b> on Linux base.", from: [1, 7, 3] },
+  4: { name: "Function & navigation", group: "Shared", reach: "Hold the <b>right inner thumb</b> on either base layer.", from: [0, 7, 1] },
+  3: { name: "Mouse", group: "Shared", reach: "Tap the <b>left inner thumb</b> to turn it on, tap again to turn it off.", from: [0, 3, 1], toggle: true },
+};
+const ORDER = [["Mac", [0, 2, 5]], ["Shared", [4, 3]], ["Linux", [1, 6, 7]]];
+const NOTES = {
+  2: "One-shot modifiers on the home row: tap one, then the next key gets it. Space 1–5 send Alt+1…5, which yabai uses to switch spaces.",
+  6: "Same idea as Mac symbols, with plain Cmd, Tab and Alt on the bottom row instead of space switching.",
+  4: "Shared by Mac and Linux. DF(0) and DF(1) pick which base layer is the default.",
+  3: "The right thumb sits on the trackball, so clicks are under J, K and L. Hold drag-scroll and move the ball to scroll.",
+};
+
+// Output of each keycode on French AZERTY (PC): [glyph, shifted glyph]
+const AZ = {
+  KC_Q: ["A"], KC_W: ["Z"], KC_A: ["Q"], KC_Z: ["W"], KC_SCLN: ["M"], KC_M: [",", "?"],
+  KC_1: ["&", "1"], KC_2: ["é", "2"], KC_3: ['"', "3"], KC_4: ["'", "4"], KC_5: ["(", "5"],
+  KC_6: ["-", "6"], KC_7: ["è", "7"], KC_8: ["_", "8"], KC_9: ["ç", "9"], KC_0: ["à", "0"],
+  KC_MINS: [")", "°"], KC_EQL: ["=", "+"], KC_LBRC: ["^", "¨"], KC_RBRC: ["$", "£"],
+  KC_BSLS: ["*", "µ"], KC_QUOT: ["ù", "%"], KC_COMM: [";", "."], KC_DOT: [":", "/"],
+  KC_SLSH: ["!", "§"], KC_NUBS: ["<", ">"],
+};
+const SHIFTED = { "LSFT(KC_COMM)": ".", "LSFT(KC_M)": "?", "LSFT(KC_DOT)": "/", "LSFT(KC_SLSH)": "§" };
+const ALTGR = { "RALT(KC_5)": "[", "RALT(KC_4)": "{", "RALT(KC_EQL)": "}", "RALT(KC_MINS)": "]" };
+const NAMED = {
+  KC_SPC: ["Space", "nav"], KC_ENT: ["Enter", "nav"], KC_TAB: ["Tab", "nav"], KC_BSPC: ["⌫", "nav"],
+  KC_ESC: ["Esc", "nav"], KC_DEL: ["Del", "nav"],
+  KC_LEFT: ["←", "nav"], KC_RGHT: ["→", "nav"], KC_UP: ["↑", "nav"], KC_DOWN: ["↓", "nav"],
+  KC_VOLU: ["Vol +", "nav"], KC_VOLD: ["Vol −", "nav"], KC_BRIU: ["Bright +", "nav"], KC_BRID: ["Bright −", "nav"],
+  KC_LSFT: ["⇧ Shift", "mod"], KC_LCTL: ["⌃ Ctrl", "mod"], KC_LALT: ["⌥ Alt", "mod"], KC_LGUI: ["⌘ Cmd", "mod"],
+  KC_RALT: ["AltGr", "mod"], KC_RSFT: ["⇧ Shift", "mod"], KC_RCTL: ["⌃ Ctrl", "mod"], KC_RGUI: ["⌘ Cmd", "mod"],
+  KC_MS_BTN1: ["Left click", "mouse"], KC_MS_BTN2: ["Right click", "mouse"], KC_MS_BTN3: ["Middle click", "mouse"],
+  "CUSTOM(0)": ["DPI +", "mouse"], "CUSTOM(1)": ["DPI −", "mouse"],
+  "CUSTOM(2)": ["Snipe DPI +", "mouse"], "CUSTOM(3)": ["Snipe DPI −", "mouse"],
+  "CUSTOM(4)": ["Snipe (hold)", "mouse"], "CUSTOM(5)": ["Snipe toggle", "mouse"],
+  "CUSTOM(6)": ["Drag-scroll (hold)", "mouse"], "CUSTOM(7)": ["Drag-scroll toggle", "mouse"],
+  "OSM(MOD_LSFT)": ["⇧ Shift", "mod", "one-shot"], "OSM(MOD_LCTL)": ["⌃ Ctrl", "mod", "one-shot"],
+  "OSM(MOD_LALT)": ["⌥ Alt", "mod", "one-shot"], "OSM(MOD_LGUI)": ["⌘ Cmd", "mod", "one-shot"],
+  "DF(0)": ["Mac base", "layer", "default"], "DF(1)": ["Linux base", "layer", "default"],
+  "TG(3)": ["Mouse", "layer", "toggle"],
+};
+const SHORTCUTS = {
+  "LGUI(KC_Q)": ["Select all", "⌘A"], "LGUI(KC_W)": ["Undo", "⌘Z"], "LGUI(KC_Z)": ["Close", "⌘W"],
+  "LGUI(KC_X)": ["Cut", "⌘X"], "LGUI(KC_C)": ["Copy", "⌘C"], "LGUI(KC_V)": ["Paste", "⌘V"],
+  "LGUI(KC_T)": ["New tab", "⌘T"], "SGUI(KC_T)": ["Reopen tab", "⌘⇧T"], "LGUI(KC_S)": ["Save", "⌘S"],
+  "LGUI(KC_D)": ["⌘D", "⌘D"], "LGUI(KC_F)": ["Find", "⌘F"], "SGUI(KC_F)": ["Find all", "⌘⇧F"],
+  "LGUI(KC_TAB)": ["App switch", "⌘⇥"], "SGUI(KC_4)": ["Screenshot", "⌘⇧4"],
+  "LGUI(KC_LEFT)": ["Back", "⌘←"], "LGUI(KC_RGHT)": ["Forward", "⌘→"],
+  "LALT(KC_BSPC)": ["Delete word", "⌥⌫"],
+  "LCTL(KC_Q)": ["Select all", "Ctrl A"], "LCTL(KC_W)": ["Undo", "Ctrl Z"], "LCTL(KC_Z)": ["Close", "Ctrl W"],
+  "LCTL(KC_X)": ["Cut", "Ctrl X"], "LCTL(KC_C)": ["Copy", "Ctrl C"], "LCTL(KC_V)": ["Paste", "Ctrl V"],
+  "LCTL(KC_T)": ["New tab", "Ctrl T"], "LCTL(KC_R)": ["Reload", "Ctrl R"], "LCTL(KC_S)": ["Save", "Ctrl S"],
+  "LCTL(KC_D)": ["Ctrl D", "Ctrl D"], "LCTL(KC_F)": ["Find", "Ctrl F"],
+  "LALT(KC_TAB)": ["App switch", "Alt ⇥"], "LCTL(KC_BSPC)": ["Delete word", "Ctrl ⌫"],
+  "LSFT(KC_Q)": ["⇧A", "Shift A"], "LSFT(KC_I)": ["⇧I", "Shift I"],
+};
+
+function describe(kc) {
+  if (kc === "KC_TRNS") return { cls: "trns", g: "", s: "" };
+  if (kc === "KC_NO") return { cls: "none", g: "", s: "" };
+  if (NAMED[kc]) { const [g, cls, s] = NAMED[kc]; return { cls, g, s: s || "", small: g.length > 2 }; }
+  if (SHORTCUTS[kc]) { const [g, s] = SHORTCUTS[kc]; return { cls: "short", g, s, small: g.length > 2 }; }
+  if (SHIFTED[kc]) return { cls: "sym", g: SHIFTED[kc], s: "⇧ + key" };
+  if (ALTGR[kc]) return { cls: "sym", g: ALTGR[kc], s: "AltGr" };
+  let m = kc.match(/^MO\((\d)\)$/);
+  if (m) return { cls: "layer", g: META[m[1]].name, s: "hold", small: true };
+  m = kc.match(/^LALT\(KC_([1-5])\)$/);
+  if (m) return { cls: "short", g: "Space " + m[1], s: "⌥" + m[1], small: true };
+  m = kc.match(/^KC_F(\d+)$/);
+  if (m) return { cls: "nav", g: "F" + m[1], s: "" };
+  if (AZ[kc]) {
+    const [g, sh] = AZ[kc];
+    const isNum = /^KC_\d$/.test(kc), isLetter = /^[A-Z]$/.test(g);
+    return { cls: isLetter ? "letter" : (isNum ? "num" : "sym"), g, sh: isLetter ? "" : sh, s: kc.replace("KC_", "") };
+  }
+  m = kc.match(/^KC_([A-Z])$/);
+  if (m) return { cls: "letter", g: m[1], s: "" };
+  return { cls: "short", g: kc, s: "", small: true };
+}
+
+const idx = (r, c) => r * 6 + c;
+const POS = {
+  left: { rows: [0, 1, 2].map(r => [0, 1, 2, 3, 4, 5].map(c => [r, c])), thumbs: [[3, 3], [3, 4], [3, 1]] },
+  right: { rows: [4, 5, 6].map(r => [5, 4, 3, 2, 1, 0].map(c => [r, c])), thumbs: [[7, 1], [7, 3]] },
+};
+// column stagger in key units, outer -> inner on the left half
+const STAGGER = [0.35, 0.35, 0.1, 0, 0.15, 0.25];
+
+function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+function esc(s) { return String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]); }
+
+function keyEl(kc, held) {
+  const d = describe(kc);
+  const k = el("div", "key " + (held ? "held" : d.cls));
+  k.title = kc;
+  if (held) {
+    k.append(el("span", "g sm", "holding"), el("span", "s", "this thumb"));
+    return k;
+  }
+  if (d.sh) k.append(el("span", "sh", esc(d.sh)));
+  if (d.g) k.append(el("span", "g" + (d.small ? " sm" : ""), esc(d.g)));
+  if (d.s) k.append(el("span", "s", esc(d.s)));
+  if (!d.g && !d.s && d.cls === "trns") k.setAttribute("aria-label", "transparent");
+  return k;
+}
+
+function render() {
+  const nav = document.getElementById("nav"), main = document.getElementById("layers");
+  for (const [group, ids] of ORDER) {
+    nav.append(el("span", "grp", group));
+    main.append(el("h3", "group-title", group));
+    for (const id of ids) {
+      const meta = META[id], layer = LAYERS[id];
+      const a = el("a", "", `<span class="n">${id}</span>${esc(meta.name)}`); a.href = "#layer" + id; nav.append(a);
+
+      const sec = el("section", "layer"); sec.id = "layer" + id;
+      const lh = el("div", "lh");
+      lh.append(el("h2", "", esc(meta.name)), el("span", "idx", "VIA layer " + id), el("span", "reach", meta.reach));
+      sec.append(lh);
+
+      const heldPos = meta.from && !meta.toggle ? meta.from.slice(1).join(",") : null;
+      const board = el("div", "board");
+      for (const side of ["left", "right"]) {
+        const half = el("div", "half " + side), grid = el("div", "grid");
+        POS[side].rows.forEach(row => row.forEach(([r, c], i) => {
+          const k = keyEl(layer[idx(r, c)], false);
+          const col = side === "left" ? i : 5 - i;
+          k.style.transform = `translateY(calc(var(--k) * ${STAGGER[col]}))`;
+          grid.append(k);
+        }));
+        const thumbs = el("div", "thumbs");
+        POS[side].thumbs.forEach(([r, c]) => thumbs.append(keyEl(layer[idx(r, c)], heldPos === `${r},${c}`)));
+        half.append(grid, thumbs);
+        board.append(half);
+      }
+      sec.append(board);
+      if (NOTES[id]) sec.append(el("p", "note", esc(NOTES[id])));
+      main.append(sec);
+    }
+  }
+
+  const legend = document.getElementById("legend");
+  [["letter", "Letter"], ["num", "Number row / accents"], ["sym", "Symbol"], ["mod", "Modifier"], ["nav", "Navigation & media"],
+   ["short", "Shortcut"], ["mouse", "Trackball & mouse"], ["layer", "Layer key"], ["held", "Thumb you hold"], ["trns", "Transparent"]]
+    .forEach(([c, label]) => {
+      const s = el("span"); const i = el("i", "key " + c); i.style.cssText = "width:.95rem;height:.95rem;padding:0;transform:none";
+      s.append(i, document.createTextNode(label)); legend.append(s);
+    });
+}
+render();
+</script>
