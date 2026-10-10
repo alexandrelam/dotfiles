@@ -20,9 +20,12 @@ ALIASES = {
     "KC_QUOTE": "KC_QUOT", "KC_COMMA": "KC_COMM", "KC_SLASH": "KC_SLSH", "KC_NONUS_BSLASH": "KC_NUBS",
     "KC_LCTRL": "KC_LCTL", "KC_LSHIFT": "KC_LSFT", "KC_RCTRL": "KC_RCTL", "KC_RSHIFT": "KC_RSFT", "KC_AUDIO_VOL_UP": "KC_VOLU", "KC_AUDIO_VOL_DOWN": "KC_VOLD",
     "KC_BTN1": "KC_MS_BTN1", "KC_BTN2": "KC_MS_BTN2", "KC_BTN3": "KC_MS_BTN3",
-    "KC_TRANSPARENT": "KC_TRNS",
+    "KC_TRANSPARENT": "KC_TRNS", "KC_NUMLOCK": "KC_NUM",
+    "KC_KP_SLASH": "KC_PSLS", "KC_KP_ASTERISK": "KC_PAST", "KC_KP_MINUS": "KC_PMNS", "KC_KP_PLUS": "KC_PPLS",
+    "KC_KP_ENTER": "KC_PENT", "KC_KP_DOT": "KC_PDOT",
+    **{f"KC_KP_{n}": f"KC_P{n}" for n in range(10)},
 }
-LAYER_COUNT = 5
+LAYER_COUNT = 6
 # Vial custom keycodes, in the order of vial/vial.json "customKeycodes"
 FIRMWARE_KEYS = ["VOICE", "APP_SW", "DEL_WRD", "NAV_BCK", "NAV_FWD", "SCRNSHT",
                  "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5"]

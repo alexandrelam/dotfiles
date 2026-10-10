@@ -92,7 +92,8 @@ section.layer { background: var(--plate); border: 1px solid var(--line); border-
 .lh .reach { font-size: 0.9rem; color: var(--muted); flex-basis: 100%; }
 .lh .reach b { color: var(--ink); font-weight: 700; }
 
-.board { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem 3rem; overflow-x: auto; }
+/* bottom padding holds the thumb keys, which are shifted down to show the thumb arc */
+.board { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem 3rem; overflow-x: auto; padding-bottom: calc(var(--k) * 0.45); }
 .half { display: flex; flex-direction: column; gap: 0.9rem; }
 .grid { display: grid; grid-template-columns: repeat(6, var(--k)); gap: var(--gap); padding-bottom: calc(var(--k) * 0.4); }
 .thumbs { display: flex; gap: var(--gap); }
@@ -145,20 +146,21 @@ footer p { margin: 0; max-width: 70ch; }
 </div>
 
 <script>
-const LAYERS = [["KC_MS_BTN2", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_MS_BTN1", "LSFT_T(KC_A)", "LCTL_T(KC_S)", "LALT_T(KC_D)", "LGUI_T(KC_F)", "KC_G", "CUSTOM(6)", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(2)", "KC_NO", "LT1(KC_MS_BTN1)", "KC_SPC", "KC_NO", "KC_MS_BTN2", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", "KC_MS_BTN1", "KC_SCLN", "KC_L", "KC_K", "KC_J", "KC_H", "CUSTOM(6)", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(3)", "KC_NO", "MO(4)", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LCTL)", "OSM(MOD_LALT)", "OSM(MOD_LGUI)", "KC_ENT", "KC_TRNS", "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5", "KC_NO", "VOICE", "KC_NO", "KC_TRNS", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Z)", "NAV_BCK", "NAV_FWD", "SGUI(KC_T)", "LGUI(KC_T)", "KC_TRNS", "KC_LSFT", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "CUSTOM(6)", "KC_TRNS", "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5", "KC_NO", "KC_TRNS", "KC_NO", "CUSTOM(6)", "KC_MS_BTN1", "KC_NO", "KC_VOLU", "KC_VOLD", "CUSTOM(3)", "CUSTOM(2)", "CUSTOM(1)", "CUSTOM(0)", "KC_BRIU", "KC_BRID", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "VOICE", "KC_TRNS", "KC_NO", "KC_NO", "KC_MS_BTN3", "CUSTOM(5)", "CUSTOM(7)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_F1", "KC_F2", "KC_F3", "KC_F4", "KC_F5", "KC_TRNS", "KC_F6", "KC_F7", "KC_F8", "KC_F9", "KC_F10", "KC_TRNS", "KC_F11", "KC_F12", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_VOLD", "KC_VOLU", "KC_UP", "KC_MINS", "KC_5", "KC_TRNS", "KC_BRID", "KC_RGHT", "KC_DOWN", "KC_LEFT", "RALT(KC_5)", "KC_TRNS", "KC_NUBS", "KC_BRIU", "RALT(KC_MINS)", "RALT(KC_EQL)", "RALT(KC_4)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Q)", "LGUI(KC_W)", "LSFT(KC_Q)", "SGUI(KC_F)", "LGUI(KC_T)", "KC_TRNS", "APP_SW", "LGUI(KC_S)", "LGUI(KC_D)", "LGUI(KC_F)", "SCRNSHT", "KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_X)", "LGUI(KC_C)", "LGUI(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "DEL_WRD", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"]];
+const LAYERS = [["KC_MS_BTN2", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "CUSTOM(6)", "LSFT_T(KC_A)", "LCTL_T(KC_S)", "LALT_T(KC_D)", "LGUI_T(KC_F)", "KC_G", "KC_MS_BTN1", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(2)", "KC_NO", "LT1(KC_MS_BTN1)", "LT0(KC_SPC)", "KC_NO", "KC_MS_BTN2", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", "CUSTOM(6)", "LSFT_T(KC_SCLN)", "LCTL_T(KC_L)", "LALT_T(KC_K)", "LGUI_T(KC_J)", "KC_H", "KC_MS_BTN1", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(3)", "KC_NO", "LT4(KC_MS_BTN1)", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LCTL)", "OSM(MOD_LALT)", "OSM(MOD_LGUI)", "KC_ENT", "KC_TRNS", "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5", "KC_NO", "VOICE", "KC_NO", "KC_TRNS", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Z)", "NAV_BCK", "NAV_FWD", "SGUI(KC_T)", "LGUI(KC_T)", "KC_TRNS", "KC_LSFT", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "CUSTOM(6)", "KC_TRNS", "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5", "KC_NO", "KC_TRNS", "KC_NO", "KC_MS_BTN1", "CUSTOM(6)", "KC_NO", "KC_VOLU", "KC_VOLD", "CUSTOM(3)", "CUSTOM(2)", "CUSTOM(1)", "CUSTOM(0)", "KC_BRIU", "KC_BRID", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "VOICE", "KC_TRNS", "KC_NO", "KC_NO", "KC_MS_BTN3", "CUSTOM(5)", "CUSTOM(7)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_F1", "KC_F2", "KC_F3", "KC_F4", "KC_F5", "KC_TRNS", "KC_F6", "KC_F7", "KC_F8", "KC_F9", "KC_F10", "KC_TRNS", "KC_F11", "KC_F12", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_VOLD", "KC_VOLU", "KC_UP", "KC_MINS", "KC_5", "KC_TRNS", "KC_BRID", "KC_RGHT", "KC_DOWN", "KC_LEFT", "RALT(KC_5)", "KC_TRNS", "KC_NUBS", "KC_BRIU", "RALT(KC_MINS)", "RALT(KC_EQL)", "RALT(KC_4)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Q)", "LGUI(KC_W)", "LSFT(KC_Q)", "SGUI(KC_F)", "LGUI(KC_T)", "KC_TRNS", "APP_SW", "LGUI(KC_S)", "LGUI(KC_D)", "LGUI(KC_F)", "SCRNSHT", "KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_X)", "LGUI(KC_C)", "LGUI(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "DEL_WRD", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_NUM", "KC_PMNS", "KC_P3", "KC_P2", "KC_P1", "KC_PSLS", "KC_BSPC", "KC_PPLS", "KC_P6", "KC_P5", "KC_P4", "KC_PAST", "KC_NO", "KC_PENT", "KC_P9", "KC_P8", "KC_P7", "KC_PDOT", "KC_NO", "KC_P0", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"]];
 
 const META = {
   0: { name: "Base", reach: "Default layer on macOS and Windows." },
   1: { name: "Symbols", reach: "Hold the <b>left outer thumb</b>.", from: [0, 3, 3] },
-  4: { name: "Shortcuts", reach: "Hold the <b>right outer thumb</b>.", from: [0, 7, 3] },
-  3: { name: "Function & navigation", reach: "Hold the <b>right inner thumb</b>.", from: [0, 7, 1] },
+  4: { name: "Shortcuts", key: "Short­cuts", reach: "Hold the <b>right outer thumb</b>.", from: [0, 7, 3] },
+  3: { name: "Function & navigation", key: "Fn & Nav", reach: "Hold the <b>right inner thumb</b>.", from: [0, 7, 1] },
+  5: { name: "Numpad", reach: "Press <b>Right click + A</b> (left top row, outer two keys) together to turn it on, and again to turn it off.", toggle: true },
   2: { name: "Mouse", reach: "Tap the <b>left inner thumb</b> to turn it on, tap again to turn it off.", from: [0, 3, 1], toggle: true },
 };
-const ORDER = [0, 1, 4, 3, 2];
+const ORDER = [0, 1, 4, 3, 2, 5];
 const NOTES = {
   0: {
-    mac: "Home row mods: tap Q S D F for the letter, hold them for Shift, Ctrl, Alt, Cmd. The left outer thumb is Left click on tap and Symbols on hold.",
-    win: "Home row mods: tap Q S D F for the letter, hold them for Shift, Win, Alt, Ctrl. The left outer thumb is Left click on tap and Symbols on hold.",
+    mac: "Home row mods on both hands: hold Q S D F for Shift, Ctrl, Alt, Cmd, and J K L M for Cmd, Alt, Ctrl, Shift. Tap them for the letter. The outer thumbs are Left click on tap; hold the left one for Symbols, the right one for Shortcuts. Hold Space for Right click. Combos: Drag-scroll + Q toggles Caps Lock, Right click + A toggles the numpad.",
+    win: "Home row mods on both hands: hold Q S D F for Shift, Win, Alt, Ctrl, and J K L M for Ctrl, Alt, Win, Shift. Tap them for the letter. The outer thumbs are Left click on tap; hold the left one for Symbols, the right one for Shortcuts. Hold Space for Right click. Combos: Drag-scroll + Q toggles Caps Lock, Right click + A toggles the numpad.",
   },
   1: {
     mac: "One-shot modifiers on the home row: tap one, then the next key gets it. Space 1–5 send Alt+1…5, which yabai uses to switch spaces. The inner thumb double-taps Right Cmd to start voice capture, like H on the mouse layer. The middle thumb is Ctrl.",
@@ -167,6 +169,10 @@ const NOTES = {
   4: {
     mac: "Cmd shortcuts on the left, editing keys on the right.",
     win: "The same shortcuts with Ctrl instead of Cmd. App switch is Alt+Tab, delete word is Ctrl+Backspace, screenshot is Win+Shift+S.",
+  },
+  5: {
+    mac: "Numpad keys on the right hand in phone order (1 2 3 on top), 0 on the right inner thumb. The left hand works as on the base layer.",
+    win: "Numpad keys on the right hand in phone order (1 2 3 on top), 0 on the right inner thumb. The left hand works as on the base layer. If the keys move the cursor instead of typing digits, press Num Lock.",
   },
   2: {
     mac: "The right thumb sits on the trackball, so Left and Right click are under J and L, with drag-scroll on K and Middle click below it. Hold drag-scroll and move the ball to scroll. Space 1–5 on the bottom-left row switch yabai spaces, same as on the symbols layer. The key left of Left click double-taps Right Cmd to start voice capture. Screen brightness down and up sit right of Right click. Volume down and up are just above them.",
@@ -187,12 +193,15 @@ const SHIFTED = { "LSFT(KC_COMM)": ".", "LSFT(KC_M)": "?", "LSFT(KC_DOT)": "/", 
 const ALTGR = { "RALT(KC_5)": "[", "RALT(KC_4)": "{", "RALT(KC_EQL)": "}", "RALT(KC_MINS)": "]" };
 // Same on both systems: [glyph, class, small text]
 const NAMED = {
-  KC_SPC: ["Space", "nav"], KC_ENT: ["Enter", "nav"], KC_TAB: ["Tab", "nav"], KC_BSPC: ["⌫", "nav"],
+  KC_SPC: ["Space", "nav"], "LT0(KC_SPC)": ["Space", "nav", "hold Right click"], KC_ENT: ["Enter", "nav"], KC_TAB: ["Tab", "nav"], KC_BSPC: ["⌫", "nav"],
   KC_ESC: ["Esc", "nav"], KC_DEL: ["Del", "nav"],
   KC_LEFT: ["←", "nav"], KC_RGHT: ["→", "nav"], KC_UP: ["↑", "nav"], KC_DOWN: ["↓", "nav"],
   KC_VOLU: ["Vol +", "nav"], KC_VOLD: ["Vol −", "nav"], KC_BRIU: ["Bright +", "nav"], KC_BRID: ["Bright −", "nav"],
   KC_LSFT: ["⇧ Shift", "mod"], KC_LALT: ["⌥ Alt", "mod"], KC_RALT: ["AltGr", "mod"], KC_RSFT: ["⇧ Shift", "mod"],
   KC_RCTL: ["⌃ Ctrl", "mod"],
+  KC_PSLS: ["/", "num"], KC_PAST: ["*", "num"], KC_PMNS: ["−", "num"], KC_PPLS: ["+", "num"], KC_PDOT: [".", "num"],
+  KC_PENT: ["Enter", "nav"], KC_NUM: ["Num Lock", "nav"],
+  ...Object.fromEntries([...Array(10).keys()].map(n => ["KC_P" + n, [String(n), "num"]])),
   KC_MS_BTN1: ["Left click", "mouse"], KC_MS_BTN2: ["Right click", "mouse"], KC_MS_BTN3: ["Middle click", "mouse"],
   "CUSTOM(0)": ["DPI +", "mouse"], "CUSTOM(1)": ["DPI −", "mouse"],
   "CUSTOM(2)": ["Snipe DPI +", "mouse"], "CUSTOM(3)": ["Snipe DPI −", "mouse"],
@@ -246,7 +255,7 @@ function describe(kc) {
   if (SHIFTED[kc]) return { cls: "sym", g: SHIFTED[kc], s: "⇧ + key" };
   if (ALTGR[kc]) return { cls: "sym", g: ALTGR[kc], s: "AltGr" };
   let m = kc.match(/^MO\((\d)\)$/);
-  if (m) return { cls: "layer", g: META[m[1]].name, s: "hold", small: true };
+  if (m) return { cls: "layer", g: META[m[1]].key || META[m[1]].name, s: "hold", small: true };
   // Tap-hold keys: show the tap output big and the hold action small.
   m = kc.match(/^(LSFT|LCTL|LALT|LGUI)_T\((.+)\)$/);
   if (m) {
@@ -254,7 +263,7 @@ function describe(kc) {
     return { ...tap, s: "hold " + hold[0], tapHold: true };
   }
   m = kc.match(/^LT(\d)\((.+)\)$/);
-  if (m) return { ...describe(m[2]), s: "hold " + META[m[1]].name, tapHold: true, small: true };
+  if (m) return { ...describe(m[2]), s: "hold " + (META[m[1]].key || META[m[1]].name), tapHold: true, small: true };
   m = kc.match(/^KC_F(\d+)$/);
   if (m) return { cls: "nav", g: "F" + m[1], s: "" };
   if (AZ[kc]) {

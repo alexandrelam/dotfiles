@@ -16,6 +16,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "qmk_settings.h"
+#include "dynamic_keymap.h"
 
 enum layers {
     BASE,
@@ -23,6 +24,7 @@ enum layers {
     MOUSE,
     FUNC,
     SHORT,
+    NUM,
 };
 
 // QK_KB_0..7 are the Charybdis pointer keycodes (DPI, sniping, drag-scroll).
@@ -41,13 +43,17 @@ enum custom_keycodes {
     SPC_5,
 };
 
+// Space on tap, right click on hold. LT() to the base layer is only a tap-hold
+// shell: process_record_user turns the hold into the mouse button.
+#define SPC_RCL LT(BASE, KC_SPC)
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
-        MS_BTN2,          KC_Q,             KC_W,             KC_E,             KC_R,             KC_T,               KC_Y,             KC_U,             KC_I,             KC_O,             KC_P,             MS_BTN2,
-        MS_BTN1,          LSFT_T(KC_A),     LCTL_T(KC_S),     LALT_T(KC_D),     LGUI_T(KC_F),     KC_G,               KC_H,             KC_J,             KC_K,             KC_L,             KC_SCLN,          MS_BTN1,
-        DRGSCRL,          KC_Z,             KC_X,             KC_C,             KC_V,             KC_B,               KC_N,             KC_M,             LSFT(KC_COMM),    KC_DOT,           KC_SLSH,          DRGSCRL,
-                                                              LT(SYM, MS_BTN1), KC_SPC,           TG(MOUSE),          MO(FUNC),         MO(SHORT)
+        MS_BTN2,            KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,                 KC_Y,               KC_U,               KC_I,               KC_O,               KC_P,               MS_BTN2,
+        DRGSCRL,            LSFT_T(KC_A),       LCTL_T(KC_S),       LALT_T(KC_D),       LGUI_T(KC_F),       KC_G,                 KC_H,               LGUI_T(KC_J),       LALT_T(KC_K),       LCTL_T(KC_L),       LSFT_T(KC_SCLN),    DRGSCRL,
+        MS_BTN1,            KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,                 KC_N,               KC_M,               LSFT(KC_COMM),      KC_DOT,             KC_SLSH,            MS_BTN1,
+                                                                    LT(SYM, MS_BTN1),   SPC_RCL,            TG(MOUSE),            MO(FUNC),           LT(SHORT, MS_BTN1)
     ),
     [SYM] = LAYOUT(
         _______,       KC_1,          KC_2,          KC_3,          KC_4,          KC_5,            KC_6,          KC_7,          KC_8,          KC_9,          KC_0,          _______,
@@ -59,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    LGUI(KC_Z), NAV_BCK,    NAV_FWD,    SGUI(KC_T), LGUI(KC_T),   DPI_MOD,    DPI_RMOD,   S_D_MOD,    S_D_RMOD,   KC_VOLD,    KC_VOLU,
         _______,    KC_LSFT,    MS_BTN2,    DRGSCRL,    MS_BTN1,    DRGSCRL,      VOICE,      MS_BTN1,    DRGSCRL,    MS_BTN2,    KC_BRID,    KC_BRIU,
         _______,    SPC_1,      SPC_2,      SPC_3,      SPC_4,      SPC_5,        DRG_TOG,    SNP_TOG,    MS_BTN3,    XXXXXXX,    XXXXXXX,    _______,
-                                            DRGSCRL,    MS_BTN1,    _______,      _______,    _______
+                                            MS_BTN1,    DRGSCRL,    _______,      _______,    _______
     ),
     [FUNC] = LAYOUT(
         _______,       KC_F1,         KC_F2,         KC_F3,         KC_F4,         KC_F5,           KC_5,          KC_MINS,       KC_UP,         KC_VOLU,       KC_VOLD,       _______,
@@ -72,6 +78,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,       APP_SW,        LGUI(KC_S),    LGUI(KC_D),    LGUI(KC_F),    SCRNSHT,         KC_TAB,        KC_BSPC,       DEL_WRD,       KC_ESC,        KC_ENT,        _______,
         _______,       LGUI(KC_Z),    LGUI(KC_X),    LGUI(KC_C),    LGUI(KC_V),    LSFT(KC_I),      KC_QUOT,       LSFT(KC_M),    KC_COMM,       LSFT(KC_DOT),  LSFT(KC_SLSH), _______,
                                                      KC_LSFT,       KC_RCTL,       _______,         KC_LGUI,       _______
+    ),
+    [NUM] = LAYOUT(
+        _______, _______, _______, _______, _______, _______,   KC_PSLS, KC_P1,   KC_P2,   KC_P3,   KC_PMNS, KC_NUM,
+        _______, _______, _______, _______, _______, _______,   KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_BSPC,
+        _______, _______, _______, _______, _______, _______,   KC_PDOT, KC_P7,   KC_P8,   KC_P9,   KC_PENT, XXXXXXX,
+                                   _______, _______, _______,   KC_P0,   _______
     ),
 };
 // clang-format on
@@ -100,6 +112,26 @@ static void apply_tap_hold_defaults(void) {
     qmk_settings_set(27, &flow_tap_term, sizeof(flow_tap_term));
 }
 
+// Default combos, using base layer keycodes (letters as typed on AZERTY):
+//   drag-scroll + Q (left home row, outer two keys) toggles Caps Lock
+//   right click + A (left top row, outer two keys) toggles the numpad layer;
+//   both keys are transparent on the numpad layer, so the combo also turns it off
+// Vial stores combos on the keyboard and every flash clears them, so add these
+// only when no combo is set. Edit or delete them in Vial's Combos tab.
+static void apply_default_combos(void) {
+    for (uint8_t i = 0; i < VIAL_COMBO_ENTRIES; i++) {
+        vial_combo_entry_t entry;
+        if (dynamic_keymap_get_combo(i, &entry) != 0 || entry.output != KC_NO) {
+            return;
+        }
+    }
+    const vial_combo_entry_t caps_lock = {.input = {DRGSCRL, LSFT_T(KC_A), KC_NO, KC_NO}, .output = KC_CAPS};
+    const vial_combo_entry_t numpad    = {.input = {MS_BTN2, KC_Q, KC_NO, KC_NO}, .output = TG(NUM)};
+    dynamic_keymap_set_combo(0, &caps_lock);
+    dynamic_keymap_set_combo(1, &numpad);
+    vial_init(); // reload combos from the keyboard memory
+}
+
 void keyboard_post_init_user(void) {
     // The old Mac/Linux layout saved its default layer with PDF(); there is only
     // one base layer now, so always start on it and clear any old saved value.
@@ -110,6 +142,7 @@ void keyboard_post_init_user(void) {
     default_layer_set(base);
 
     apply_tap_hold_defaults();
+    apply_default_combos();
 }
 
 static bool is_windows(void) {
@@ -155,6 +188,16 @@ static uint16_t os_key_held[SPC_5 - APP_SW + 1];
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case SPC_RCL:
+            if (!record->tap.count) {
+                if (record->event.pressed) {
+                    register_code(MS_BTN2);
+                } else {
+                    unregister_code(MS_BTN2);
+                }
+                return false;
+            }
+            return true;
         case VOICE:
             if (record->event.pressed && !is_windows()) {
                 tap_code_delay(KC_RGUI, 30);
