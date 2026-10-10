@@ -15,6 +15,7 @@
  * Live edits made in Vial are stored on the keyboard, not here.
  */
 #include QMK_KEYBOARD_H
+#include "qmk_settings.h"
 
 enum layers {
     BASE,
@@ -38,17 +39,15 @@ enum custom_keycodes {
     SPC_3,
     SPC_4,
     SPC_5,
-    OS_MAC, // force macOS mode until the next plug-in
-    OS_WIN, // force Windows mode until the next plug-in
 };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
-        MS_BTN2,       KC_Q,          KC_W,          KC_E,          KC_R,          KC_T,            KC_Y,          KC_U,          KC_I,          KC_O,          KC_P,          MS_BTN2,
-        MS_BTN1,       KC_A,          KC_S,          KC_D,          KC_F,          KC_G,            KC_H,          KC_J,          KC_K,          KC_L,          KC_SCLN,       MS_BTN1,
-        DRGSCRL,       KC_Z,          KC_X,          KC_C,          KC_V,          KC_B,            KC_N,          KC_M,          LSFT(KC_COMM), KC_DOT,        KC_SLSH,       DRGSCRL,
-                                                     MO(SYM),       KC_SPC,        TG(MOUSE),       MO(FUNC),      MO(SHORT)
+        MS_BTN2,          KC_Q,             KC_W,             KC_E,             KC_R,             KC_T,               KC_Y,             KC_U,             KC_I,             KC_O,             KC_P,             MS_BTN2,
+        MS_BTN1,          LSFT_T(KC_A),     LCTL_T(KC_S),     LALT_T(KC_D),     LGUI_T(KC_F),     KC_G,               KC_H,             KC_J,             KC_K,             KC_L,             KC_SCLN,          MS_BTN1,
+        DRGSCRL,          KC_Z,             KC_X,             KC_C,             KC_V,             KC_B,               KC_N,             KC_M,             LSFT(KC_COMM),    KC_DOT,           KC_SLSH,          DRGSCRL,
+                                                              LT(SYM, MS_BTN1), KC_SPC,           TG(MOUSE),          MO(FUNC),         MO(SHORT)
     ),
     [SYM] = LAYOUT(
         _______,       KC_1,          KC_2,          KC_3,          KC_4,          KC_5,            KC_6,          KC_7,          KC_8,          KC_9,          KC_0,          _______,
@@ -65,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [FUNC] = LAYOUT(
         _______,       KC_F1,         KC_F2,         KC_F3,         KC_F4,         KC_F5,           KC_5,          KC_MINS,       KC_UP,         KC_VOLU,       KC_VOLD,       _______,
         _______,       KC_F6,         KC_F7,         KC_F8,         KC_F9,         KC_F10,          RALT(KC_5),    KC_LEFT,       KC_DOWN,       KC_RGHT,       KC_BRID,       _______,
-        _______,       KC_F11,        KC_F12,        OS_MAC,        OS_WIN,        XXXXXXX,         RALT(KC_4),    RALT(KC_EQL),  RALT(KC_MINS), KC_BRIU,       KC_NUBS,       _______,
+        _______,       KC_F11,        KC_F12,        XXXXXXX,       XXXXXXX,       XXXXXXX,         RALT(KC_4),    RALT(KC_EQL),  RALT(KC_MINS), KC_BRIU,       KC_NUBS,       _______,
                                                      KC_LSFT,       KC_RCTL,       _______,         _______,       _______
     ),
     [SHORT] = LAYOUT(
@@ -77,14 +76,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-// The old Mac/Linux layout saved its default layer with PDF(); there is only
-// one base layer now, so always start on it and clear any old saved value.
+// Chordal Hold "hands": rows 0-3 are the left half, 4-7 the right half.
+// Thumbs are exempt, so the Symbols thumb works with keys on its own hand.
+char chordal_hold_handedness(keypos_t key) {
+    if (key.row == 3 || key.row == 7) {
+        return '*';
+    }
+    return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
+}
+
+// Tap-hold settings for the home row mods and the click/Symbols thumb. They live
+// in Vial's "QMK Settings" tab, which every flash resets to all-off. Apply these
+// only while the settings are still at that factory state, so changes made in
+// Vial are kept.
+static void apply_tap_hold_defaults(void) {
+    if (QS.tapping_v2 != 0 || QS.flow_tap_term != 0) {
+        return;
+    }
+    const uint8_t  on            = 1;
+    const uint16_t flow_tap_term = 150; // fast typing never triggers a home row mod
+    qmk_settings_set(22, &on, sizeof(on)); // Permissive Hold: hold + tap another key = hold
+    qmk_settings_set(26, &on, sizeof(on)); // Chordal Hold: home row mod + same-hand key = letters
+    qmk_settings_set(27, &flow_tap_term, sizeof(flow_tap_term));
+}
+
 void keyboard_post_init_user(void) {
+    // The old Mac/Linux layout saved its default layer with PDF(); there is only
+    // one base layer now, so always start on it and clear any old saved value.
     const layer_state_t base = (layer_state_t)1 << BASE;
     if (eeconfig_read_default_layer() != base) {
         eeconfig_update_default_layer(base);
     }
     default_layer_set(base);
+
+    apply_tap_hold_defaults();
 }
 
 static bool is_windows(void) {
@@ -135,12 +160,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code_delay(KC_RGUI, 30);
                 wait_ms(100);
                 tap_code_delay(KC_RGUI, 30);
-            }
-            return false;
-        case OS_MAC:
-        case OS_WIN:
-            if (record->event.pressed) {
-                set_windows(keycode == OS_WIN);
             }
             return false;
         case APP_SW ... SPC_5: {

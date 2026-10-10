@@ -23,7 +23,8 @@ The keyboard detects the OS when you plug it in (QMK OS detection):
 - **macOS:** keys work as written (Cmd shortcuts).
 - **Windows (and Linux):** left Ctrl and left Cmd/Win swap, so ⌘C becomes Ctrl+C. A few OS-aware keys change too: app switch (Alt+Tab), delete word (Ctrl+Backspace), back/forward (Alt+←/→), screenshot (Win+Shift+S), and the Space 1–5 keys become Win / Tab / Alt. Voice capture does nothing on Windows.
 - The thumb Ctrl keys are the real Ctrl on both systems.
-- If the detection is wrong, **OS Mac** / **OS Win** on the function layer force a mode until the next plug-in.
+
+**Home row mods:** on the base layer, Q S D F (AZERTY) type the letter on tap and act as Shift / Ctrl / Alt / Cmd on hold (Ctrl and Cmd swap on Windows). The left outer thumb is Left click on tap and Symbols on hold. Permissive Hold, Chordal Hold and Flow Tap (150 ms) are turned on in Vial's QMK Settings by the firmware; tune them there. With Chordal Hold, a home row mod plus a key on the same hand gives letters unless you hold the mod longer than the tapping term (200 ms).
 
 ### Get the firmware
 

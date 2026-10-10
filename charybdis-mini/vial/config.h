@@ -17,3 +17,4 @@
 // OS detection: macOS on Apple Silicon can re-report long after plug-in;
 // only act on the first stable result.
 #define OS_DETECTION_SINGLE_REPORT
+
