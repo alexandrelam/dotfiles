@@ -6,3 +6,6 @@ COMBO_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 KEY_OVERRIDE_ENABLE = yes
 QMK_SETTINGS = yes
+
+# Detect macOS / Windows on plug-in to swap Ctrl and Cmd (see keymap.c).
+OS_DETECTION_ENABLE = yes

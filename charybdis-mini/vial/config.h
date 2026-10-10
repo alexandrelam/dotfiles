@@ -12,4 +12,8 @@
 #define USB_VBUS_PIN GP19
 
 #undef DYNAMIC_KEYMAP_LAYER_COUNT
-#define DYNAMIC_KEYMAP_LAYER_COUNT 8
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
+
+// OS detection: macOS on Apple Silicon can re-report long after plug-in;
+// only act on the first stable result.
+#define OS_DETECTION_SINGLE_REPORT

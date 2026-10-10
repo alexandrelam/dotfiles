@@ -13,7 +13,19 @@
     { "name": "SNP_TOG", "title": "Sniping mode toggle", "shortName": "SnipeTog" },
     { "name": "DRGSCRL", "title": "Drag-scroll (hold)", "shortName": "DragScr" },
     { "name": "DRG_TOG", "title": "Drag-scroll toggle", "shortName": "DragTog" },
-    { "name": "VOICE", "title": "Voice capture (double-tap Right GUI)", "shortName": "Voice" }
+    { "name": "VOICE", "title": "Voice capture: double-tap Right Cmd (Mac only)", "shortName": "Voice" },
+    { "name": "APP_SW", "title": "App switch: Cmd+Tab (Mac) / Alt+Tab (Windows)", "shortName": "AppSw" },
+    { "name": "DEL_WRD", "title": "Delete word: Alt+Bksp (Mac) / Ctrl+Bksp (Windows)", "shortName": "DelWrd" },
+    { "name": "NAV_BCK", "title": "Back: Cmd+Left (Mac) / Alt+Left (Windows)", "shortName": "Back" },
+    { "name": "NAV_FWD", "title": "Forward: Cmd+Right (Mac) / Alt+Right (Windows)", "shortName": "Fwd" },
+    { "name": "SCRNSHT", "title": "Screenshot: Cmd+Shift+4 (Mac) / Win+Shift+S (Windows)", "shortName": "Shot" },
+    { "name": "SPC_1", "title": "Space 1: Alt+1 (Mac) / nothing (Windows)", "shortName": "Spc1" },
+    { "name": "SPC_2", "title": "Space 2: Alt+2 (Mac) / Win (Windows)", "shortName": "Spc2" },
+    { "name": "SPC_3", "title": "Space 3: Alt+3 (Mac) / Tab (Windows)", "shortName": "Spc3" },
+    { "name": "SPC_4", "title": "Space 4: Alt+4 (Mac) / Alt (Windows)", "shortName": "Spc4" },
+    { "name": "SPC_5", "title": "Space 5: Alt+5 (Mac) / nothing (Windows)", "shortName": "Spc5" },
+    { "name": "OS_MAC", "title": "Force macOS mode (until next plug-in)", "shortName": "OS Mac" },
+    { "name": "OS_WIN", "title": "Force Windows mode (until next plug-in)", "shortName": "OS Win" }
   ],
   "layouts": {
     "keymap": [

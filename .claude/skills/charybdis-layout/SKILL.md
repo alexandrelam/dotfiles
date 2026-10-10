@@ -18,14 +18,19 @@ The user writes in simple English (not their first language). Answer in simple E
 
 | Path | Role |
 | --- | --- |
-| `charybdis-mini/vial/keymap.c` | Default layout compiled into the firmware. Only used after an EEPROM reset (see below). |
-| `charybdis-mini/vial/config.h`, `rules.mk`, `vial.json` | Vial settings, unlock combo, layer count (8), custom keycodes. |
+| `charybdis-mini/vial/keymap.c` | Layout compiled into the firmware. Every flash of a new build loads it onto the keyboard (see below). |
+| `charybdis-mini/vial/config.h`, `rules.mk`, `vial.json` | Vial settings, unlock combo, layer count (5), OS detection, custom keycodes. |
 | `charybdis-mini/vial/layout.vil` | Backup of the live layout, saved from Vial (File > Save current layout). Source of truth for what is on the keyboard. |
-| `charybdis-mini/layers.html` | Reference page. Its `LAYERS` line is generated; `META`, `NOTES`, `NAMED`, `SHORTCUTS` are written by hand. |
-| `charybdis-mini/update_layers.py` | Rewrites the `LAYERS` line from a `.vil` (or the old VIA `.json`). |
+| `charybdis-mini/layers.html` | Reference page with a macOS / Windows switch. Its `LAYERS` line is generated; `META`, `NOTES` (per OS), `NAMED`, `BY_OS`, `SHORTCUTS` are written by hand. |
+| `charybdis-mini/update_layers.py` | Rewrites the `LAYERS` line (first 5 layers) from a `.vil`. |
 | `charybdis-mini/via/charybdis_mini_alexandre.via.json` | Old VIA layout, to go back to stock VIA firmware. Don't edit. |
 
-Layers: 0 Mac base · 1 Linux base (also Windows) · 2 Mac symbols · 3 Mouse (`TG`) · 4 Function & nav · 5 Mac shortcuts · 6 Linux symbols · 7 Linux shortcuts. Custom keycodes: `QK_KB_0..7` = Charybdis pointer keys (`DPI_MOD`, `DPI_RMOD`, `S_D_MOD`, `S_D_RMOD`, `SNIPING`, `SNP_TOG`, `DRGSCRL`, `DRG_TOG`), `QK_KB_8` = `VOICE` (double-tap Right GUI). In `.vil` files they appear as `USER00`..`USER08`.
+Layers (one set for both systems): 0 Base · 1 Symbols (hold left outer thumb) · 2 Mouse (`TG`, left inner thumb) · 3 Function & nav (hold right inner thumb) · 4 Shortcuts (hold right outer thumb). Vial has exactly 5 layer slots (`DYNAMIC_KEYMAP_LAYER_COUNT` in `config.h`); raise it to add a layer.
+
+**macOS / Windows:** QMK OS detection runs on plug-in (`process_detected_host_os_user` in `keymap.c`). Windows/Linux mode = `keymap_config.swap_lctl_lgui` on, so every *left* `LCTL`/`LGUI` (plain, in `LGUI(kc)` shortcuts, in `OSM`) swaps. Right mods (`KC_RCTL`, `KC_RALT`) never swap: use `KC_RCTL` for a Ctrl that must stay Ctrl on both systems (the thumb Ctrls do). Design layouts in Mac terms (Cmd = `LGUI`); Windows follows. For a shortcut a swap can't translate, add an OS-aware key in `os_key()` instead of a separate layer.
+
+Custom keycodes (order must match `vial.json` "customKeycodes"; in `.vil` they are `USER00`.., and `update_layers.py` maps them back):
+`QK_KB_0..7` Charybdis pointer keys (`DPI_MOD`, `DPI_RMOD`, `S_D_MOD`, `S_D_RMOD`, `SNIPING`, `SNP_TOG`, `DRGSCRL`, `DRG_TOG`) · `VOICE` (Mac: double-tap Right Cmd; Windows: nothing) · `APP_SW` (Cmd+Tab / Alt+Tab) · `DEL_WRD` (Alt+Bksp / Ctrl+Bksp) · `NAV_BCK` `NAV_FWD` (Cmd+←/→ / Alt+←/→) · `SCRNSHT` (Cmd+Shift+4 / Win+Shift+S) · `SPC_1..5` (Alt+1..5 for yabai / Windows: –, Win, Tab, Alt, –) · `OS_MAC` `OS_WIN` (force a mode until next plug-in). New custom keys go at the end of the enum, `vial.json`, `FIRMWARE_KEYS` in `update_layers.py`, and `BY_OS`/`NAMED` in `layers.html`.
 
 Matrix: 8 rows × 6 cols. Rows 0–3 left half, 4–7 right half; col 0 is the outer (pinky) column on both halves. Thumbs: left `[3,3]` outer (layer hold), `[3,4]` middle (Space), `[3,1]` inner (TG mouse); right `[7,1]` inner (MO func), `[7,3]` outer (MO shortcuts). In `keymap.c` the `LAYOUT()` order per row is left col 0→5, then right col 5→0, then thumbs `L33, L34, L31, R31, R33`.
 
@@ -45,7 +50,7 @@ You can't drive Vial yourself; guide the user:
 4. Refresh the page: `python charybdis-mini/update_layers.py charybdis-mini/vial/layout.vil`.
 5. If the meaning of a layer or key changed, also update the hand-written parts of `layers.html` (`META` reach text, `NOTES`, and add labels to `NAMED`/`SHORTCUTS` for new keycodes so they don't render as raw codes). If `update_layers.py` meets a new Vial long name (e.g. `KC_AUDIO_MUTE`), add it to `ALIASES`.
 6. Check the page renders (open `charybdis-mini/layers.html` in the browser pane, read the keys you changed).
-7. Optional but good: mirror the change into `vial/keymap.c` so a future EEPROM reset gives the same layout.
+7. Mirror the change into `vial/keymap.c` (and `layers.html` data) — the next flash replaces the live layout with `keymap.c`, so anything only in Vial is lost then.
 8. Commit only when the user asks.
 
 ### Path B — code change, build and flash
@@ -61,7 +66,7 @@ You can't drive Vial yourself; guide the user:
    & C:\Users\alexa\Documents\dotfiles\.claude\skills\charybdis-layout\scripts\flash.ps1
    ```
    User steps: USB in the right half → press its reset button twice quickly (hole in the bottom plate) → red light → the watcher copies the file. Usually only the right half needs flashing. Flash both halves (same file, one at a time, USB in the half being flashed, cable between halves unplugged first) when the vial-qmk version changed or the halves act strange.
-4. **Important — flashing does not replace the live layout.** Vial keeps the keymap stored on the keyboard, so `keymap.c` edits only show after an EEPROM reset. Easiest is bootmagic: unplug, hold the top-right outer key of the right half, plug in (this clears the EEPROM and opens the bootloader, so flash right after). An `EE_CLR` key also works. A reset also wipes Vial combos/tap dance/macros and DPI. Before resetting, have the user save a `.vil` so they can load it back (File > Load saved layout).
+4. **Important — every flash resets the live Vial layout.** vial-qmk gives each build a random `BUILD_ID` (`util/build_id.py`); when the keyboard sees a new one it reloads the keymap from `keymap.c` and clears Vial combos, tap dance, key overrides and macros. So before flashing: make sure every live Vial change is already in `keymap.c`, or have the user save a `.vil` first and load it back afterwards (File > Load saved layout). The Ctrl/Cmd swap and DPI are stored elsewhere and survive.
 
 ## Troubleshooting
 

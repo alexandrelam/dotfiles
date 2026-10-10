@@ -17,10 +17,13 @@ The OS keyboard layout is French AZERTY (PC), so the keycodes and the printed le
 Vial is VIA plus more QMK features that you can change live, without building again:
 combos, tap dance, key overrides, and timing settings (tapping term and others in "QMK Settings").
 
-The Vial keymap is the same as the VIA layout, with two fixes:
+The Vial keymap has one set of five layers for macOS and Windows: base, symbols, mouse, function, shortcuts.
+The keyboard detects the OS when you plug it in (QMK OS detection):
 
-- The base layer keys on the function layer are `PDF(0)` / `PDF(1)`, so the keyboard remembers Mac or Linux after unplugging.
-- Voice capture is a firmware key (`VOICE`), not a macro.
+- **macOS:** keys work as written (Cmd shortcuts).
+- **Windows (and Linux):** left Ctrl and left Cmd/Win swap, so ⌘C becomes Ctrl+C. A few OS-aware keys change too: app switch (Alt+Tab), delete word (Ctrl+Backspace), back/forward (Alt+←/→), screenshot (Win+Shift+S), and the Space 1–5 keys become Win / Tab / Alt. Voice capture does nothing on Windows.
+- The thumb Ctrl keys are the real Ctrl on both systems.
+- If the detection is wrong, **OS Mac** / **OS Win** on the function layer force a mode until the next plug-in.
 
 ### Get the firmware
 

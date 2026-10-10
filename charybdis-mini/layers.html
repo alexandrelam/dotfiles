@@ -75,6 +75,10 @@ nav a:hover, nav a:focus-visible { border-color: var(--accent); outline: none; }
 nav a .n { font-family: var(--f-mono); color: var(--muted); font-size: 0.75rem; }
 nav .grp { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); align-self: center; padding-inline: 0.3rem 0.1rem; }
 
+.os { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem; background: var(--plate); align-self: flex-start; gap: 0.2rem; }
+.os button { font: inherit; font-size: 0.9rem; border: 0; border-radius: 999px; padding: 0.3rem 0.9rem; background: transparent; color: var(--ink); cursor: pointer; }
+.os button[aria-pressed="true"] { background: var(--accent); color: var(--c-layer-ink); }
+.os button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; font-size: 0.85rem; color: var(--muted); }
 .legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
 .legend i { width: 0.95rem; height: 0.95rem; border-radius: 0.25rem; border: 1px solid var(--cap-edge); display: inline-block; }
@@ -126,7 +130,9 @@ footer p { margin: 0; max-width: 70ch; }
 <div class="wrap">
   <header>
     <h1>Charybdis Mini layers</h1>
-    <p class="lede">Every key on all eight layers, labelled with the character it actually types. Labels assume the OS keyboard layout is <b>French AZERTY (PC)</b>, so the sent keycode (small text) differs from the printed glyph. A small corner symbol shows the Shift output.</p>
+    <p class="lede">Every key on all five layers, labelled with the character it actually types. Labels assume the OS keyboard layout is <b>French AZERTY (PC)</b>, so the sent keycode (small text) differs from the printed glyph. A small corner symbol shows the Shift output.</p>
+    <p class="lede">The keyboard detects macOS or Windows when you plug it in. On Windows, Cmd and Ctrl swap places and a few shortcuts change. Pick a system to see its labels:</p>
+    <div class="os" id="os" role="group" aria-label="Operating system"><button type="button" data-os="mac">macOS</button><button type="button" data-os="win">Windows</button></div>
     <div class="legend" id="legend"></div>
   </header>
   <nav id="nav" aria-label="Layers"></nav>
@@ -138,24 +144,33 @@ footer p { margin: 0; max-width: 70ch; }
 </div>
 
 <script>
-const LAYERS = [["KC_MS_BTN2", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_MS_BTN1", "KC_A", "KC_S", "KC_D", "KC_F", "KC_G", "CUSTOM(6)", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(3)", "KC_NO", "MO(2)", "KC_SPC", "KC_NO", "KC_MS_BTN2", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", "KC_MS_BTN1", "KC_SCLN", "KC_L", "KC_K", "KC_J", "KC_H", "CUSTOM(6)", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(4)", "KC_NO", "MO(5)", "KC_NO", "KC_NO"], ["KC_MS_BTN2", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_MS_BTN1", "KC_A", "KC_S", "KC_D", "KC_F", "KC_G", "CUSTOM(6)", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(3)", "KC_NO", "MO(6)", "KC_SPC", "KC_NO", "KC_MS_BTN2", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", "KC_MS_BTN1", "KC_SCLN", "KC_L", "KC_K", "KC_J", "KC_H", "CUSTOM(6)", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(4)", "KC_NO", "MO(7)", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LCTL)", "OSM(MOD_LALT)", "OSM(MOD_LGUI)", "KC_ENT", "KC_TRNS", "LALT(KC_1)", "LALT(KC_2)", "LALT(KC_3)", "LALT(KC_4)", "LALT(KC_5)", "KC_NO", "VOICE", "KC_NO", "KC_TRNS", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_LEFT)", "LGUI(KC_RGHT)", "SGUI(KC_T)", "LGUI(KC_T)", "KC_TRNS", "KC_LSFT", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "CUSTOM(6)", "KC_TRNS", "LALT(KC_1)", "LALT(KC_2)", "LALT(KC_3)", "LALT(KC_4)", "LALT(KC_5)", "KC_NO", "KC_TRNS", "KC_NO", "CUSTOM(6)", "KC_MS_BTN1", "KC_NO", "KC_VOLU", "KC_VOLD", "CUSTOM(3)", "CUSTOM(2)", "CUSTOM(1)", "CUSTOM(0)", "KC_BRIU", "KC_BRID", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "VOICE", "KC_TRNS", "KC_NO", "KC_NO", "KC_MS_BTN3", "CUSTOM(5)", "CUSTOM(7)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_F1", "KC_F2", "KC_F3", "KC_F4", "KC_F5", "KC_TRNS", "KC_F6", "KC_F7", "KC_F8", "KC_F9", "KC_F10", "KC_TRNS", "KC_F11", "KC_F12", "PDF(0)", "PDF(1)", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_VOLD", "KC_VOLU", "KC_UP", "KC_MINS", "KC_5", "KC_TRNS", "KC_BRID", "KC_RGHT", "KC_DOWN", "KC_LEFT", "RALT(KC_5)", "KC_TRNS", "KC_NUBS", "KC_BRIU", "RALT(KC_MINS)", "RALT(KC_EQL)", "RALT(KC_4)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Q)", "LGUI(KC_W)", "LSFT(KC_Q)", "SGUI(KC_F)", "LGUI(KC_T)", "KC_TRNS", "LGUI(KC_TAB)", "LGUI(KC_S)", "LGUI(KC_D)", "LGUI(KC_F)", "SGUI(KC_4)", "KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_X)", "LGUI(KC_C)", "LGUI(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "LALT(KC_BSPC)", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LGUI)", "OSM(MOD_LALT)", "OSM(MOD_LCTL)", "KC_ENT", "KC_TRNS", "KC_NO", "KC_LGUI", "KC_TAB", "KC_LALT", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LCTL(KC_Q)", "LCTL(KC_W)", "LSFT(KC_Q)", "LCTL(KC_R)", "LCTL(KC_T)", "KC_TRNS", "LALT(KC_TAB)", "LCTL(KC_S)", "LCTL(KC_D)", "LCTL(KC_F)", "KC_NO", "KC_TRNS", "LCTL(KC_Z)", "LCTL(KC_X)", "LCTL(KC_C)", "LCTL(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LALT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "LCTL(KC_BSPC)", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"]];
+const LAYERS = [["KC_MS_BTN2", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_MS_BTN1", "KC_A", "KC_S", "KC_D", "KC_F", "KC_G", "CUSTOM(6)", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(2)", "KC_NO", "MO(1)", "KC_SPC", "KC_NO", "KC_MS_BTN2", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", "KC_MS_BTN1", "KC_SCLN", "KC_L", "KC_K", "KC_J", "KC_H", "CUSTOM(6)", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(3)", "KC_NO", "MO(4)", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LCTL)", "OSM(MOD_LALT)", "OSM(MOD_LGUI)", "KC_ENT", "KC_TRNS", "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5", "KC_NO", "VOICE", "KC_NO", "KC_TRNS", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Z)", "NAV_BCK", "NAV_FWD", "SGUI(KC_T)", "LGUI(KC_T)", "KC_TRNS", "KC_LSFT", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "CUSTOM(6)", "KC_TRNS", "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5", "KC_NO", "KC_TRNS", "KC_NO", "CUSTOM(6)", "KC_MS_BTN1", "KC_NO", "KC_VOLU", "KC_VOLD", "CUSTOM(3)", "CUSTOM(2)", "CUSTOM(1)", "CUSTOM(0)", "KC_BRIU", "KC_BRID", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "VOICE", "KC_TRNS", "KC_NO", "KC_NO", "KC_MS_BTN3", "CUSTOM(5)", "CUSTOM(7)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_F1", "KC_F2", "KC_F3", "KC_F4", "KC_F5", "KC_TRNS", "KC_F6", "KC_F7", "KC_F8", "KC_F9", "KC_F10", "KC_TRNS", "KC_F11", "KC_F12", "OS_MAC", "OS_WIN", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_VOLD", "KC_VOLU", "KC_UP", "KC_MINS", "KC_5", "KC_TRNS", "KC_BRID", "KC_RGHT", "KC_DOWN", "KC_LEFT", "RALT(KC_5)", "KC_TRNS", "KC_NUBS", "KC_BRIU", "RALT(KC_MINS)", "RALT(KC_EQL)", "RALT(KC_4)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Q)", "LGUI(KC_W)", "LSFT(KC_Q)", "SGUI(KC_F)", "LGUI(KC_T)", "KC_TRNS", "APP_SW", "LGUI(KC_S)", "LGUI(KC_D)", "LGUI(KC_F)", "SCRNSHT", "KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_X)", "LGUI(KC_C)", "LGUI(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "DEL_WRD", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"]];
 
 const META = {
-  0: { name: "Mac base", group: "Mac", reach: "Default layer. <b>PDF(0)</b> on the function layer selects it, and the keyboard remembers it after unplugging." },
-  2: { name: "Mac symbols", group: "Mac", reach: "Hold the <b>left outer thumb</b> on Mac base.", from: [0, 3, 3] },
-  5: { name: "Mac shortcuts", group: "Mac", reach: "Hold the <b>right outer thumb</b> on Mac base.", from: [0, 7, 3] },
-  1: { name: "Linux base", group: "Linux", reach: "Select with <b>PDF(1)</b> on the function layer. It then stays the default, even after unplugging." },
-  6: { name: "Linux symbols", group: "Linux", reach: "Hold the <b>left outer thumb</b> on Linux base.", from: [1, 3, 3] },
-  7: { name: "Linux shortcuts", group: "Linux", reach: "Hold the <b>right outer thumb</b> on Linux base.", from: [1, 7, 3] },
-  4: { name: "Function & navigation", group: "Shared", reach: "Hold the <b>right inner thumb</b> on either base layer.", from: [0, 7, 1] },
-  3: { name: "Mouse", group: "Shared", reach: "Tap the <b>left inner thumb</b> to turn it on, tap again to turn it off.", from: [0, 3, 1], toggle: true },
+  0: { name: "Base", reach: "Default layer on macOS and Windows." },
+  1: { name: "Symbols", reach: "Hold the <b>left outer thumb</b>.", from: [0, 3, 3] },
+  4: { name: "Shortcuts", reach: "Hold the <b>right outer thumb</b>.", from: [0, 7, 3] },
+  3: { name: "Function & navigation", reach: "Hold the <b>right inner thumb</b>.", from: [0, 7, 1] },
+  2: { name: "Mouse", reach: "Tap the <b>left inner thumb</b> to turn it on, tap again to turn it off.", from: [0, 3, 1], toggle: true },
 };
-const ORDER = [["Mac", [0, 2, 5]], ["Shared", [4, 3]], ["Linux", [1, 6, 7]]];
+const ORDER = [0, 1, 4, 3, 2];
 const NOTES = {
-  2: "One-shot modifiers on the home row: tap one, then the next key gets it. Space 1–5 send Alt+1…5, which yabai uses to switch spaces. The inner thumb double-taps Right Cmd to start voice capture, like H on the mouse layer.",
-  6: "Same idea as Mac symbols, with plain Cmd, Tab and Alt on the bottom row instead of space switching.",
-  4: "Shared by Mac and Linux. PDF(0) and PDF(1) pick which base layer is the default, and the keyboard saves the choice.",
-  3: "The right thumb sits on the trackball, so Left and Right click are under J and L, with drag-scroll on K and Middle click below it. Hold drag-scroll and move the ball to scroll. Space 1–5 on the bottom-left row switch yabai spaces, same as on Mac symbols. The key left of Left click double-taps Right Cmd to start voice capture. Screen brightness down and up sit right of Right click. Volume down and up are just above them.",
+  1: {
+    mac: "One-shot modifiers on the home row: tap one, then the next key gets it. Space 1–5 send Alt+1…5, which yabai uses to switch spaces. The inner thumb double-taps Right Cmd to start voice capture, like H on the mouse layer. The middle thumb is Ctrl.",
+    win: "One-shot modifiers on the home row: Win and Ctrl trade places compared to macOS. The bottom row has Win, Tab and Alt: hold Alt and tap Tab to switch windows. Voice capture does nothing on Windows. The middle thumb is still Ctrl.",
+  },
+  4: {
+    mac: "Cmd shortcuts on the left, editing keys on the right.",
+    win: "The same shortcuts with Ctrl instead of Cmd. App switch is Alt+Tab, delete word is Ctrl+Backspace, screenshot is Win+Shift+S.",
+  },
+  3: {
+    mac: "OS Mac and OS Win force a mode if the detection guesses wrong. The keyboard detects the OS again at the next plug-in.",
+    win: "OS Mac and OS Win force a mode if the detection guesses wrong. The keyboard detects the OS again at the next plug-in.",
+  },
+  2: {
+    mac: "The right thumb sits on the trackball, so Left and Right click are under J and L, with drag-scroll on K and Middle click below it. Hold drag-scroll and move the ball to scroll. Space 1–5 on the bottom-left row switch yabai spaces, same as on the symbols layer. The key left of Left click double-taps Right Cmd to start voice capture. Screen brightness down and up sit right of Right click. Volume down and up are just above them.",
+    win: "Same as on macOS, but Back and Forward use Alt+←/→, the bottom-left row is Win, Tab and Alt, and voice capture does nothing.",
+  },
 };
 
 // Output of each keycode on French AZERTY (PC): [glyph, shifted glyph]
@@ -169,57 +184,69 @@ const AZ = {
 };
 const SHIFTED = { "LSFT(KC_COMM)": ".", "LSFT(KC_M)": "?", "LSFT(KC_DOT)": "/", "LSFT(KC_SLSH)": "§" };
 const ALTGR = { "RALT(KC_5)": "[", "RALT(KC_4)": "{", "RALT(KC_EQL)": "}", "RALT(KC_MINS)": "]" };
+// Same on both systems: [glyph, class, small text]
 const NAMED = {
   KC_SPC: ["Space", "nav"], KC_ENT: ["Enter", "nav"], KC_TAB: ["Tab", "nav"], KC_BSPC: ["⌫", "nav"],
   KC_ESC: ["Esc", "nav"], KC_DEL: ["Del", "nav"],
   KC_LEFT: ["←", "nav"], KC_RGHT: ["→", "nav"], KC_UP: ["↑", "nav"], KC_DOWN: ["↓", "nav"],
   KC_VOLU: ["Vol +", "nav"], KC_VOLD: ["Vol −", "nav"], KC_BRIU: ["Bright +", "nav"], KC_BRID: ["Bright −", "nav"],
-  KC_LSFT: ["⇧ Shift", "mod"], KC_LCTL: ["⌃ Ctrl", "mod"], KC_LALT: ["⌥ Alt", "mod"], KC_LGUI: ["⌘ Cmd", "mod"],
-  KC_RALT: ["AltGr", "mod"], KC_RSFT: ["⇧ Shift", "mod"], KC_RCTL: ["⌃ Ctrl", "mod"], KC_RGUI: ["⌘ Cmd", "mod"],
+  KC_LSFT: ["⇧ Shift", "mod"], KC_LALT: ["⌥ Alt", "mod"], KC_RALT: ["AltGr", "mod"], KC_RSFT: ["⇧ Shift", "mod"],
+  KC_RCTL: ["⌃ Ctrl", "mod"],
   KC_MS_BTN1: ["Left click", "mouse"], KC_MS_BTN2: ["Right click", "mouse"], KC_MS_BTN3: ["Middle click", "mouse"],
   "CUSTOM(0)": ["DPI +", "mouse"], "CUSTOM(1)": ["DPI −", "mouse"],
   "CUSTOM(2)": ["Snipe DPI +", "mouse"], "CUSTOM(3)": ["Snipe DPI −", "mouse"],
   "CUSTOM(4)": ["Snipe (hold)", "mouse"], "CUSTOM(5)": ["Snipe toggle", "mouse"],
   "CUSTOM(6)": ["Drag-scroll (hold)", "mouse"], "CUSTOM(7)": ["Drag-scroll toggle", "mouse"],
-  "OSM(MOD_LSFT)": ["⇧ Shift", "mod", "one-shot"], "OSM(MOD_LCTL)": ["⌃ Ctrl", "mod", "one-shot"],
-  "OSM(MOD_LALT)": ["⌥ Alt", "mod", "one-shot"], "OSM(MOD_LGUI)": ["⌘ Cmd", "mod", "one-shot"],
-  "DF(0)": ["Mac base", "layer", "default"], "DF(1)": ["Linux base", "layer", "default"],
-  "PDF(0)": ["Mac base", "layer", "saved default"], "PDF(1)": ["Linux base", "layer", "saved default"],
-  "TG(3)": ["Mouse", "layer", "toggle"],
-  "MACRO(0)": ["Voice capture", "short", "R⌘ ×2"], VOICE: ["Voice capture", "short", "R⌘ ×2"],
+  "OSM(MOD_LSFT)": ["⇧ Shift", "mod", "one-shot"], "OSM(MOD_LALT)": ["⌥ Alt", "mod", "one-shot"],
+  "TG(2)": ["Mouse", "layer", "toggle"],
+  OS_MAC: ["OS Mac", "layer", "force"], OS_WIN: ["OS Win", "layer", "force"],
+  "LSFT(KC_Q)": ["⇧A", "short", "Shift A"], "LSFT(KC_I)": ["⇧I", "short", "Shift I"],
 };
+// Different per system: { mac: [glyph, class, small], win: [...] }; null = does nothing
+const BY_OS = {
+  KC_LGUI: { mac: ["⌘ Cmd", "mod"], win: ["⌃ Ctrl", "mod"] },
+  KC_LCTL: { mac: ["⌃ Ctrl", "mod"], win: ["⊞ Win", "mod"] },
+  "OSM(MOD_LGUI)": { mac: ["⌘ Cmd", "mod", "one-shot"], win: ["⌃ Ctrl", "mod", "one-shot"] },
+  "OSM(MOD_LCTL)": { mac: ["⌃ Ctrl", "mod", "one-shot"], win: ["⊞ Win", "mod", "one-shot"] },
+  VOICE: { mac: ["Voice capture", "short", "R⌘ ×2"], win: null },
+  APP_SW: { mac: ["App switch", "short", "⌘⇥"], win: ["App switch", "short", "Alt ⇥"] },
+  DEL_WRD: { mac: ["Delete word", "short", "⌥⌫"], win: ["Delete word", "short", "Ctrl ⌫"] },
+  NAV_BCK: { mac: ["Back", "short", "⌘←"], win: ["Back", "short", "Alt ←"] },
+  NAV_FWD: { mac: ["Forward", "short", "⌘→"], win: ["Forward", "short", "Alt →"] },
+  SCRNSHT: { mac: ["Screenshot", "short", "⌘⇧4"], win: ["Screenshot", "short", "Win ⇧S"] },
+  SPC_1: { mac: ["Space 1", "short", "⌥1"], win: null },
+  SPC_2: { mac: ["Space 2", "short", "⌥2"], win: ["⊞ Win", "mod"] },
+  SPC_3: { mac: ["Space 3", "short", "⌥3"], win: ["Tab", "nav"] },
+  SPC_4: { mac: ["Space 4", "short", "⌥4"], win: ["⌥ Alt", "mod"] },
+  SPC_5: { mac: ["Space 5", "short", "⌥5"], win: null },
+};
+// Cmd shortcuts: [name or null, key as typed on AZERTY]. On Windows, Cmd becomes Ctrl.
 const SHORTCUTS = {
-  "LGUI(KC_Q)": ["Select all", "⌘A"], "LGUI(KC_W)": ["Undo", "⌘Z"], "LGUI(KC_Z)": ["Close", "⌘W"],
-  "LGUI(KC_X)": ["Cut", "⌘X"], "LGUI(KC_C)": ["Copy", "⌘C"], "LGUI(KC_V)": ["Paste", "⌘V"],
-  "LGUI(KC_T)": ["New tab", "⌘T"], "SGUI(KC_T)": ["Reopen tab", "⌘⇧T"], "LGUI(KC_S)": ["Save", "⌘S"],
-  "LGUI(KC_D)": ["⌘D", "⌘D"], "LGUI(KC_F)": ["Find", "⌘F"], "SGUI(KC_F)": ["Find all", "⌘⇧F"],
-  "LGUI(KC_TAB)": ["App switch", "⌘⇥"], "SGUI(KC_4)": ["Screenshot", "⌘⇧4"],
-  "LGUI(KC_LEFT)": ["Back", "⌘←"], "LGUI(KC_RGHT)": ["Forward", "⌘→"],
-  "LALT(KC_BSPC)": ["Delete word", "⌥⌫"],
-  "LCTL(KC_Q)": ["Select all", "Ctrl A"], "LCTL(KC_W)": ["Undo", "Ctrl Z"], "LCTL(KC_Z)": ["Close", "Ctrl W"],
-  "LCTL(KC_X)": ["Cut", "Ctrl X"], "LCTL(KC_C)": ["Copy", "Ctrl C"], "LCTL(KC_V)": ["Paste", "Ctrl V"],
-  "LCTL(KC_T)": ["New tab", "Ctrl T"], "LCTL(KC_R)": ["Reload", "Ctrl R"], "LCTL(KC_S)": ["Save", "Ctrl S"],
-  "LCTL(KC_D)": ["Ctrl D", "Ctrl D"], "LCTL(KC_F)": ["Find", "Ctrl F"],
-  "LALT(KC_TAB)": ["App switch", "Alt ⇥"], "LCTL(KC_BSPC)": ["Delete word", "Ctrl ⌫"],
-  "LSFT(KC_Q)": ["⇧A", "Shift A"], "LSFT(KC_I)": ["⇧I", "Shift I"],
+  "LGUI(KC_Q)": ["Select all", "A"], "LGUI(KC_W)": ["Undo", "Z"], "LGUI(KC_Z)": ["Close", "W"],
+  "LGUI(KC_X)": ["Cut", "X"], "LGUI(KC_C)": ["Copy", "C"], "LGUI(KC_V)": ["Paste", "V"],
+  "LGUI(KC_T)": ["New tab", "T"], "SGUI(KC_T)": ["Reopen tab", "⇧T"], "LGUI(KC_S)": ["Save", "S"],
+  "LGUI(KC_D)": [null, "D"], "LGUI(KC_F)": ["Find", "F"], "SGUI(KC_F)": ["Find all", "⇧F"],
 };
 
-// On Linux and Windows the GUI key is the Windows key, not Cmd.
-const LINUX_LAYERS = new Set([1, 6, 7]);
-const WIN = { KC_LGUI: ["⊞ Win", "mod"], KC_RGUI: ["⊞ Win", "mod"], "OSM(MOD_LGUI)": ["⊞ Win", "mod", "one-shot"] };
+let OS = "mac";
 
-function describe(kc, layerId) {
-  if (LINUX_LAYERS.has(layerId) && WIN[kc]) { const [g, cls, s] = WIN[kc]; return { cls, g, s: s || "", small: true }; }
+function describe(kc) {
   if (kc === "KC_TRNS") return { cls: "trns", g: "", s: "" };
   if (kc === "KC_NO") return { cls: "none", g: "", s: "" };
+  if (BY_OS[kc]) {
+    const v = BY_OS[kc][OS];
+    if (!v) return { cls: "none", g: "", s: "—" };
+    const [g, cls, s] = v; return { cls, g, s: s || "", small: g.length > 2 };
+  }
   if (NAMED[kc]) { const [g, cls, s] = NAMED[kc]; return { cls, g, s: s || "", small: g.length > 2 }; }
-  if (SHORTCUTS[kc]) { const [g, s] = SHORTCUTS[kc]; return { cls: "short", g, s, small: g.length > 2 }; }
+  if (SHORTCUTS[kc]) {
+    const [name, key] = SHORTCUTS[kc], combo = (OS === "mac" ? "⌘" : "Ctrl ") + key;
+    return name ? { cls: "short", g: name, s: combo, small: true } : { cls: "short", g: combo, s: "", small: true };
+  }
   if (SHIFTED[kc]) return { cls: "sym", g: SHIFTED[kc], s: "⇧ + key" };
   if (ALTGR[kc]) return { cls: "sym", g: ALTGR[kc], s: "AltGr" };
   let m = kc.match(/^MO\((\d)\)$/);
   if (m) return { cls: "layer", g: META[m[1]].name, s: "hold", small: true };
-  m = kc.match(/^LALT\(KC_([1-5])\)$/);
-  if (m) return { cls: "short", g: "Space " + m[1], s: "⌥" + m[1], small: true };
   m = kc.match(/^KC_F(\d+)$/);
   if (m) return { cls: "nav", g: "F" + m[1], s: "" };
   if (AZ[kc]) {
@@ -243,8 +270,8 @@ const STAGGER = [0.35, 0.35, 0.1, 0, 0.15, 0.25];
 function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 function esc(s) { return String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]); }
 
-function keyEl(kc, held, layerId) {
-  const d = describe(kc, layerId);
+function keyEl(kc, held) {
+  const d = describe(kc);
   const k = el("div", "key " + (held ? "held" : d.cls));
   k.title = kc;
   if (held) {
@@ -260,10 +287,9 @@ function keyEl(kc, held, layerId) {
 
 function render() {
   const nav = document.getElementById("nav"), main = document.getElementById("layers");
-  for (const [group, ids] of ORDER) {
-    nav.append(el("span", "grp", group));
-    main.append(el("h3", "group-title", group));
-    for (const id of ids) {
+  nav.replaceChildren(); main.replaceChildren();
+  {
+    for (const id of ORDER) {
       const meta = META[id], layer = LAYERS[id];
       const a = el("a", "", `<span class="n">${id}</span>${esc(meta.name)}`); a.href = "#layer" + id; nav.append(a);
 
@@ -277,22 +303,26 @@ function render() {
       for (const side of ["left", "right"]) {
         const half = el("div", "half " + side), grid = el("div", "grid");
         POS[side].rows.forEach(row => row.forEach(([r, c], i) => {
-          const k = keyEl(layer[idx(r, c)], false, id);
+          const k = keyEl(layer[idx(r, c)], false);
           const col = side === "left" ? i : 5 - i;
           k.style.transform = `translateY(calc(var(--k) * ${STAGGER[col]}))`;
           grid.append(k);
         }));
         const thumbs = el("div", "thumbs");
-        POS[side].thumbs.forEach(([r, c]) => thumbs.append(keyEl(layer[idx(r, c)], heldPos === `${r},${c}`, id)));
+        POS[side].thumbs.forEach(([r, c]) => thumbs.append(keyEl(layer[idx(r, c)], heldPos === `${r},${c}`)));
         half.append(grid, thumbs);
         board.append(half);
       }
       sec.append(board);
-      if (NOTES[id]) sec.append(el("p", "note", esc(NOTES[id])));
+      if (NOTES[id]) sec.append(el("p", "note", esc(NOTES[id][OS])));
       main.append(sec);
     }
   }
 
+  document.querySelectorAll("#os button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.os === OS)));
+}
+
+function renderLegend() {
   const legend = document.getElementById("legend");
   [["letter", "Letter"], ["num", "Number row / accents"], ["sym", "Symbol"], ["mod", "Modifier"], ["nav", "Navigation & media"],
    ["short", "Shortcut"], ["mouse", "Trackball & mouse"], ["layer", "Layer key"], ["held", "Thumb you hold"], ["trns", "Transparent"]]
@@ -301,5 +331,13 @@ function render() {
       s.append(i, document.createTextNode(label)); legend.append(s);
     });
 }
+
+try { OS = localStorage.getItem("charybdis-os") === "win" ? "win" : "mac"; } catch (e) {}
+document.querySelectorAll("#os button").forEach(b => b.addEventListener("click", () => {
+  OS = b.dataset.os;
+  try { localStorage.setItem("charybdis-os", OS); } catch (e) {}
+  render();
+}));
+renderLegend();
 render();
 </script>
