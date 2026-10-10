@@ -24,7 +24,6 @@ The user writes in simple English (not their first language). Answer in simple E
 | `charybdis-mini/layers.html` | Reference page. Its `LAYERS` line is generated; `META`, `NOTES`, `NAMED`, `SHORTCUTS` are written by hand. |
 | `charybdis-mini/update_layers.py` | Rewrites the `LAYERS` line from a `.vil` (or the old VIA `.json`). |
 | `charybdis-mini/via/charybdis_mini_alexandre.via.json` | Old VIA layout, to go back to stock VIA firmware. Don't edit. |
-| `.github/workflows/charybdis-vial.yml` | CI build of the same firmware. |
 
 Layers: 0 Mac base · 1 Linux base (also Windows) · 2 Mac symbols · 3 Mouse (`TG`) · 4 Function & nav · 5 Mac shortcuts · 6 Linux symbols · 7 Linux shortcuts. Custom keycodes: `QK_KB_0..7` = Charybdis pointer keys (`DPI_MOD`, `DPI_RMOD`, `S_D_MOD`, `S_D_RMOD`, `SNIPING`, `SNP_TOG`, `DRGSCRL`, `DRG_TOG`), `QK_KB_8` = `VOICE` (double-tap Right GUI). In `.vil` files they appear as `USER00`..`USER08`.
 

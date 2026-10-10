@@ -11,7 +11,6 @@ The OS keyboard layout is French AZERTY (PC), so the keycodes and the printed le
 | [via/charybdis_mini_alexandre.via.json](via/charybdis_mini_alexandre.via.json) | Old layout for the VIA firmware. Load it in [usevia.app](https://usevia.app). |
 | [vial/](vial/) | QMK keymap for the Vial firmware: `keymap.c` is the layout the keyboard starts with. |
 | [update_layers.py](update_layers.py) | Refreshes `layers.html` from a Vial `.vil` (or VIA `.json`) export. |
-| [../.github/workflows/charybdis-vial.yml](../.github/workflows/charybdis-vial.yml) | GitHub Actions job that builds the Vial firmware. |
 
 ## Vial firmware
 
@@ -25,10 +24,7 @@ The Vial keymap is the same as the VIA layout, with two fixes:
 
 ### Get the firmware
 
-Push a change under `charybdis-mini/vial/`, or start the workflow by hand on GitHub (Actions > "Charybdis Mini Vial firmware" > Run workflow).
-Download the `.uf2` file from the run's "Artifacts".
-
-To build locally on Windows, open **QMK MSYS** (not PowerShell) and run:
+Build it locally. On Windows, open **QMK MSYS** (not PowerShell) and run:
 
 ```bash
 cd /c/Users/alexa/Documents/vial-qmk && rm -rf keyboards/bastardkb/charybdis/3x6/keymaps/alexandre && cp -r /c/Users/alexa/Documents/dotfiles/charybdis-mini/vial keyboards/bastardkb/charybdis/3x6/keymaps/alexandre && make bastardkb/charybdis/3x6/v2/splinky_3:alexandre
