@@ -47,10 +47,14 @@ enum custom_keycodes {
 // shell: process_record_user turns the hold into the mouse button.
 #define SPC_RCL LT(BASE, KC_SPC)
 
+// Mouse Back on tap, Forward on double tap, right click on hold. Vial tap dance
+// slot 0, filled in by apply_default_tap_dances().
+#define MS_NAV TD(0)
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
-        MS_BTN2,          KC_Q,             KC_W,             KC_E,             KC_R,             KC_T,               KC_Y,             KC_U,             KC_I,             KC_O,             KC_P,             MS_BTN2,
+        MS_NAV,           KC_Q,             KC_W,             KC_E,             KC_R,             KC_T,               KC_Y,             KC_U,             KC_I,             KC_O,             KC_P,             MS_NAV,
         DRGSCRL,          LSFT_T(KC_A),     LCTL_T(KC_S),     LALT_T(KC_D),     LGUI_T(KC_F),     KC_G,               KC_H,             LGUI_T(KC_J),     LALT_T(KC_K),     LCTL_T(KC_L),     LSFT_T(KC_SCLN),  DRGSCRL,
         MS_BTN1,          KC_Z,             KC_X,             KC_C,             KC_V,             KC_B,               KC_N,             KC_M,             LSFT(KC_COMM),    KC_DOT,           KC_SLSH,          MS_BTN1,
                                                               LT(SYM, MS_BTN1), SPC_RCL,          TG(MOUSE),          MO(FUNC),         MO(SHORT)
@@ -114,7 +118,7 @@ static void apply_tap_hold_defaults(void) {
 
 // Default combos, using base layer keycodes (letters as typed on AZERTY):
 //   drag-scroll + Q (left home row, outer two keys) toggles Caps Lock
-//   right click + A (left top row, outer two keys) toggles the numpad layer;
+//   back/right click + A (left top row, outer two keys) toggles the numpad layer;
 //   both keys are transparent on the numpad layer, so the combo also turns it off
 // Vial stores combos on the keyboard and every flash clears them, so add these
 // only when no combo is set. Edit or delete them in Vial's Combos tab.
@@ -126,10 +130,24 @@ static void apply_default_combos(void) {
         }
     }
     const vial_combo_entry_t caps_lock = {.input = {DRGSCRL, LSFT_T(KC_A), KC_NO, KC_NO}, .output = KC_CAPS};
-    const vial_combo_entry_t numpad    = {.input = {MS_BTN2, KC_Q, KC_NO, KC_NO}, .output = TG(NUM)};
+    const vial_combo_entry_t numpad    = {.input = {MS_NAV, KC_Q, KC_NO, KC_NO}, .output = TG(NUM)};
     dynamic_keymap_set_combo(0, &caps_lock);
     dynamic_keymap_set_combo(1, &numpad);
     vial_init(); // reload combos from the keyboard memory
+}
+
+// Default tap dances, same idea as the combos: Vial keeps them on the keyboard and
+// every flash clears them, so fill them in only when none is set.
+static void apply_default_tap_dances(void) {
+    for (uint8_t i = 0; i < VIAL_TAP_DANCE_ENTRIES; i++) {
+        vial_tap_dance_entry_t entry;
+        if (dynamic_keymap_get_tap_dance(i, &entry) != 0 || entry.on_tap || entry.on_hold || entry.on_double_tap || entry.on_tap_hold) {
+            return;
+        }
+    }
+    const vial_tap_dance_entry_t ms_nav = {.on_tap = MS_BTN4, .on_hold = MS_BTN2, .on_double_tap = MS_BTN5, .on_tap_hold = KC_NO, .custom_tapping_term = 0};
+    dynamic_keymap_set_tap_dance(0, &ms_nav);
+    vial_init(); // reload tap dances from the keyboard memory
 }
 
 void keyboard_post_init_user(void) {
@@ -142,6 +160,7 @@ void keyboard_post_init_user(void) {
     default_layer_set(base);
 
     apply_tap_hold_defaults();
+    apply_default_tap_dances();
     apply_default_combos();
 }
 
