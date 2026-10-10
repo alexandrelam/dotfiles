@@ -72,6 +72,7 @@ You can't drive Vial yourself; guide the user:
 
 ## Troubleshooting
 
+- **A tap dance always does its hold action:** its `custom_tapping_term` is 0. Vial uses each tap dance's own term, not the global one; use 200 like the Vial app.
 - **Nothing appears on the PC** (no `RPI-RP2`, no `VID_A8F8`) but the red light is on: power arrives but no data. Check the cable is in this PC directly (not the hub/monitor), push the USB-C in firmly, flip the connector. The left half's port has been flaky before. Check with:
   `Get-PnpDevice -PresentOnly | ? { $_.InstanceId -match 'VID_2E8A|VID_A8F8' }` and the `Microsoft-Windows-Kernel-PnP/Configuration` event log.
 - **Left half dead after flashing only the right half:** the halves run different firmware; flash the left half too.

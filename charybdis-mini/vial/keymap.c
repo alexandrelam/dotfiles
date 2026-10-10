@@ -138,6 +138,9 @@ static void apply_default_combos(void) {
 
 // Default tap dances, same idea as the combos: Vial keeps them on the keyboard and
 // every flash clears them, so fill them in only when none is set.
+// Vial uses each tap dance's own tapping term (0 would make every press a hold).
+#define TD_TAPPING_TERM 200
+
 static void apply_default_tap_dances(void) {
     for (uint8_t i = 0; i < VIAL_TAP_DANCE_ENTRIES; i++) {
         vial_tap_dance_entry_t entry;
@@ -145,7 +148,7 @@ static void apply_default_tap_dances(void) {
             return;
         }
     }
-    const vial_tap_dance_entry_t ms_nav = {.on_tap = MS_BTN4, .on_hold = MS_BTN2, .on_double_tap = MS_BTN5, .on_tap_hold = KC_NO, .custom_tapping_term = 0};
+    const vial_tap_dance_entry_t ms_nav = {.on_tap = MS_BTN4, .on_hold = MS_BTN2, .on_double_tap = MS_BTN5, .on_tap_hold = KC_NO, .custom_tapping_term = TD_TAPPING_TERM};
     dynamic_keymap_set_tap_dance(0, &ms_nav);
     vial_init(); // reload tap dances from the keyboard memory
 }
