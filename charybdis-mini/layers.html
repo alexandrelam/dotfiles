@@ -23,6 +23,7 @@
   --c-nav: #dff2f6;   --c-nav-ink: #0d5e70;
   --c-mouse: #ffe4e0; --c-mouse-ink: #a3321f;
   --c-held: #1b2129;  --c-held-ink: #ffffff;
+  --c-combo1: #d9480f; --c-combo2: #0c8599;
 
   --f-display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
   --f-body: "Atkinson Hyperlegible", "Helvetica Neue", Arial, sans-serif;
@@ -43,6 +44,7 @@
   --c-nav: #143640;   --c-nav-ink: #8fdcec;
   --c-mouse: #40221d; --c-mouse-ink: #ffab9c;
   --c-held: #e8ecf1;  --c-held-ink: #12161c;
+  --c-combo1: #ff8a4c; --c-combo2: #3bc9db;
   color-scheme: dark;
 } }
 :root[data-theme="dark"] {
@@ -57,6 +59,7 @@
   --c-nav: #143640;   --c-nav-ink: #8fdcec;
   --c-mouse: #40221d; --c-mouse-ink: #ffab9c;
   --c-held: #e8ecf1;  --c-held-ink: #12161c;
+  --c-combo1: #ff8a4c; --c-combo2: #3bc9db;
   color-scheme: dark;
 }
 
@@ -120,6 +123,17 @@ section.layer { background: var(--plate); border: 1px solid var(--line); border-
 .key.trns { background: transparent; border-style: dashed; box-shadow: none; color: var(--muted); }
 .key.none { background: transparent; border-color: var(--line); box-shadow: none; opacity: 0.5; }
 
+/* Combos: keys ringed and numbered in the combo's color */
+.combo1 { --combo-c: var(--c-combo1); }
+.combo2 { --combo-c: var(--c-combo2); }
+.key.combo { outline: 3px solid var(--combo-c); outline-offset: -2px; }
+.key .badge { position: absolute; top: 0.2rem; left: 0.25rem; min-width: 1.05rem; height: 1.05rem; border-radius: 999px; background: var(--combo-c); color: var(--plate); font-size: 0.68rem; font-weight: 700; line-height: 1.05rem; text-align: center; }
+.key.dim { opacity: 0.25; }
+.combos { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem 3rem; }
+.combo-card { --k: min(2.7rem, calc((100vw - 4.5rem - 5 * 0.3rem) / 6)); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; width: calc(var(--k) * 6 + var(--gap) * 5); }
+.combo-out { display: flex; align-items: center; gap: 0.5rem; font-size: 1rem; flex-wrap: wrap; justify-content: center; text-align: center; }
+.combo-out .chip { background: var(--combo-c); color: var(--plate); font-weight: 700; border-radius: 999px; padding: 0.1rem 0.7rem; }
+.combo-out .how { color: var(--muted); font-size: 0.85rem; flex-basis: 100%; }
 .note { font-size: 0.85rem; color: var(--muted); max-width: 70ch; margin: 0; }
 footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
 footer p { margin: 0; max-width: 70ch; }
@@ -157,6 +171,12 @@ const META = {
   2: { name: "Mouse", reach: "Tap the <b>left inner thumb</b> to turn it on, tap again to turn it off.", from: [0, 3, 1], toggle: true },
 };
 const ORDER = [0, 1, 4, 3, 2, 5];
+// Combos (see apply_default_combos in vial/keymap.c). keys = [row, col]; layers = where the badges show.
+const COMBOS = [
+  { keys: [[1, 0], [1, 1]], out: "Caps Lock", how: "Press again to turn it off.", layers: [0] },
+  { keys: [[0, 0], [0, 1]], out: "Numpad layer", how: "Press again to go back. Both keys stay the same on the numpad layer.", layers: [0, 5] },
+];
+const comboAt = (layerId, r, c) => COMBOS.findIndex(cb => cb.layers.includes(layerId) && cb.keys.some(([kr, kc]) => kr === r && kc === c));
 const NOTES = {
   0: {
     mac: "Home row mods on both hands: hold Q S D F for Shift, Ctrl, Alt, Cmd, and J K L M for Cmd, Alt, Ctrl, Shift. Tap them for the letter. The outer thumbs are Left click on tap; hold the left one for Symbols, the right one for Shortcuts. Hold Space for Right click. Combos: Drag-scroll + Q toggles Caps Lock, Right click + A toggles the numpad.",
@@ -287,9 +307,13 @@ const STAGGER = [0.35, 0.35, 0.1, 0, 0.15, 0.25];
 function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 function esc(s) { return String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]); }
 
-function keyEl(kc, held) {
+function keyEl(kc, held, combo = -1) {
   const d = describe(kc);
   const k = el("div", "key " + (held ? "held" : d.cls));
+  if (combo >= 0) {
+    k.classList.add("combo", "combo" + (combo + 1));
+    k.append(el("span", "badge", String(combo + 1)));
+  }
   k.title = kc;
   if (held) {
     k.append(el("span", "g sm", "holding"), el("span", "s", "this thumb"));
@@ -320,7 +344,7 @@ function render() {
       for (const side of ["left", "right"]) {
         const half = el("div", "half " + side), grid = el("div", "grid");
         POS[side].rows.forEach(row => row.forEach(([r, c], i) => {
-          const k = keyEl(layer[idx(r, c)], false);
+          const k = keyEl(layer[idx(r, c)], false, comboAt(id, r, c));
           const col = side === "left" ? i : 5 - i;
           k.style.transform = `translateY(calc(var(--k) * ${STAGGER[col]}))`;
           grid.append(k);
@@ -333,10 +357,40 @@ function render() {
       sec.append(board);
       if (NOTES[id]) sec.append(el("p", "note", esc(NOTES[id][OS])));
       main.append(sec);
+      if (id === 0) {
+        const c = el("a", "", "Combos"); c.href = "#combos"; nav.append(c);
+        main.append(comboSection());
+      }
     }
   }
 
   document.querySelectorAll("#os button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.os === OS)));
+}
+
+// One card per combo: the left half of the base layer with only the combo keys lit.
+function comboSection() {
+  const sec = el("section", "layer"); sec.id = "combos";
+  const lh = el("div", "lh");
+  lh.append(el("h2", "", "Combos"), el("span", "reach", "Press the two numbered keys <b>at the same time</b> (within 50&nbsp;ms) on the base layer. Edit them in Vial's Combos tab."));
+  sec.append(lh);
+  const wrap = el("div", "combos");
+  COMBOS.forEach((cb, n) => {
+    const card = el("div", "combo-card combo" + (n + 1)), grid = el("div", "grid");
+    POS.left.rows.forEach(row => row.forEach(([r, c], i) => {
+      const on = cb.keys.some(([kr, kc]) => kr === r && kc === c);
+      const k = keyEl(LAYERS[0][idx(r, c)], false, on ? n : -1);
+      if (!on) k.classList.add("dim");
+      k.style.transform = `translateY(calc(var(--k) * ${STAGGER[i]}))`;
+      grid.append(k);
+    }));
+    const names = cb.keys.map(([r, c]) => describe(LAYERS[0][idx(r, c)]).g.replace(" (hold)", "")).join(" + ");
+    const out = el("div", "combo-out");
+    out.append(el("b", "", esc(names)), el("span", "", "→"), el("span", "chip", esc(cb.out)), el("span", "how", esc(cb.how)));
+    card.append(grid, out);
+    wrap.append(card);
+  });
+  sec.append(wrap);
+  return sec;
 }
 
 function renderLegend() {
