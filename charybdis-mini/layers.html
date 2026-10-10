@@ -126,25 +126,25 @@ footer p { margin: 0; max-width: 70ch; }
 <div class="wrap">
   <header>
     <h1>Charybdis Mini layers</h1>
-    <p class="lede">Every key on all eight VIA layers, labelled with the character it actually types. Labels assume the OS keyboard layout is <b>French AZERTY (PC)</b>, so the sent keycode (small text) differs from the printed glyph. A small corner symbol shows the Shift output.</p>
+    <p class="lede">Every key on all eight layers, labelled with the character it actually types. Labels assume the OS keyboard layout is <b>French AZERTY (PC)</b>, so the sent keycode (small text) differs from the printed glyph. A small corner symbol shows the Shift output.</p>
     <div class="legend" id="legend"></div>
   </header>
   <nav id="nav" aria-label="Layers"></nav>
   <main id="layers" style="display:flex;flex-direction:column;gap:1.5rem"></main>
   <footer>
     <p>Dashed keys are transparent: they fall through to the layer underneath (usually the base layer). The dark key on each layer is the thumb you are holding to get there.</p>
-    <p>Generated from <code>charybdis-mini/charybdis_mini_alexandre.json</code>.</p>
+    <p>Shows the Vial firmware layout (<code>charybdis-mini/vial/keymap.c</code>). After changing keys in Vial, save the layout as a <code>.vil</code> file and run <code>python update_layers.py file.vil</code> to refresh this page.</p>
   </footer>
 </div>
 
 <script>
-const LAYERS = [["KC_MS_BTN2", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_MS_BTN1", "KC_A", "KC_S", "KC_D", "KC_F", "KC_G", "CUSTOM(6)", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(3)", "KC_NO", "MO(2)", "KC_SPC", "KC_NO", "KC_MS_BTN2", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", "KC_MS_BTN1", "KC_SCLN", "KC_L", "KC_K", "KC_J", "KC_H", "CUSTOM(6)", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(4)", "KC_NO", "MO(5)", "KC_NO", "KC_NO"], ["KC_MS_BTN2", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_MS_BTN1", "KC_A", "KC_S", "KC_D", "KC_F", "KC_G", "CUSTOM(6)", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(3)", "KC_NO", "MO(6)", "KC_SPC", "KC_NO", "KC_MS_BTN2", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", "KC_MS_BTN1", "KC_SCLN", "KC_L", "KC_K", "KC_J", "KC_H", "CUSTOM(6)", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(4)", "KC_NO", "MO(7)", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LCTL)", "OSM(MOD_LALT)", "OSM(MOD_LGUI)", "KC_ENT", "KC_TRNS", "LALT(KC_1)", "LALT(KC_2)", "LALT(KC_3)", "LALT(KC_4)", "LALT(KC_5)", "KC_NO", "MACRO(0)", "KC_NO", "KC_TRNS", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_LEFT)", "LGUI(KC_RGHT)", "SGUI(KC_T)", "LGUI(KC_T)", "KC_TRNS", "KC_LSFT", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "CUSTOM(6)", "KC_TRNS", "LALT(KC_1)", "LALT(KC_2)", "LALT(KC_3)", "LALT(KC_4)", "LALT(KC_5)", "KC_NO", "KC_TRNS", "KC_NO", "CUSTOM(6)", "KC_MS_BTN1", "KC_NO", "KC_VOLU", "KC_VOLD", "CUSTOM(3)", "CUSTOM(2)", "CUSTOM(1)", "CUSTOM(0)", "KC_BRIU", "KC_BRID", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "MACRO(0)", "KC_TRNS", "KC_NO", "KC_NO", "KC_MS_BTN3", "CUSTOM(5)", "CUSTOM(7)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_F1", "KC_F2", "KC_F3", "KC_F4", "KC_F5", "KC_TRNS", "KC_F6", "KC_F7", "KC_F8", "KC_F9", "KC_F10", "KC_TRNS", "KC_F11", "KC_F12", "DF(0)", "DF(1)", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_VOLD", "KC_VOLU", "KC_UP", "KC_MINS", "KC_5", "KC_TRNS", "KC_BRID", "KC_RGHT", "KC_DOWN", "KC_LEFT", "RALT(KC_5)", "KC_TRNS", "KC_NUBS", "KC_BRIU", "RALT(KC_MINS)", "RALT(KC_EQL)", "RALT(KC_4)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Q)", "LGUI(KC_W)", "LSFT(KC_Q)", "SGUI(KC_F)", "LGUI(KC_T)", "KC_TRNS", "LGUI(KC_TAB)", "LGUI(KC_S)", "LGUI(KC_D)", "LGUI(KC_F)", "SGUI(KC_4)", "KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_X)", "LGUI(KC_C)", "LGUI(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "LALT(KC_BSPC)", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LGUI)", "OSM(MOD_LALT)", "OSM(MOD_LCTL)", "KC_ENT", "KC_TRNS", "KC_NO", "KC_LGUI", "KC_TAB", "KC_LALT", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LCTL(KC_Q)", "LCTL(KC_W)", "LSFT(KC_Q)", "LCTL(KC_R)", "LCTL(KC_T)", "KC_TRNS", "LALT(KC_TAB)", "LCTL(KC_S)", "LCTL(KC_D)", "LCTL(KC_F)", "KC_NO", "KC_TRNS", "LCTL(KC_Z)", "LCTL(KC_X)", "LCTL(KC_C)", "LCTL(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LALT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "LCTL(KC_BSPC)", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"]];
+const LAYERS = [["KC_MS_BTN2", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_MS_BTN1", "KC_A", "KC_S", "KC_D", "KC_F", "KC_G", "CUSTOM(6)", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(3)", "KC_NO", "MO(2)", "KC_SPC", "KC_NO", "KC_MS_BTN2", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", "KC_MS_BTN1", "KC_SCLN", "KC_L", "KC_K", "KC_J", "KC_H", "CUSTOM(6)", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(4)", "KC_NO", "MO(5)", "KC_NO", "KC_NO"], ["KC_MS_BTN2", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_MS_BTN1", "KC_A", "KC_S", "KC_D", "KC_F", "KC_G", "CUSTOM(6)", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(3)", "KC_NO", "MO(6)", "KC_SPC", "KC_NO", "KC_MS_BTN2", "KC_P", "KC_O", "KC_I", "KC_U", "KC_Y", "KC_MS_BTN1", "KC_SCLN", "KC_L", "KC_K", "KC_J", "KC_H", "CUSTOM(6)", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(4)", "KC_NO", "MO(7)", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LCTL)", "OSM(MOD_LALT)", "OSM(MOD_LGUI)", "KC_ENT", "KC_TRNS", "LALT(KC_1)", "LALT(KC_2)", "LALT(KC_3)", "LALT(KC_4)", "LALT(KC_5)", "KC_NO", "VOICE", "KC_NO", "KC_TRNS", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_LEFT)", "LGUI(KC_RGHT)", "SGUI(KC_T)", "LGUI(KC_T)", "KC_TRNS", "KC_LSFT", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "CUSTOM(6)", "KC_TRNS", "LALT(KC_1)", "LALT(KC_2)", "LALT(KC_3)", "LALT(KC_4)", "LALT(KC_5)", "KC_NO", "KC_TRNS", "KC_NO", "CUSTOM(6)", "KC_MS_BTN1", "KC_NO", "KC_VOLU", "KC_VOLD", "CUSTOM(3)", "CUSTOM(2)", "CUSTOM(1)", "CUSTOM(0)", "KC_BRIU", "KC_BRID", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "VOICE", "KC_TRNS", "KC_NO", "KC_NO", "KC_MS_BTN3", "CUSTOM(5)", "CUSTOM(7)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_F1", "KC_F2", "KC_F3", "KC_F4", "KC_F5", "KC_TRNS", "KC_F6", "KC_F7", "KC_F8", "KC_F9", "KC_F10", "KC_TRNS", "KC_F11", "KC_F12", "PDF(0)", "PDF(1)", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_VOLD", "KC_VOLU", "KC_UP", "KC_MINS", "KC_5", "KC_TRNS", "KC_BRID", "KC_RGHT", "KC_DOWN", "KC_LEFT", "RALT(KC_5)", "KC_TRNS", "KC_NUBS", "KC_BRIU", "RALT(KC_MINS)", "RALT(KC_EQL)", "RALT(KC_4)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Q)", "LGUI(KC_W)", "LSFT(KC_Q)", "SGUI(KC_F)", "LGUI(KC_T)", "KC_TRNS", "LGUI(KC_TAB)", "LGUI(KC_S)", "LGUI(KC_D)", "LGUI(KC_F)", "SGUI(KC_4)", "KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_X)", "LGUI(KC_C)", "LGUI(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "LALT(KC_BSPC)", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LGUI)", "OSM(MOD_LALT)", "OSM(MOD_LCTL)", "KC_ENT", "KC_TRNS", "KC_NO", "KC_LGUI", "KC_TAB", "KC_LALT", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LCTL(KC_Q)", "LCTL(KC_W)", "LSFT(KC_Q)", "LCTL(KC_R)", "LCTL(KC_T)", "KC_TRNS", "LALT(KC_TAB)", "LCTL(KC_S)", "LCTL(KC_D)", "LCTL(KC_F)", "KC_NO", "KC_TRNS", "LCTL(KC_Z)", "LCTL(KC_X)", "LCTL(KC_C)", "LCTL(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LALT", "KC_LCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "LCTL(KC_BSPC)", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"]];
 
 const META = {
-  0: { name: "Mac base", group: "Mac", reach: "Default layer. <b>DF(0)</b> on the function layer selects it." },
+  0: { name: "Mac base", group: "Mac", reach: "Default layer. <b>PDF(0)</b> on the function layer selects it, and the keyboard remembers it after unplugging." },
   2: { name: "Mac symbols", group: "Mac", reach: "Hold the <b>left outer thumb</b> on Mac base.", from: [0, 3, 3] },
   5: { name: "Mac shortcuts", group: "Mac", reach: "Hold the <b>right outer thumb</b> on Mac base.", from: [0, 7, 3] },
-  1: { name: "Linux base", group: "Linux", reach: "Select with <b>DF(1)</b> on the function layer. It then stays the default." },
+  1: { name: "Linux base", group: "Linux", reach: "Select with <b>PDF(1)</b> on the function layer. It then stays the default, even after unplugging." },
   6: { name: "Linux symbols", group: "Linux", reach: "Hold the <b>left outer thumb</b> on Linux base.", from: [1, 3, 3] },
   7: { name: "Linux shortcuts", group: "Linux", reach: "Hold the <b>right outer thumb</b> on Linux base.", from: [1, 7, 3] },
   4: { name: "Function & navigation", group: "Shared", reach: "Hold the <b>right inner thumb</b> on either base layer.", from: [0, 7, 1] },
@@ -154,7 +154,7 @@ const ORDER = [["Mac", [0, 2, 5]], ["Shared", [4, 3]], ["Linux", [1, 6, 7]]];
 const NOTES = {
   2: "One-shot modifiers on the home row: tap one, then the next key gets it. Space 1–5 send Alt+1…5, which yabai uses to switch spaces. The inner thumb double-taps Right Cmd to start voice capture, like H on the mouse layer.",
   6: "Same idea as Mac symbols, with plain Cmd, Tab and Alt on the bottom row instead of space switching.",
-  4: "Shared by Mac and Linux. DF(0) and DF(1) pick which base layer is the default.",
+  4: "Shared by Mac and Linux. PDF(0) and PDF(1) pick which base layer is the default, and the keyboard saves the choice.",
   3: "The right thumb sits on the trackball, so Left and Right click are under J and L, with drag-scroll on K and Middle click below it. Hold drag-scroll and move the ball to scroll. Space 1–5 on the bottom-left row switch yabai spaces, same as on Mac symbols. The key left of Left click double-taps Right Cmd to start voice capture. Screen brightness down and up sit right of Right click. Volume down and up are just above them.",
 };
 
@@ -184,8 +184,9 @@ const NAMED = {
   "OSM(MOD_LSFT)": ["⇧ Shift", "mod", "one-shot"], "OSM(MOD_LCTL)": ["⌃ Ctrl", "mod", "one-shot"],
   "OSM(MOD_LALT)": ["⌥ Alt", "mod", "one-shot"], "OSM(MOD_LGUI)": ["⌘ Cmd", "mod", "one-shot"],
   "DF(0)": ["Mac base", "layer", "default"], "DF(1)": ["Linux base", "layer", "default"],
+  "PDF(0)": ["Mac base", "layer", "saved default"], "PDF(1)": ["Linux base", "layer", "saved default"],
   "TG(3)": ["Mouse", "layer", "toggle"],
-  "MACRO(0)": ["Voice capture", "short", "R⌘ ×2"],
+  "MACRO(0)": ["Voice capture", "short", "R⌘ ×2"], VOICE: ["Voice capture", "short", "R⌘ ×2"],
 };
 const SHORTCUTS = {
   "LGUI(KC_Q)": ["Select all", "⌘A"], "LGUI(KC_W)": ["Undo", "⌘Z"], "LGUI(KC_Z)": ["Close", "⌘W"],
@@ -203,7 +204,12 @@ const SHORTCUTS = {
   "LSFT(KC_Q)": ["⇧A", "Shift A"], "LSFT(KC_I)": ["⇧I", "Shift I"],
 };
 
-function describe(kc) {
+// On Linux and Windows the GUI key is the Windows key, not Cmd.
+const LINUX_LAYERS = new Set([1, 6, 7]);
+const WIN = { KC_LGUI: ["⊞ Win", "mod"], KC_RGUI: ["⊞ Win", "mod"], "OSM(MOD_LGUI)": ["⊞ Win", "mod", "one-shot"] };
+
+function describe(kc, layerId) {
+  if (LINUX_LAYERS.has(layerId) && WIN[kc]) { const [g, cls, s] = WIN[kc]; return { cls, g, s: s || "", small: true }; }
   if (kc === "KC_TRNS") return { cls: "trns", g: "", s: "" };
   if (kc === "KC_NO") return { cls: "none", g: "", s: "" };
   if (NAMED[kc]) { const [g, cls, s] = NAMED[kc]; return { cls, g, s: s || "", small: g.length > 2 }; }
@@ -237,8 +243,8 @@ const STAGGER = [0.35, 0.35, 0.1, 0, 0.15, 0.25];
 function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 function esc(s) { return String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]); }
 
-function keyEl(kc, held) {
-  const d = describe(kc);
+function keyEl(kc, held, layerId) {
+  const d = describe(kc, layerId);
   const k = el("div", "key " + (held ? "held" : d.cls));
   k.title = kc;
   if (held) {
@@ -263,7 +269,7 @@ function render() {
 
       const sec = el("section", "layer"); sec.id = "layer" + id;
       const lh = el("div", "lh");
-      lh.append(el("h2", "", esc(meta.name)), el("span", "idx", "VIA layer " + id), el("span", "reach", meta.reach));
+      lh.append(el("h2", "", esc(meta.name)), el("span", "idx", "Layer " + id), el("span", "reach", meta.reach));
       sec.append(lh);
 
       const heldPos = meta.from && !meta.toggle ? meta.from.slice(1).join(",") : null;
@@ -271,13 +277,13 @@ function render() {
       for (const side of ["left", "right"]) {
         const half = el("div", "half " + side), grid = el("div", "grid");
         POS[side].rows.forEach(row => row.forEach(([r, c], i) => {
-          const k = keyEl(layer[idx(r, c)], false);
+          const k = keyEl(layer[idx(r, c)], false, id);
           const col = side === "left" ? i : 5 - i;
           k.style.transform = `translateY(calc(var(--k) * ${STAGGER[col]}))`;
           grid.append(k);
         }));
         const thumbs = el("div", "thumbs");
-        POS[side].thumbs.forEach(([r, c]) => thumbs.append(keyEl(layer[idx(r, c)], heldPos === `${r},${c}`)));
+        POS[side].thumbs.forEach(([r, c]) => thumbs.append(keyEl(layer[idx(r, c)], heldPos === `${r},${c}`, id)));
         half.append(grid, thumbs);
         board.append(half);
       }
