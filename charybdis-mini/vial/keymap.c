@@ -25,6 +25,7 @@ enum layers {
     FUNC,
     SHORT,
     NUM,
+    GAME,
 };
 
 // QK_KB_0..7 are the Charybdis pointer keycodes (DPI, sniping, drag-scroll).
@@ -92,6 +93,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,   KC_PDOT, KC_P7,   KC_P8,   KC_P9,   KC_PENT, XXXXXXX,
                                    _______, _______, _______,   KC_P0,   _______
     ),
+    [GAME] = LAYOUT(
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,      _______, _______, _______, _______, _______, _______,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      _______, _______, _______, _______, _______, _______,
+        KC_RCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_B,      _______, _______, _______, _______, _______, _______,
+                                   KC_SPC,  KC_LALT, XXXXXXX,   _______, _______
+    ),
 };
 // clang-format on
 
@@ -123,6 +130,8 @@ static void apply_tap_hold_defaults(void) {
 //   drag-scroll + Q (left home row, outer two keys) toggles Caps Lock
 //   back/right click + A (left top row, outer two keys) toggles the numpad layer;
 //   both keys are transparent on the numpad layer, so the combo also turns it off
+//   back/right click + P (right top row, outer two keys) toggles the game layer;
+//   the right half is transparent on the game layer, so the combo also turns it off
 // Vial stores combos on the keyboard and every flash clears them, so add these
 // only when no combo is set. Edit or delete them in Vial's Combos tab.
 static void apply_default_combos(void) {
@@ -135,7 +144,9 @@ static void apply_default_combos(void) {
     const vial_combo_entry_t caps_lock = {.input = {DRGSCRL, LSFT_T(KC_A), KC_NO, KC_NO}, .output = KC_CAPS};
     const vial_combo_entry_t numpad    = {.input = {MS_NAV, TD(1), KC_NO, KC_NO}, .output = TG(NUM)};
     dynamic_keymap_set_combo(0, &caps_lock);
+    const vial_combo_entry_t game      = {.input = {MS_NAV, TD(10), KC_NO, KC_NO}, .output = TG(GAME)};
     dynamic_keymap_set_combo(1, &numpad);
+    dynamic_keymap_set_combo(2, &game);
     vial_init(); // reload combos from the keyboard memory
 }
 

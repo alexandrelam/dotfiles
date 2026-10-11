@@ -23,7 +23,7 @@
   --c-nav: #dff2f6;   --c-nav-ink: #0d5e70;
   --c-mouse: #ffe4e0; --c-mouse-ink: #a3321f;
   --c-held: #1b2129;  --c-held-ink: #ffffff;
-  --c-combo1: #d9480f; --c-combo2: #0c8599;
+  --c-combo1: #d9480f; --c-combo2: #0c8599; --c-combo3: #7048e8;
 
   --f-display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
   --f-body: "Atkinson Hyperlegible", "Helvetica Neue", Arial, sans-serif;
@@ -44,7 +44,7 @@
   --c-nav: #143640;   --c-nav-ink: #8fdcec;
   --c-mouse: #40221d; --c-mouse-ink: #ffab9c;
   --c-held: #e8ecf1;  --c-held-ink: #12161c;
-  --c-combo1: #ff8a4c; --c-combo2: #3bc9db;
+  --c-combo1: #ff8a4c; --c-combo2: #3bc9db; --c-combo3: #b197fc;
   color-scheme: dark;
 } }
 :root[data-theme="dark"] {
@@ -59,7 +59,7 @@
   --c-nav: #143640;   --c-nav-ink: #8fdcec;
   --c-mouse: #40221d; --c-mouse-ink: #ffab9c;
   --c-held: #e8ecf1;  --c-held-ink: #12161c;
-  --c-combo1: #ff8a4c; --c-combo2: #3bc9db;
+  --c-combo1: #ff8a4c; --c-combo2: #3bc9db; --c-combo3: #b197fc;
   color-scheme: dark;
 }
 
@@ -126,6 +126,7 @@ section.layer { background: var(--plate); border: 1px solid var(--line); border-
 /* Combos: keys ringed and numbered in the combo's color */
 .combo1 { --combo-c: var(--c-combo1); }
 .combo2 { --combo-c: var(--c-combo2); }
+.combo3 { --combo-c: var(--c-combo3); }
 .key.combo { outline: 3px solid var(--combo-c); outline-offset: -2px; }
 .key .badge { position: absolute; top: 0.2rem; left: 0.25rem; min-width: 1.05rem; height: 1.05rem; border-radius: 999px; background: var(--combo-c); color: var(--plate); font-size: 0.68rem; font-weight: 700; line-height: 1.05rem; text-align: center; }
 .key.dim { opacity: 0.25; }
@@ -160,7 +161,7 @@ footer p { margin: 0; max-width: 70ch; }
 </div>
 
 <script>
-const LAYERS = [["TD(0)", "TD(1)", "TD(2)", "TD(3)", "TD(4)", "TD(5)", "CUSTOM(6)", "LSFT_T(KC_A)", "LCTL_T(KC_S)", "LALT_T(KC_D)", "LGUI_T(KC_F)", "KC_G", "KC_MS_BTN1", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(2)", "KC_NO", "LT1(KC_MS_BTN1)", "LT0(KC_SPC)", "KC_NO", "TD(0)", "TD(10)", "TD(9)", "TD(8)", "TD(7)", "TD(6)", "CUSTOM(6)", "LSFT_T(KC_SCLN)", "LCTL_T(KC_L)", "LALT_T(KC_K)", "LGUI_T(KC_J)", "KC_H", "KC_MS_BTN1", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(3)", "KC_NO", "MO(4)", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LCTL)", "OSM(MOD_LALT)", "OSM(MOD_LGUI)", "KC_ENT", "KC_TRNS", "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5", "KC_NO", "VOICE", "KC_NO", "KC_TRNS", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Z)", "NAV_BCK", "NAV_FWD", "SGUI(KC_T)", "LGUI(KC_T)", "KC_TRNS", "KC_LSFT", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "CUSTOM(6)", "KC_TRNS", "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5", "KC_NO", "KC_TRNS", "KC_NO", "KC_MS_BTN1", "CUSTOM(6)", "KC_NO", "KC_BRIU", "KC_BRID", "CUSTOM(3)", "CUSTOM(2)", "CUSTOM(1)", "CUSTOM(0)", "KC_VOLU", "KC_VOLD", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "VOICE", "KC_TRNS", "KC_NO", "KC_NO", "KC_MS_BTN3", "CUSTOM(5)", "CUSTOM(7)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_F1", "KC_F2", "KC_F3", "KC_F4", "KC_F5", "KC_TRNS", "KC_F6", "KC_F7", "KC_F8", "KC_F9", "KC_F10", "KC_TRNS", "KC_F11", "KC_F12", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_VOLD", "KC_VOLU", "KC_UP", "KC_MINS", "KC_5", "KC_TRNS", "KC_BRID", "KC_RGHT", "KC_DOWN", "KC_LEFT", "RALT(KC_5)", "KC_TRNS", "KC_NUBS", "KC_BRIU", "RALT(KC_MINS)", "RALT(KC_EQL)", "RALT(KC_4)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Q)", "LGUI(KC_W)", "LSFT(KC_Q)", "SGUI(KC_F)", "LGUI(KC_T)", "KC_TRNS", "APP_SW", "LGUI(KC_S)", "LGUI(KC_D)", "LGUI(KC_F)", "SCRNSHT", "KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_X)", "LGUI(KC_C)", "LGUI(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "DEL_WRD", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_NUM", "KC_PMNS", "KC_P3", "KC_P2", "KC_P1", "KC_PSLS", "KC_BSPC", "KC_PPLS", "KC_P6", "KC_P5", "KC_P4", "KC_PAST", "KC_NO", "KC_PENT", "KC_P9", "KC_P8", "KC_P7", "KC_PDOT", "KC_NO", "KC_P0", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"]];
+const LAYERS = [["TD(0)", "TD(1)", "TD(2)", "TD(3)", "TD(4)", "TD(5)", "CUSTOM(6)", "LSFT_T(KC_A)", "LCTL_T(KC_S)", "LALT_T(KC_D)", "LGUI_T(KC_F)", "KC_G", "KC_MS_BTN1", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_NO", "TG(2)", "KC_NO", "LT1(KC_MS_BTN1)", "LT0(KC_SPC)", "KC_NO", "TD(0)", "TD(10)", "TD(9)", "TD(8)", "TD(7)", "TD(6)", "CUSTOM(6)", "LSFT_T(KC_SCLN)", "LCTL_T(KC_L)", "LALT_T(KC_K)", "LGUI_T(KC_J)", "KC_H", "KC_MS_BTN1", "KC_SLSH", "KC_DOT", "LSFT(KC_COMM)", "KC_M", "KC_N", "KC_NO", "MO(3)", "KC_NO", "MO(4)", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TRNS", "OSM(MOD_LSFT)", "OSM(MOD_LCTL)", "OSM(MOD_LALT)", "OSM(MOD_LGUI)", "KC_ENT", "KC_TRNS", "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5", "KC_NO", "VOICE", "KC_NO", "KC_TRNS", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_EQL", "KC_BSLS", "KC_RBRC", "KC_LBRC", "KC_MINS", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LSFT", "KC_NO", "KC_RALT", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Z)", "NAV_BCK", "NAV_FWD", "SGUI(KC_T)", "LGUI(KC_T)", "KC_TRNS", "KC_LSFT", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "CUSTOM(6)", "KC_TRNS", "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5", "KC_NO", "KC_TRNS", "KC_NO", "KC_MS_BTN1", "CUSTOM(6)", "KC_NO", "KC_BRIU", "KC_BRID", "CUSTOM(3)", "CUSTOM(2)", "CUSTOM(1)", "CUSTOM(0)", "KC_VOLU", "KC_VOLD", "KC_MS_BTN2", "CUSTOM(6)", "KC_MS_BTN1", "VOICE", "KC_TRNS", "KC_NO", "KC_NO", "KC_MS_BTN3", "CUSTOM(5)", "CUSTOM(7)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_F1", "KC_F2", "KC_F3", "KC_F4", "KC_F5", "KC_TRNS", "KC_F6", "KC_F7", "KC_F8", "KC_F9", "KC_F10", "KC_TRNS", "KC_F11", "KC_F12", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_VOLD", "KC_VOLU", "KC_UP", "KC_MINS", "KC_5", "KC_TRNS", "KC_BRID", "KC_RGHT", "KC_DOWN", "KC_LEFT", "RALT(KC_5)", "KC_TRNS", "KC_NUBS", "KC_BRIU", "RALT(KC_MINS)", "RALT(KC_EQL)", "RALT(KC_4)", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "LGUI(KC_Q)", "LGUI(KC_W)", "LSFT(KC_Q)", "SGUI(KC_F)", "LGUI(KC_T)", "KC_TRNS", "APP_SW", "LGUI(KC_S)", "LGUI(KC_D)", "LGUI(KC_F)", "SCRNSHT", "KC_TRNS", "LGUI(KC_Z)", "LGUI(KC_X)", "LGUI(KC_C)", "LGUI(KC_V)", "LSFT(KC_I)", "KC_NO", "KC_TRNS", "KC_NO", "KC_LSFT", "KC_RCTL", "KC_NO", "KC_TRNS", "KC_0", "KC_9", "KC_8", "KC_7", "KC_6", "KC_TRNS", "KC_ENT", "KC_ESC", "DEL_WRD", "KC_BSPC", "KC_TAB", "KC_TRNS", "LSFT(KC_SLSH)", "LSFT(KC_DOT)", "KC_COMM", "LSFT(KC_M)", "KC_QUOT", "KC_NO", "KC_LGUI", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_NUM", "KC_PMNS", "KC_P3", "KC_P2", "KC_P1", "KC_PSLS", "KC_BSPC", "KC_PPLS", "KC_P6", "KC_P5", "KC_P4", "KC_PAST", "KC_NO", "KC_PENT", "KC_P9", "KC_P8", "KC_P7", "KC_PDOT", "KC_NO", "KC_P0", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"], ["KC_ESC", "KC_1", "KC_2", "KC_3", "KC_4", "KC_5", "KC_TAB", "KC_Q", "KC_W", "KC_E", "KC_R", "KC_T", "KC_RCTL", "KC_A", "KC_S", "KC_D", "KC_F", "KC_B", "KC_NO", "KC_NO", "KC_NO", "KC_SPC", "KC_LALT", "KC_NO", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_TRNS", "KC_NO", "KC_NO"]];
 
 const META = {
   0: { name: "Base", reach: "Default layer on macOS and Windows." },
@@ -168,19 +169,22 @@ const META = {
   4: { name: "Shortcuts", key: "Short­cuts", reach: "Hold the <b>right outer thumb</b>.", from: [0, 7, 3] },
   3: { name: "Function & navigation", key: "Fn & Nav", reach: "Hold the <b>right inner thumb</b>.", from: [0, 7, 1] },
   5: { name: "Numpad", reach: "Press <b>Back + A</b> (left top row, outer two keys) together to turn it on, and again to turn it off.", toggle: true },
+  6: { name: "League of Legends", key: "LoL", reach: "Press <b>Back + P</b> (right top row, outer two keys) together to turn it on, and again to turn it off.", toggle: true },
   2: { name: "Mouse", reach: "Tap the <b>left inner thumb</b> to turn it on, tap again to turn it off.", from: [0, 3, 1], toggle: true },
 };
-const ORDER = [0, 1, 4, 3, 2, 5];
-// Combos (see apply_default_combos in vial/keymap.c). keys = [row, col]; layers = where the badges show.
+const ORDER = [0, 1, 4, 3, 2, 5, 6];
+// Combos (see apply_default_combos in vial/keymap.c). keys = [row, col]; layers = where the badges show;
+// side = the half shown on the combo card.
 const COMBOS = [
-  { keys: [[1, 0], [1, 1]], out: "Caps Lock", how: "Press again to turn it off.", layers: [0] },
-  { keys: [[0, 0], [0, 1]], out: "Numpad layer", how: "Press again to go back. Both keys stay the same on the numpad layer.", layers: [0, 5] },
+  { keys: [[1, 0], [1, 1]], out: "Caps Lock", how: "Press again to turn it off.", layers: [0], side: "left" },
+  { keys: [[0, 0], [0, 1]], out: "Numpad layer", how: "Press again to go back. Both keys stay the same on the numpad layer.", layers: [0, 5], side: "left" },
+  { keys: [[4, 0], [4, 1]], out: "League of Legends layer", how: "Press again to go back. The right half stays the same on the game layer.", layers: [0, 6], side: "right" },
 ];
 const comboAt = (layerId, r, c) => COMBOS.findIndex(cb => cb.layers.includes(layerId) && cb.keys.some(([kr, kc]) => kr === r && kc === c));
 const NOTES = {
   0: {
-    mac: "Top row: tap for the letter, tap twice for the number-row character (& é è ç à ...), hold for the digit. Home row mods on both hands: hold Q S D F for Shift, Ctrl, Alt, Cmd, and J K L M for Cmd, Alt, Ctrl, Shift. Tap them for the letter. The left outer thumb is Left click on tap and Symbols on hold; hold the right outer thumb for Shortcuts. Hold Space for Right click. The top outer keys are mouse Back on tap, Forward on double tap and Right click on hold. Combos: Drag-scroll + Q toggles Caps Lock, Back + A toggles the numpad.",
-    win: "Top row: tap for the letter, tap twice for the number-row character (& é è ç à ...), hold for the digit. Home row mods on both hands: hold Q S D F for Shift, Win, Alt, Ctrl, and J K L M for Ctrl, Alt, Win, Shift. Tap them for the letter. The left outer thumb is Left click on tap and Symbols on hold; hold the right outer thumb for Shortcuts. Hold Space for Right click. The top outer keys are mouse Back on tap, Forward on double tap and Right click on hold. Combos: Drag-scroll + Q toggles Caps Lock, Back + A toggles the numpad.",
+    mac: "Top row: tap for the letter, tap twice for the number-row character (& é è ç à ...), hold for the digit. Home row mods on both hands: hold Q S D F for Shift, Ctrl, Alt, Cmd, and J K L M for Cmd, Alt, Ctrl, Shift. Tap them for the letter. The left outer thumb is Left click on tap and Symbols on hold; hold the right outer thumb for Shortcuts. Hold Space for Right click. The top outer keys are mouse Back on tap, Forward on double tap and Right click on hold. Combos: Drag-scroll + Q toggles Caps Lock, Back + A toggles the numpad, Back + P (right side) toggles the League of Legends layer.",
+    win: "Top row: tap for the letter, tap twice for the number-row character (& é è ç à ...), hold for the digit. Home row mods on both hands: hold Q S D F for Shift, Win, Alt, Ctrl, and J K L M for Ctrl, Alt, Win, Shift. Tap them for the letter. The left outer thumb is Left click on tap and Symbols on hold; hold the right outer thumb for Shortcuts. Hold Space for Right click. The top outer keys are mouse Back on tap, Forward on double tap and Right click on hold. Combos: Drag-scroll + Q toggles Caps Lock, Back + A toggles the numpad, Back + P (right side) toggles the League of Legends layer.",
   },
   1: {
     mac: "One-shot modifiers on the home row: tap one, then the next key gets it. Space 1–5 send Alt+1…5, which yabai uses to switch spaces. The inner thumb double-taps Right Cmd to start voice capture, like H on the mouse layer. The middle thumb is Ctrl.",
@@ -193,6 +197,10 @@ const NOTES = {
   5: {
     mac: "Numpad keys on the right hand in phone order (1 2 3 on top), 0 on the right inner thumb. The left hand works as on the base layer.",
     win: "Numpad keys on the right hand in phone order (1 2 3 on top), 0 on the right inner thumb. The left hand works as on the base layer. If the keys move the cursor instead of typing digits, press Num Lock.",
+  },
+  6: {
+    mac: "For League of Legends (AZERTY keys). Left hand only, no home row mods and no tap dances, so every key acts at once: A Z E R spells, D F summoners, T and Tab, Q, S stop, B recall, & é \" ' ( items, Ctrl to level up spells. The leftmost thumb is Space, the middle thumb Alt for self-cast. The right half works as on the base layer.",
+    win: "For League of Legends (AZERTY keys). Left hand only, no home row mods and no tap dances, so every key acts at once: A Z E R spells, D F summoners, T and Tab, Q, S stop, B recall, & é \" ' ( items, Ctrl to level up spells. The leftmost thumb is Space, the middle thumb Alt for self-cast. The right half works as on the base layer.",
   },
   2: {
     mac: "The right thumb sits on the trackball, so Left and Right click are under J and L, with drag-scroll on K and Middle click below it. Hold drag-scroll and move the ball to scroll. Space 1–5 on the bottom-left row switch yabai spaces, same as on the symbols layer. The key left of Left click double-taps Right Cmd to start voice capture. Volume down and up sit right of Right click. Screen brightness down and up are just above them.",
@@ -375,7 +383,7 @@ function render() {
   document.querySelectorAll("#os button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.os === OS)));
 }
 
-// One card per combo: the left half of the base layer with only the combo keys lit.
+// One card per combo: one half of the base layer with only the combo keys lit.
 function comboSection() {
   const sec = el("section", "layer"); sec.id = "combos";
   const lh = el("div", "lh");
@@ -384,11 +392,11 @@ function comboSection() {
   const wrap = el("div", "combos");
   COMBOS.forEach((cb, n) => {
     const card = el("div", "combo-card combo" + (n + 1)), grid = el("div", "grid");
-    POS.left.rows.forEach(row => row.forEach(([r, c], i) => {
+    POS[cb.side].rows.forEach(row => row.forEach(([r, c], i) => {
       const on = cb.keys.some(([kr, kc]) => kr === r && kc === c);
       const k = keyEl(LAYERS[0][idx(r, c)], false, on ? n : -1);
       if (!on) k.classList.add("dim");
-      k.style.transform = `translateY(calc(var(--k) * ${STAGGER[i]}))`;
+      k.style.transform = `translateY(calc(var(--k) * ${STAGGER[cb.side === "left" ? i : 5 - i]}))`;
       grid.append(k);
     }));
     const names = cb.keys.map(([r, c]) => describe(LAYERS[0][idx(r, c)]).g.replace(" (hold)", "")).join(" + ");

@@ -25,7 +25,7 @@ ALIASES = {
     "KC_KP_ENTER": "KC_PENT", "KC_KP_DOT": "KC_PDOT",
     **{f"KC_KP_{n}": f"KC_P{n}" for n in range(10)},
 }
-LAYER_COUNT = 6
+LAYER_COUNT = 7
 # Vial custom keycodes, in the order of vial/vial.json "customKeycodes"
 FIRMWARE_KEYS = ["VOICE", "APP_SW", "DEL_WRD", "NAV_BCK", "NAV_FWD", "SCRNSHT",
                  "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5"]
