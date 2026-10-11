@@ -69,8 +69,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______,       KC_RCTL,       VOICE,           KC_LSFT,       KC_RALT
     ),
     [MOUSE] = LAYOUT(
-        _______,    LGUI(KC_Z), NAV_BCK,    NAV_FWD,    SGUI(KC_T), LGUI(KC_T),   DPI_MOD,    DPI_RMOD,   S_D_MOD,    S_D_RMOD,   KC_VOLD,    KC_VOLU,
-        _______,    KC_LSFT,    MS_BTN2,    DRGSCRL,    MS_BTN1,    DRGSCRL,      VOICE,      MS_BTN1,    DRGSCRL,    MS_BTN2,    KC_BRID,    KC_BRIU,
+        _______,    LGUI(KC_Z), NAV_BCK,    NAV_FWD,    SGUI(KC_T), LGUI(KC_T),   DPI_MOD,    DPI_RMOD,   S_D_MOD,    S_D_RMOD,   KC_BRID,    KC_BRIU,
+        _______,    KC_LSFT,    MS_BTN2,    DRGSCRL,    MS_BTN1,    DRGSCRL,      VOICE,      MS_BTN1,    DRGSCRL,    MS_BTN2,    KC_VOLD,    KC_VOLU,
         _______,    SPC_1,      SPC_2,      SPC_3,      SPC_4,      SPC_5,        DRG_TOG,    SNP_TOG,    MS_BTN3,    XXXXXXX,    XXXXXXX,    _______,
                                             MS_BTN1,    DRGSCRL,    _______,      _______,    _______
     ),
