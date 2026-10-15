@@ -52,14 +52,11 @@ enum custom_keycodes {
 // slot 0, filled in by apply_default_tap_dances().
 #define MS_NAV TD(0)
 
-// The top row letters are Vial tap dances 1-10 (A Z E R T on the left, Y U I O P
-// on the right): see apply_default_tap_dances().
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
-        MS_NAV,           TD(1),            TD(2),            TD(3),            TD(4),            TD(5),              TD(6),            TD(7),            TD(8),            TD(9),            TD(10),           MS_NAV,
-        DRGSCRL,          LSFT_T(KC_A),     LCTL_T(KC_S),     LALT_T(KC_D),     LGUI_T(KC_F),     KC_G,               KC_H,             LGUI_T(KC_J),     LALT_T(KC_K),     LCTL_T(KC_L),     LSFT_T(KC_SCLN),  DRGSCRL,
+        MS_NAV,           KC_Q,             KC_W,             KC_E,             KC_R,             KC_T,               KC_Y,             KC_U,             KC_I,             KC_O,             KC_P,             MS_NAV,
+        DRGSCRL,          KC_A,             KC_S,             KC_D,             KC_F,             KC_G,               KC_H,             KC_J,             KC_K,             KC_L,             KC_SCLN,          DRGSCRL,
         MS_BTN1,          KC_Z,             KC_X,             KC_C,             KC_V,             KC_B,               KC_N,             KC_M,             LSFT(KC_COMM),    KC_DOT,           KC_SLSH,          MS_BTN1,
                                                               LT(SYM, MS_BTN1), SPC_RCL,          TG(MOUSE),          MO(FUNC),         MO(SHORT)
     ),
@@ -96,8 +93,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [GAME] = LAYOUT(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,      _______, _______, _______, _______, _______, _______,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      _______, _______, _______, _______, _______, _______,
-        KC_RCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_B,      _______, _______, _______, _______, _______, _______,
-                                   KC_SPC,  KC_LALT, XXXXXXX,   _______, _______
+        KC_LALT, KC_A,    KC_S,    KC_D,    KC_F,    KC_B,      _______, _______, _______, _______, _______, _______,
+                                   KC_SPC,  KC_RCTL, KC_G,      _______, _______
     ),
 };
 // clang-format on
@@ -111,7 +108,7 @@ char chordal_hold_handedness(keypos_t key) {
     return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
 }
 
-// Tap-hold settings for the home row mods and the click/Symbols thumb. They live
+// Tap-hold settings for the click/Symbols thumb and the Space/right click thumb. They live
 // in Vial's "QMK Settings" tab, which every flash resets to all-off. Apply these
 // only while the settings are still at that factory state, so changes made in
 // Vial are kept.
@@ -120,9 +117,9 @@ static void apply_tap_hold_defaults(void) {
         return;
     }
     const uint8_t  on            = 1;
-    const uint16_t flow_tap_term = 150; // fast typing never triggers a home row mod
+    const uint16_t flow_tap_term = 150; // a thumb pressed right after typing is a tap
     qmk_settings_set(22, &on, sizeof(on)); // Permissive Hold: hold + tap another key = hold
-    qmk_settings_set(26, &on, sizeof(on)); // Chordal Hold: home row mod + same-hand key = letters
+    qmk_settings_set(26, &on, sizeof(on)); // Chordal Hold: only used if Vial gets home row mods again
     qmk_settings_set(27, &flow_tap_term, sizeof(flow_tap_term));
 }
 
@@ -141,10 +138,10 @@ static void apply_default_combos(void) {
             return;
         }
     }
-    const vial_combo_entry_t caps_lock = {.input = {DRGSCRL, LSFT_T(KC_A), KC_NO, KC_NO}, .output = KC_CAPS};
-    const vial_combo_entry_t numpad    = {.input = {MS_NAV, TD(1), KC_NO, KC_NO}, .output = TG(NUM)};
+    const vial_combo_entry_t caps_lock = {.input = {DRGSCRL, KC_A, KC_NO, KC_NO}, .output = KC_CAPS};
+    const vial_combo_entry_t numpad    = {.input = {MS_NAV, KC_Q, KC_NO, KC_NO}, .output = TG(NUM)};
     dynamic_keymap_set_combo(0, &caps_lock);
-    const vial_combo_entry_t game      = {.input = {MS_NAV, TD(10), KC_NO, KC_NO}, .output = TG(GAME)};
+    const vial_combo_entry_t game      = {.input = {MS_NAV, KC_P, KC_NO, KC_NO}, .output = TG(GAME)};
     dynamic_keymap_set_combo(1, &numpad);
     dynamic_keymap_set_combo(2, &game);
     vial_init(); // reload combos from the keyboard memory
@@ -165,14 +162,6 @@ static void apply_default_tap_dances(void) {
     const vial_tap_dance_entry_t ms_nav = {.on_tap = MS_BTN4, .on_hold = MS_BTN2, .on_double_tap = MS_BTN5, .on_tap_hold = KC_NO, .custom_tapping_term = TD_TAPPING_TERM};
     dynamic_keymap_set_tap_dance(0, &ms_nav);
 
-    // Top row, slots 1-10: tap = letter, double tap = the AZERTY number-row
-    // character (& é " ' ( - è _ ç à), hold = the digit (Shift + number row).
-    static const uint16_t letters[10] = {KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P};
-    static const uint16_t numbers[10] = {KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0};
-    for (uint8_t i = 0; i < 10; i++) {
-        const vial_tap_dance_entry_t top = {.on_tap = letters[i], .on_hold = LSFT(numbers[i]), .on_double_tap = numbers[i], .on_tap_hold = KC_NO, .custom_tapping_term = TD_TAPPING_TERM};
-        dynamic_keymap_set_tap_dance(1 + i, &top);
-    }
     vial_init(); // reload tap dances from the keyboard memory
 }
 
