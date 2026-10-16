@@ -56,9 +56,9 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
         MS_NAV,           KC_Q,             KC_W,             KC_E,             KC_R,             KC_T,               KC_Y,             KC_U,             KC_I,             KC_O,             KC_P,             MS_NAV,
-        DRGSCRL,          KC_A,             KC_S,             KC_D,             KC_F,             KC_G,               KC_H,             KC_J,             KC_K,             KC_L,             KC_SCLN,          DRGSCRL,
-        MS_BTN1,          KC_Z,             KC_X,             KC_C,             KC_V,             KC_B,               KC_N,             KC_M,             LSFT(KC_COMM),    KC_DOT,           KC_SLSH,          MS_BTN1,
-                                                              LT(SYM, MS_BTN1), SPC_RCL,          TG(MOUSE),          MO(FUNC),         MO(SHORT)
+        MS_BTN1,          KC_A,             KC_S,             KC_D,             KC_F,             KC_G,               KC_H,             KC_J,             KC_K,             KC_L,             KC_SCLN,          MS_BTN1,
+        DRGSCRL,          KC_Z,             KC_X,             KC_C,             KC_V,             KC_B,               KC_N,             KC_M,             LSFT(KC_COMM),    KC_DOT,           KC_SLSH,          DRGSCRL,
+                                                              MO(SYM),          SPC_RCL,          TG(MOUSE),          MO(FUNC),         MO(SHORT)
     ),
     [SYM] = LAYOUT(
         _______,       KC_1,          KC_2,          KC_3,          KC_4,          KC_5,            KC_6,          KC_7,          KC_8,          KC_9,          KC_0,          _______,
@@ -67,10 +67,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______,       KC_RCTL,       VOICE,           KC_LSFT,       KC_RALT
     ),
     [MOUSE] = LAYOUT(
-        _______,    LGUI(KC_Z), NAV_BCK,    NAV_FWD,    SGUI(KC_T), LGUI(KC_T),   DPI_MOD,    DPI_RMOD,   S_D_MOD,    S_D_RMOD,   KC_BRID,    KC_BRIU,
-        _______,    KC_LSFT,    MS_BTN2,    DRGSCRL,    MS_BTN1,    DRGSCRL,      VOICE,      MS_BTN1,    DRGSCRL,    MS_BTN2,    KC_VOLD,    KC_VOLU,
-        _______,    SPC_1,      SPC_2,      SPC_3,      SPC_4,      SPC_5,        DRG_TOG,    SNP_TOG,    MS_BTN3,    XXXXXXX,    XXXXXXX,    _______,
-                                            MS_BTN1,    DRGSCRL,    _______,      _______,    _______
+        _______,    _______,    _______,    _______,    _______,    _______,      DPI_MOD,    DPI_RMOD,   S_D_MOD,    S_D_RMOD,   KC_BRID,    KC_BRIU,
+        _______,    _______,    _______,    _______,    MS_BTN1,    DRGSCRL,      VOICE,      MS_BTN1,    DRGSCRL,    MS_BTN2,    KC_VOLD,    KC_VOLU,
+        _______,    _______,    _______,    _______,    _______,    _______,      DRG_TOG,    SNP_TOG,    MS_BTN3,    XXXXXXX,    XXXXXXX,    _______,
+                                            _______,    _______,    _______,      _______,    _______
     ),
     [FUNC] = LAYOUT(
         _______,       KC_F1,         KC_F2,         KC_F3,         KC_F4,         KC_F5,           KC_5,          KC_MINS,       KC_UP,         KC_VOLU,       KC_VOLD,       _______,
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 // Chordal Hold "hands": rows 0-3 are the left half, 4-7 the right half.
-// Thumbs are exempt, so the Symbols thumb works with keys on its own hand.
+// Thumbs are exempt, so the Space thumb works with keys on its own hand.
 char chordal_hold_handedness(keypos_t key) {
     if (key.row == 3 || key.row == 7) {
         return '*';
@@ -108,7 +108,7 @@ char chordal_hold_handedness(keypos_t key) {
     return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
 }
 
-// Tap-hold settings for the click/Symbols thumb and the Space/right click thumb. They live
+// Tap-hold settings for the Space/right click thumb. They live
 // in Vial's "QMK Settings" tab, which every flash resets to all-off. Apply these
 // only while the settings are still at that factory state, so changes made in
 // Vial are kept.
@@ -124,7 +124,7 @@ static void apply_tap_hold_defaults(void) {
 }
 
 // Default combos, using base layer keycodes (letters as typed on AZERTY):
-//   drag-scroll + Q (left home row, outer two keys) toggles Caps Lock
+//   drag-scroll + W (left bottom row, outer two keys) toggles Caps Lock
 //   back/right click + A (left top row, outer two keys) toggles the numpad layer;
 //   both keys are transparent on the numpad layer, so the combo also turns it off
 //   back/right click + P (right top row, outer two keys) toggles the game layer;
@@ -138,7 +138,7 @@ static void apply_default_combos(void) {
             return;
         }
     }
-    const vial_combo_entry_t caps_lock = {.input = {DRGSCRL, KC_A, KC_NO, KC_NO}, .output = KC_CAPS};
+    const vial_combo_entry_t caps_lock = {.input = {DRGSCRL, KC_Z, KC_NO, KC_NO}, .output = KC_CAPS};
     const vial_combo_entry_t numpad    = {.input = {MS_NAV, KC_Q, KC_NO, KC_NO}, .output = TG(NUM)};
     dynamic_keymap_set_combo(0, &caps_lock);
     const vial_combo_entry_t game      = {.input = {MS_NAV, KC_P, KC_NO, KC_NO}, .output = TG(GAME)};
@@ -199,6 +199,28 @@ bool process_detected_host_os_user(os_variant_t os) {
     return true;
 }
 
+// The same DPI feels much faster on Windows than on macOS (macOS slows small moves
+// down more), and the lowest DPI is still too fast there. So on Windows only, the
+// pointer moves WIN_POINTER_NUM / WIN_POINTER_DEN as far. What is cut off carries
+// over to the next report, so slow moves are not lost. Drag-scroll has already
+// turned the movement into wheel steps here, so scrolling is not changed.
+#define WIN_POINTER_NUM 1
+#define WIN_POINTER_DEN 2
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    static int16_t rest_x = 0, rest_y = 0;
+    if (!is_windows()) {
+        return mouse_report;
+    }
+    int16_t x = mouse_report.x * WIN_POINTER_NUM + rest_x;
+    int16_t y = mouse_report.y * WIN_POINTER_NUM + rest_y;
+    mouse_report.x = x / WIN_POINTER_DEN;
+    mouse_report.y = y / WIN_POINTER_DEN;
+    rest_x = x - mouse_report.x * WIN_POINTER_DEN;
+    rest_y = y - mouse_report.y * WIN_POINTER_DEN;
+    return mouse_report;
+}
+
 // What an OS-aware key sends. Sent with register_code16, which is not swapped.
 static uint16_t os_key(uint16_t keycode) {
     bool win = is_windows();
@@ -221,6 +243,13 @@ static uint16_t os_key(uint16_t keycode) {
 static uint16_t os_key_held[SPC_5 - APP_SW + 1];
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Mouse layer: a left-hand key left transparent there turns the layer off, then
+    // works as on the layer below, so typing starts at once. Thumbs and the outer
+    // column (mouse keys on the base layer) keep the layer on.
+    if (record->event.pressed && layer_state_is(MOUSE) && record->event.key.row < 3 && record->event.key.col > 0 &&
+        keymap_key_to_keycode(MOUSE, record->event.key) == KC_TRNS) {
+        layer_off(MOUSE);
+    }
     switch (keycode) {
         case SPC_RCL:
             if (!record->tap.count) {
