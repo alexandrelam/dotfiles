@@ -18,3 +18,7 @@
 // only act on the first stable result.
 #define OS_DETECTION_SINGLE_REPORT
 
+
+// Drag-scroll: moving the ball up scrolls the other way than the stock firmware
+// (feels right in Figma and the browser), on macOS and Windows.
+#define CHARYBDIS_DRAGSCROLL_REVERSE_Y

@@ -68,8 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [MOUSE] = LAYOUT(
         _______,    _______,    _______,    _______,    _______,    _______,      DPI_MOD,    DPI_RMOD,   S_D_MOD,    S_D_RMOD,   KC_BRID,    KC_BRIU,
-        _______,    _______,    _______,    _______,    MS_BTN1,    DRGSCRL,      VOICE,      MS_BTN1,    DRGSCRL,    MS_BTN2,    KC_VOLD,    KC_VOLU,
-        _______,    _______,    _______,    _______,    _______,    _______,      DRG_TOG,    SNP_TOG,    MS_BTN3,    XXXXXXX,    XXXXXXX,    _______,
+        _______,    _______,    MS_BTN2,    DRGSCRL,    MS_BTN1,    DRGSCRL,      VOICE,      MS_BTN1,    DRGSCRL,    MS_BTN2,    KC_VOLD,    KC_VOLU,
+        _______,    SPC_1,      SPC_2,      SPC_3,      SPC_4,      _______,      DRG_TOG,    SNP_TOG,    MS_BTN3,    XXXXXXX,    XXXXXXX,    _______,
                                             _______,    _______,    _______,      _______,    _______
     ),
     [FUNC] = LAYOUT(
