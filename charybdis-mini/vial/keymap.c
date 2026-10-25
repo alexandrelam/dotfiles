@@ -7,6 +7,7 @@
  *   - Windows (and Linux): left Ctrl and left GUI are swapped, so every
  *     LGUI(...) shortcut sends Ctrl instead (Cmd+C -> Ctrl+C) and the one-shot
  *     Ctrl/Cmd on the symbols layer trade places.
+ * On Linux the Space 1-5 keys work as on macOS (niri uses the yabai shortcuts).
  * Right-hand mods (KC_RCTL, KC_RALT) are never swapped, so the thumb Ctrl is
  * the real Ctrl on both systems. Shortcuts a swap can't translate are the
  * OS-aware keys below.
@@ -26,6 +27,7 @@ enum layers {
     SHORT,
     NUM,
     GAME,
+    VALO,
 };
 
 // QK_KB_0..7 are the Charybdis pointer keycodes (DPI, sniping, drag-scroll).
@@ -37,7 +39,7 @@ enum custom_keycodes {
     NAV_BCK,         // Cmd+Left       / Alt+Left
     NAV_FWD,         // Cmd+Right      / Alt+Right
     SCRNSHT,         // Cmd+Shift+4    / Win+Shift+S
-    SPC_1,           // Alt+1..5 (yabai spaces) / Windows: -, Win, Tab, Alt, -
+    SPC_1,           // Alt+1..5 (yabai / niri spaces) / Windows: -, Win, Tab, Alt, -
     SPC_2,
     SPC_3,
     SPC_4,
@@ -47,6 +49,10 @@ enum custom_keycodes {
 // Space on tap, right click on hold. LT() to the base layer is only a tap-hold
 // shell: process_record_user turns the hold into the mouse button.
 #define SPC_RCL LT(BASE, KC_SPC)
+
+// Left Ctrl in Windows mode (the Ctrl/GUI swap turns LGUI into Left Ctrl). Valorant
+// runs on Windows only and wants the real Left Ctrl for crouch.
+#define VAL_CTL KC_LGUI
 
 // Mouse Back on tap, Forward on double tap, right click on hold. Vial tap dance
 // slot 0, filled in by apply_default_tap_dances().
@@ -75,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [FUNC] = LAYOUT(
         _______,       KC_F1,         KC_F2,         KC_F3,         KC_F4,         KC_F5,           KC_5,          KC_MINS,       KC_UP,         KC_VOLU,       KC_VOLD,       _______,
         _______,       KC_F6,         KC_F7,         KC_F8,         KC_F9,         KC_F10,          RALT(KC_5),    KC_LEFT,       KC_DOWN,       KC_RGHT,       KC_BRID,       _______,
-        _______,       KC_F11,        KC_F12,        XXXXXXX,       XXXXXXX,       XXXXXXX,         RALT(KC_4),    RALT(KC_EQL),  RALT(KC_MINS), KC_BRIU,       KC_NUBS,       _______,
+        _______,       KC_F11,        KC_F12,        CG_TOGG,       XXXXXXX,       XXXXXXX,         RALT(KC_4),    RALT(KC_EQL),  RALT(KC_MINS), KC_BRIU,       KC_NUBS,       _______,
                                                      KC_LSFT,       KC_RCTL,       _______,         _______,       _______
     ),
     [SHORT] = LAYOUT(
@@ -95,6 +101,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      _______, _______, _______, _______, _______, _______,
         KC_LALT, KC_A,    KC_S,    KC_D,    KC_F,    KC_B,      _______, _______, _______, _______, _______, _______,
                                    KC_SPC,  KC_RCTL, KC_G,      _______, _______
+    ),
+    [VALO] = LAYOUT(
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      _______, _______, _______, _______, _______, _______,
+        KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      _______, _______, _______, _______, _______, _______,
+        VAL_CTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,      _______, _______, _______, _______, _______, _______,
+                                   KC_SPC,  KC_1,    KC_2,      _______, _______
     ),
 };
 // clang-format on
@@ -129,6 +141,8 @@ static void apply_tap_hold_defaults(void) {
 //   both keys are transparent on the numpad layer, so the combo also turns it off
 //   back/right click + P (right top row, outer two keys) toggles the game layer;
 //   the right half is transparent on the game layer, so the combo also turns it off
+//   back/right click + O (right top row, outer and 3rd key) toggles the Valorant
+//   layer, the same way
 // Vial stores combos on the keyboard and every flash clears them, so add these
 // only when no combo is set. Edit or delete them in Vial's Combos tab.
 static void apply_default_combos(void) {
@@ -143,7 +157,9 @@ static void apply_default_combos(void) {
     dynamic_keymap_set_combo(0, &caps_lock);
     const vial_combo_entry_t game      = {.input = {MS_NAV, KC_P, KC_NO, KC_NO}, .output = TG(GAME)};
     dynamic_keymap_set_combo(1, &numpad);
+    const vial_combo_entry_t valorant  = {.input = {MS_NAV, KC_O, KC_NO, KC_NO}, .output = TG(VALO)};
     dynamic_keymap_set_combo(2, &game);
+    dynamic_keymap_set_combo(3, &valorant);
     vial_init(); // reload combos from the keyboard memory
 }
 
@@ -192,10 +208,14 @@ static void set_windows(bool on) {
     eeconfig_update_keymap(&keymap_config);
 }
 
+static os_variant_t host_os = OS_UNSURE;
+
+// Only a sure macOS/iOS guess keeps Ctrl and Cmd as written; Windows, Linux and an
+// unsure guess (seen on Windows) swap them. A wrong guess is fixed by hand with
+// CG_TOGG (Fn layer, left bottom row).
 bool process_detected_host_os_user(os_variant_t os) {
-    if (os != OS_UNSURE) {
-        set_windows(os != OS_MACOS && os != OS_IOS);
-    }
+    host_os = os;
+    set_windows(os != OS_MACOS && os != OS_IOS);
     return true;
 }
 
@@ -223,18 +243,19 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
 // What an OS-aware key sends. Sent with register_code16, which is not swapped.
 static uint16_t os_key(uint16_t keycode) {
-    bool win = is_windows();
+    bool win    = is_windows();
+    bool spaces = !win || host_os == OS_LINUX; // Alt+1..5: yabai on macOS, niri on Linux
     switch (keycode) {
         case APP_SW:  return win ? LALT(KC_TAB) : LGUI(KC_TAB);
         case DEL_WRD: return win ? LCTL(KC_BSPC) : LALT(KC_BSPC);
         case NAV_BCK: return win ? LALT(KC_LEFT) : LGUI(KC_LEFT);
         case NAV_FWD: return win ? LALT(KC_RGHT) : LGUI(KC_RGHT);
         case SCRNSHT: return win ? SGUI(KC_S) : SGUI(KC_4);
-        case SPC_1:   return win ? KC_NO : LALT(KC_1);
-        case SPC_2:   return win ? KC_LGUI : LALT(KC_2);
-        case SPC_3:   return win ? KC_TAB : LALT(KC_3);
-        case SPC_4:   return win ? KC_LALT : LALT(KC_4);
-        case SPC_5:   return win ? KC_NO : LALT(KC_5);
+        case SPC_1:   return spaces ? LALT(KC_1) : KC_NO;
+        case SPC_2:   return spaces ? LALT(KC_2) : KC_LGUI;
+        case SPC_3:   return spaces ? LALT(KC_3) : KC_TAB;
+        case SPC_4:   return spaces ? LALT(KC_4) : KC_LALT;
+        case SPC_5:   return spaces ? LALT(KC_5) : KC_NO;
     }
     return KC_NO;
 }
