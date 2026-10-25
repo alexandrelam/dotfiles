@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [VALO] = LAYOUT(
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      _______, _______, _______, _______, _______, _______,
         KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      _______, _______, _______, _______, _______, _______,
-        VAL_CTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,      _______, _______, _______, _______, _______, _______,
+        VAL_CTL, KC_4,    KC_X,    KC_C,    KC_V,    KC_B,      _______, _______, _______, _______, _______, _______,
                                    KC_SPC,  KC_1,    KC_2,      _______, _______
     ),
 };
