@@ -50,6 +50,10 @@ enum custom_keycodes {
 // shell: process_record_user turns the hold into the mouse button.
 #define SPC_RCL LT(BASE, KC_SPC)
 
+// League of Legends layer thumb: tap to hold C down (tap again to let go), hold for
+// G (ping). LT() to the League layer itself is only a tap-hold shell, like SPC_RCL.
+#define C_PING LT(GAME, KC_C)
+
 // Left Ctrl in Windows mode (the Ctrl/GUI swap turns LGUI into Left Ctrl). Valorant
 // runs on Windows only and wants the real Left Ctrl for crouch.
 #define VAL_CTL KC_LGUI
@@ -100,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,      _______, _______, _______, _______, _______, _______,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      _______, _______, _______, _______, _______, _______,
         KC_LALT, KC_A,    KC_S,    KC_D,    KC_F,    KC_B,      _______, _______, _______, _______, _______, _______,
-                                   KC_SPC,  KC_RCTL, KC_G,      _______, _______
+                                   KC_SPC,  KC_RCTL, C_PING,    _______, _______
     ),
     [VALO] = LAYOUT(
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      _______, _______, _______, _______, _______, _______,
@@ -263,6 +267,18 @@ static uint16_t os_key(uint16_t keycode) {
 // Remember what each OS-aware key pressed, so the release matches even if the mode changed.
 static uint16_t os_key_held[SPC_5 - APP_SW + 1];
 
+// C_PING: whether C is held down. Leaving the League layer lets go of it, so C
+// never stays stuck while typing.
+static bool c_held = false;
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    if (c_held && !layer_state_cmp(state, GAME)) {
+        c_held = false;
+        unregister_code(KC_C);
+    }
+    return state;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Mouse layer: a left-hand key left transparent there turns the layer off, then
     // works as on the layer below, so typing starts at once. Thumbs and the outer
@@ -282,6 +298,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             return true;
+        case C_PING:
+            if (!record->tap.count) {
+                if (record->event.pressed) {
+                    register_code(KC_G);
+                } else {
+                    unregister_code(KC_G);
+                }
+            } else if (record->event.pressed) {
+                c_held = !c_held;
+                if (c_held) {
+                    register_code(KC_C);
+                } else {
+                    unregister_code(KC_C);
+                }
+            }
+            return false;
         case VOICE:
             if (record->event.pressed && !is_windows()) {
                 tap_code_delay(KC_RGUI, 30);
