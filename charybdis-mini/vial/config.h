@@ -22,3 +22,6 @@
 // Drag-scroll: moving the ball up scrolls the other way than the stock firmware
 // (feels right in Figma and the browser), on macOS and Windows.
 #define CHARYBDIS_DRAGSCROLL_REVERSE_Y
+
+// Lets keymap.c turn combos off on the game layers (combo_should_trigger).
+#define COMBO_SHOULD_TRIGGER
