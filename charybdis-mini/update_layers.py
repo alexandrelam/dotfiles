@@ -28,7 +28,7 @@ ALIASES = {
 LAYER_COUNT = 8
 # Vial custom keycodes, in the order of vial/vial.json "customKeycodes"
 FIRMWARE_KEYS = ["VOICE", "APP_SW", "DEL_WRD", "NAV_BCK", "NAV_FWD", "SCRNSHT",
-                 "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5"]
+                 "SPC_1", "SPC_2", "SPC_3", "SPC_4", "SPC_5", "L_CTRL"]
 USER = {f"USER{n:02}": f"CUSTOM({n})" for n in range(8)}
 USER.update({f"USER{n + 8:02}": name for n, name in enumerate(FIRMWARE_KEYS)})
 

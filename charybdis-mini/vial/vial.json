@@ -23,7 +23,8 @@
     { "name": "SPC_2", "title": "Space 2: Alt+2 (Mac) / Win (Windows)", "shortName": "Spc2" },
     { "name": "SPC_3", "title": "Space 3: Alt+3 (Mac) / Tab (Windows)", "shortName": "Spc3" },
     { "name": "SPC_4", "title": "Space 4: Alt+4 (Mac) / Alt (Windows)", "shortName": "Spc4" },
-    { "name": "SPC_5", "title": "Space 5: Alt+5 (Mac) / nothing (Windows)", "shortName": "Spc5" }
+    { "name": "SPC_5", "title": "Space 5: Alt+5 (Mac) / nothing (Windows)", "shortName": "Spc5" },
+    { "name": "L_CTRL", "title": "Left Ctrl on Mac and Windows (never swapped with Cmd/Win)", "shortName": "LCtrl" }
   ],
   "layouts": {
     "keymap": [

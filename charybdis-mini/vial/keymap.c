@@ -44,6 +44,7 @@ enum custom_keycodes {
     SPC_3,
     SPC_4,
     SPC_5,
+    L_CTRL,          // Left Ctrl on every system: the Ctrl/GUI swap never touches it
 };
 
 // Space on tap, right click on hold. LT() to the base layer is only a tap-hold
@@ -104,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,      _______, _______, _______, _______, _______, _______,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      _______, _______, _______, _______, _______, _______,
         KC_LALT, KC_A,    KC_S,    KC_D,    KC_F,    KC_B,      _______, _______, _______, _______, _______, _______,
-                                   KC_SPC,  KC_RCTL, C_PING,    _______, _______
+                                   KC_SPC,  L_CTRL,  C_PING,    _______, _______
     ),
     [VALO] = LAYOUT(
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      _______, _______, _______, _______, _______, _______,
@@ -312,6 +313,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     unregister_code(KC_C);
                 }
+            }
+            return false;
+        case L_CTRL:
+            // register_code is not swapped, unlike a KC_LCTL in the keymap
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+            } else {
+                unregister_code(KC_LCTL);
             }
             return false;
         case VOICE:
