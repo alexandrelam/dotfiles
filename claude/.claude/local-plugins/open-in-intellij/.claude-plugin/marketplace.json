@@ -1,0 +1,5 @@
+{
+  "name": "local-mods",
+  "owner": { "name": "Alexandre Lam" },
+  "plugins": [{ "name": "open-in-intellij", "source": "./" }]
+}

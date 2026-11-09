@@ -1,0 +1,1 @@
+{ "name": "open-in-intellij", "version": "0.1.0", "description": "Clicking a file link in the transcript opens it in IntelliJ IDEA at its line, instead of the in-app file pane" }
