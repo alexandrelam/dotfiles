@@ -1,16 +1,17 @@
 /*
  * Charybdis Mini (3x6) Vial keymap.
  *
- * One set of layers for macOS and Windows. The keyboard detects the OS when it
- * is plugged in:
+ * One set of layers for macOS, Windows and Linux. The keyboard guesses the OS
+ * when it is plugged in:
  *   - macOS: keys work as written below (LGUI = Cmd).
- *   - Windows (and Linux): left Ctrl and left GUI are swapped, so every
- *     LGUI(...) shortcut sends Ctrl instead (Cmd+C -> Ctrl+C) and the one-shot
- *     Ctrl/Cmd on the symbols layer trade places.
- * On Linux the Space 1-5 keys work as on macOS (niri uses the yabai shortcuts).
- * Right-hand mods (KC_RCTL, KC_RALT) are never swapped, so the thumb Ctrl is
- * the real Ctrl on both systems. Shortcuts a swap can't translate are the
- * OS-aware keys below.
+ *   - Windows, Linux, or an unsure guess: left Ctrl and left GUI are swapped, so
+ *     every LGUI(...) shortcut sends Ctrl instead (Cmd+C -> Ctrl+C) and the
+ *     one-shot Ctrl/Cmd on the symbols layer trade places. CG_TOGG (Fn layer)
+ *     fixes a wrong guess by hand.
+ * Linux differs from Windows only where noted: Space 1-5 work as on macOS (niri
+ * uses the yabai shortcuts), Screenshot is Print, and the trackball runs at full
+ * speed. Right-hand mods (KC_RCTL, KC_RALT) and L_CTRL are never swapped.
+ * Shortcuts a swap can't translate are the OS-aware keys below.
  *
  * This is only the layout the keyboard starts with after an EEPROM reset.
  * Live edits made in Vial are stored on the keyboard, not here.
@@ -38,12 +39,13 @@ enum custom_keycodes {
     DEL_WRD,         // Alt+Backspace  / Ctrl+Backspace
     NAV_BCK,         // Cmd+Left       / Alt+Left
     NAV_FWD,         // Cmd+Right      / Alt+Right
-    SCRNSHT,         // Cmd+Shift+4    / Win+Shift+S
+    SCRNSHT,         // Cmd+Shift+4    / Win+Shift+S / Linux: Print
     SPC_1,           // Alt+1..5 (yabai / niri spaces) / Windows: -, Win, Tab, Alt, -
     SPC_2,
     SPC_3,
     SPC_4,
     SPC_5,
+    L_CTRL,          // Left Ctrl on every system: the Ctrl/GUI swap never touches it
 };
 
 // Space on tap, right click on hold. LT() to the base layer is only a tap-hold
@@ -53,10 +55,6 @@ enum custom_keycodes {
 // League of Legends layer thumb: tap to hold C down (tap again to let go), hold for
 // G (ping). LT() to the League layer itself is only a tap-hold shell, like SPC_RCL.
 #define C_PING LT(GAME, KC_C)
-
-// Left Ctrl in Windows mode (the Ctrl/GUI swap turns LGUI into Left Ctrl). Valorant
-// runs on Windows only and wants the real Left Ctrl for crouch.
-#define VAL_CTL KC_LGUI
 
 // Mouse Back on tap, Forward on double tap, right click on hold. Vial tap dance
 // slot 0, filled in by apply_default_tap_dances().
@@ -104,12 +102,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,      _______, _______, _______, _______, _______, _______,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      _______, _______, _______, _______, _______, _______,
         KC_LALT, KC_A,    KC_S,    KC_D,    KC_F,    KC_B,      _______, _______, _______, _______, _______, _______,
-                                   KC_SPC,  KC_RCTL, C_PING,    _______, _______
+                                   KC_SPC,  L_CTRL,  C_PING,    _______, _______
     ),
     [VALO] = LAYOUT(
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      _______, _______, _______, _______, _______, _______,
         KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      _______, _______, _______, _______, _______, _______,
-        VAL_CTL, KC_4,    KC_X,    KC_C,    KC_V,    KC_B,      _______, _______, _______, _______, _______, _______,
+        L_CTRL,  KC_4,    KC_X,    KC_C,    KC_V,    KC_B,      _______, _______, _______, _______, _______, _______,
                                    KC_SPC,  KC_1,    KC_2,      _______, _______
     ),
 };
@@ -124,7 +122,7 @@ char chordal_hold_handedness(keypos_t key) {
     return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
 }
 
-// Tap-hold settings for the Space/right click thumb. They live
+// Tap-hold settings for the Space/right click thumb and the League ping thumb. They live
 // in Vial's "QMK Settings" tab, which every flash resets to all-off. Apply these
 // only while the settings are still at that factory state, so changes made in
 // Vial are kept.
@@ -137,6 +135,25 @@ static void apply_tap_hold_defaults(void) {
     qmk_settings_set(22, &on, sizeof(on)); // Permissive Hold: hold + tap another key = hold
     qmk_settings_set(26, &on, sizeof(on)); // Chordal Hold: only used if Vial gets home row mods again
     qmk_settings_set(27, &flow_tap_term, sizeof(flow_tap_term));
+}
+
+// Which keys Flow Tap looks at: QMK's default list (letters, Space, punctuation),
+// minus the League ping thumb. Pinging right after casting a spell must give G,
+// not toggle C, so that thumb never becomes a forced tap.
+bool is_flow_tap_key(uint16_t keycode) {
+    if (keycode == C_PING || (get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
+        return false;
+    }
+    switch (get_tap_keycode(keycode)) {
+        case KC_SPC:
+        case KC_A ... KC_Z:
+        case KC_DOT:
+        case KC_COMM:
+        case KC_SCLN:
+        case KC_SLSH:
+            return true;
+    }
+    return false;
 }
 
 // Default combos, using base layer keycodes (letters as typed on AZERTY):
@@ -158,13 +175,26 @@ static void apply_default_combos(void) {
     }
     const vial_combo_entry_t caps_lock = {.input = {DRGSCRL, KC_Z, KC_NO, KC_NO}, .output = KC_CAPS};
     const vial_combo_entry_t numpad    = {.input = {MS_NAV, KC_Q, KC_NO, KC_NO}, .output = TG(NUM)};
-    dynamic_keymap_set_combo(0, &caps_lock);
     const vial_combo_entry_t game      = {.input = {MS_NAV, KC_P, KC_NO, KC_NO}, .output = TG(GAME)};
-    dynamic_keymap_set_combo(1, &numpad);
     const vial_combo_entry_t valorant  = {.input = {MS_NAV, KC_O, KC_NO, KC_NO}, .output = TG(VALO)};
+    dynamic_keymap_set_combo(0, &caps_lock);
+    dynamic_keymap_set_combo(1, &numpad);
     dynamic_keymap_set_combo(2, &game);
     dynamic_keymap_set_combo(3, &valorant);
     vial_init(); // reload combos from the keyboard memory
+}
+
+// On a game layer only its own on/off combo works. A key that could start a combo
+// waits up to the combo term for the second key, so this keeps game keys (like A,
+// part of the numpad combo) from being held back.
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    if (layer_state_is(VALO)) {
+        return combo->keycode == TG(VALO);
+    }
+    if (layer_state_is(GAME)) {
+        return combo->keycode == TG(GAME);
+    }
+    return true;
 }
 
 // Default tap dances, same idea as the combos: Vial keeps them on the keyboard and
@@ -227,13 +257,14 @@ bool process_detected_host_os_user(os_variant_t os) {
 // down more), and the lowest DPI is still too fast there. So on Windows only, the
 // pointer moves WIN_POINTER_NUM / WIN_POINTER_DEN as far. What is cut off carries
 // over to the next report, so slow moves are not lost. Drag-scroll has already
-// turned the movement into wheel steps here, so scrolling is not changed.
+// turned the movement into wheel steps here, so scrolling is not changed. Linux
+// keeps full speed.
 #define WIN_POINTER_NUM 1
 #define WIN_POINTER_DEN 2
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     static int16_t rest_x = 0, rest_y = 0;
-    if (!is_windows()) {
+    if (!is_windows() || host_os == OS_LINUX) {
         return mouse_report;
     }
     int16_t x = mouse_report.x * WIN_POINTER_NUM + rest_x;
@@ -254,7 +285,7 @@ static uint16_t os_key(uint16_t keycode) {
         case DEL_WRD: return win ? LCTL(KC_BSPC) : LALT(KC_BSPC);
         case NAV_BCK: return win ? LALT(KC_LEFT) : LGUI(KC_LEFT);
         case NAV_FWD: return win ? LALT(KC_RGHT) : LGUI(KC_RGHT);
-        case SCRNSHT: return win ? SGUI(KC_S) : SGUI(KC_4);
+        case SCRNSHT: return host_os == OS_LINUX ? KC_PSCR : win ? SGUI(KC_S) : SGUI(KC_4);
         case SPC_1:   return spaces ? LALT(KC_1) : KC_NO;
         case SPC_2:   return spaces ? LALT(KC_2) : KC_LGUI;
         case SPC_3:   return spaces ? LALT(KC_3) : KC_TAB;
@@ -312,6 +343,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     unregister_code(KC_C);
                 }
+            }
+            return false;
+        case L_CTRL:
+            // register_code is not swapped, unlike a KC_LCTL in the keymap
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+            } else {
+                unregister_code(KC_LCTL);
             }
             return false;
         case VOICE:
